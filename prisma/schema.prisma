@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MaintenanceTipo {
+  PREVENTIVO
+  CORRECTIVO
+}
+
+enum AssetKey {
+  CUBIERTA
+  METALMECANICO_TIENDA
+  PUERTA_AUTOMATICA
+  PUNTOS_PAGO
+  REDES_HIDROSANITARIAS
+  REDES_ELECTRICAS
+  ESTIBADOR
+  CORTINA_ENROLLABLE
+}
+
+enum ReportEstado {
+  ENVIADO
+  FIRMADO_ENCARGADO
+}
+
+model Report {
+  id               String          @id @db.Uuid
+  createdAt        DateTime        @default(now())
+  clientCreatedAt  DateTime?
+
+  tecnicoIp        String
+  incidencia       String
+  departamentoTienda String
+  ciudadTienda     String
+  tienda           String
+
+  nombreTecnico    String
+  cedulaTecnico    String
+  telefonoTecnico  String
+
+  tipo             MaintenanceTipo
+  subTipo          AssetKey
+
+  observaciones    String?
+
+  fotosAntes       String[]
+  fotosDespues     String[]
+
+  firmaTecnicoUrl  String?
+  firmaEncargadoUrl String?
+
+  encargadoIp      String?
+  encargadoSignedAt DateTime?
+
+  responsable      Json?
+  checklist        Json?
+  extra            Json
+
+  estado           ReportEstado    @default(ENVIADO)
+
+  searchText       String          @db.Text
+  updatedAt        DateTime        @updatedAt
+
+  @@index([createdAt])
+  @@index([tipo])
+  @@index([subTipo])
+  @@index([incidencia])
+  @@index([tienda])
+}
