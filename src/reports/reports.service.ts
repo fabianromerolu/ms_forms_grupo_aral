@@ -1,13 +1,14 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
-import { CreateReportDto } from "./dto/create-report.dto";
-import { ListReportsQueryDto } from "./dto/list-reports.query.dto";
-import { UpdateEncargadoSignatureDto } from "./dto/update-encargado-signature.dto";
-import { PrismaService } from "../prisma/prisma.service";
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import { CreateReportDto, MaintenanceSubTipo, MaintenanceTipo } from './dto/create-report.dto';
+import { ListReportsQueryDto } from './dto/list-reports.query.dto';
+import { UpdateEncargadoSignatureDto } from './dto/update-encargado-signature.dto';
+import { PrismaService } from '../prisma/prisma.service';
+import { ReportNotificationsService } from '../notifications/report-notifications.service';
 
 function toJsonObject<T extends object>(v: T): Record<string, any> {
-  // quita métodos/prototipo, deja JSON plano
   return JSON.parse(JSON.stringify(v));
 }
+
 function safeDate(s?: string) {
   if (!s) return undefined;
   const d = new Date(s);
@@ -17,91 +18,226 @@ function safeDate(s?: string) {
 
 function parseMaybeJsonValue(s: string) {
   const t = s.trim();
-  if (t === "true") return true;
-  if (t === "false") return false;
-  if (!Number.isNaN(Number(t)) && t !== "") return Number(t);
+  if (t === 'true') return true;
+  if (t === 'false') return false;
+  if (!Number.isNaN(Number(t)) && t !== '') return Number(t);
   return t;
 }
 
+function safeText(v: any) {
+  if (v == null) return '';
+  return typeof v === 'string' ? v.trim() : String(v).trim();
+}
+
+function firstNonEmpty(...vals: any[]) {
+  for (const v of vals) {
+    const t = safeText(v);
+    if (t) return t;
+  }
+  return undefined;
+}
+
+const PREVENTIVO_SUBTIPOS = new Set<MaintenanceSubTipo>([
+  MaintenanceSubTipo.CUBIERTA,
+  MaintenanceSubTipo.METALMECANICO_TIENDA,
+  MaintenanceSubTipo.PUERTA_AUTOMATICA,
+  MaintenanceSubTipo.PUNTOS_PAGO,
+  MaintenanceSubTipo.REDES_HIDROSANITARIAS,
+  MaintenanceSubTipo.REDES_ELECTRICAS,
+  MaintenanceSubTipo.ESTIBADOR,
+  MaintenanceSubTipo.CORTINA_ENROLLABLE,
+]);
+
+const CORRECTIVO_SUBTIPOS = new Set<MaintenanceSubTipo>([
+  MaintenanceSubTipo.OBRA_CIVIL,
+  MaintenanceSubTipo.METALMECANICA,
+  MaintenanceSubTipo.ELECTRICA,
+  MaintenanceSubTipo.EQUIPOS_ESPECIALES,
+]);
+
 @Injectable()
 export class ReportsService {
-  constructor(private readonly prisma: PrismaService) {}
+  private readonly logger = new Logger(ReportsService.name);
 
-  private buildSearchText(dto: CreateReportDto) {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notifier: ReportNotificationsService,
+  ) {}
+
+  private assertTipoSubtipo(tipo: MaintenanceTipo, subTipo: MaintenanceSubTipo) {
+    if (tipo === MaintenanceTipo.PREVENTIVO && !PREVENTIVO_SUBTIPOS.has(subTipo)) {
+      throw new BadRequestException(`subTipo inválido para PREVENTIVO: ${subTipo}`);
+    }
+    if (tipo === MaintenanceTipo.CORRECTIVO && !CORRECTIVO_SUBTIPOS.has(subTipo)) {
+      throw new BadRequestException(`subTipo inválido para CORRECTIVO: ${subTipo}`);
+    }
+  }
+
+  private buildSearchText(
+    dto: CreateReportDto,
+    derived?: { ciudadTienda?: string; departamentoTienda?: string; descripcionIncidencia?: string },
+  ) {
     const parts = [
       dto.data.incidencia,
       dto.data.tienda,
-      dto.data.ciudadTienda,
-      dto.data.departamentoTienda,
+      derived?.ciudadTienda ?? dto.data.ciudadTienda ?? '',
+      derived?.departamentoTienda ?? dto.data.departamentoTienda ?? '',
+      derived?.descripcionIncidencia ?? dto.data.descripcionIncidencia ?? '',
       dto.data.nombreTecnico,
       dto.data.cedulaTecnico,
       dto.data.telefonoTecnico,
       dto.data.tipo,
       dto.data.subTipo,
-      dto.observaciones ?? "",
+      dto.observaciones ?? '',
       JSON.stringify(dto.extra ?? {}),
+      dto.responsablePdfUrl ?? '',
+      dto.responsable ? JSON.stringify(dto.responsable) : '',
     ];
-    return parts.join(" | ").toLowerCase();
+
+    return parts
+      .map((x) => safeText(x))
+      .filter(Boolean)
+      .join(' | ')
+      .toLowerCase();
   }
 
   async create(dto: CreateReportDto) {
     const clientCreatedAt = dto.createdAt ? safeDate(dto.createdAt) : undefined;
 
-    const searchText = this.buildSearchText(dto);
+    this.assertTipoSubtipo(dto.data.tipo, dto.data.subTipo);
 
-    // Upsert = si re-envías el mismo id, actualiza (te salva de duplicados)
-    return this.prisma.report.upsert({
+    const derivedDepartamento = firstNonEmpty(
+      dto.data.departamentoTienda,
+      dto.incidenciaRemote?.departamentoTienda,
+      dto.incidenciaRemote?.departamento,
+      dto.incidenciaRemote?.dpto,
+    );
+
+    const derivedCiudad = firstNonEmpty(
+      dto.data.ciudadTienda,
+      dto.incidenciaRemote?.ciudadTienda,
+      dto.incidenciaRemote?.ciudad,
+      dto.incidenciaRemote?.municipio,
+    );
+
+    const derivedDescripcion = firstNonEmpty(
+      dto.data.descripcionIncidencia,
+      dto.incidenciaRemote?.descripcionIncidencia,
+      dto.incidenciaRemote?.descripcion,
+      dto.incidenciaRemote?.detalle,
+    );
+
+    const searchText = this.buildSearchText(dto, {
+      ciudadTienda: derivedCiudad,
+      departamentoTienda: derivedDepartamento,
+      descripcionIncidencia: derivedDescripcion,
+    });
+
+    const responsableJson = dto.responsable ? toJsonObject(dto.responsable) : undefined;
+    const incidenciaRemoteJson = dto.incidenciaRemote ? toJsonObject(dto.incidenciaRemote) : undefined;
+
+    /**
+     * ✅ CLAVE anti-spam:
+     * solo notificamos cuando el PDF aparece por primera vez.
+     */
+    const wantsPdfNotify = !!(dto.responsablePdfUrl && dto.responsablePdfUrl.trim());
+    const prev = await this.prisma.report.findUnique({
+      where: { id: dto.id },
+      select: { id: true, responsablePdfUrl: true },
+    });
+    const shouldNotify = wantsPdfNotify && !prev?.responsablePdfUrl;
+
+    const saved = await this.prisma.report.upsert({
       where: { id: dto.id },
       create: {
         id: dto.id,
         tecnicoIp: dto.tecnicoIp,
         clientCreatedAt,
+
         incidencia: dto.data.incidencia,
-        departamentoTienda: dto.data.departamentoTienda,
-        ciudadTienda: dto.data.ciudadTienda,
         tienda: dto.data.tienda,
+
+        departamentoTienda: derivedDepartamento,
+        ciudadTienda: derivedCiudad,
+        descripcionIncidencia: derivedDescripcion,
+
         nombreTecnico: dto.data.nombreTecnico,
         cedulaTecnico: dto.data.cedulaTecnico,
         telefonoTecnico: dto.data.telefonoTecnico,
+
         tipo: dto.data.tipo,
         subTipo: dto.data.subTipo,
+
         observaciones: dto.observaciones,
-        fotosAntes: dto.fotos.antes ?? [],
-        fotosDespues: dto.fotos.despues ?? [],
+
+        fotosAntes: dto.fotos?.antes ?? [],
+        fotosDespues: dto.fotos?.despues ?? [],
+
         firmaTecnicoUrl: dto.firmaTecnicoUrl,
         firmaEncargadoUrl: dto.firmaEncargadoUrl,
+
         encargadoIp: dto.encargadoIp,
         encargadoSignedAt: dto.encargadoSignedAt ? safeDate(dto.encargadoSignedAt) : undefined,
-        responsable: dto.responsable ? toJsonObject(dto.responsable) : undefined,
+
+        responsable: responsableJson,
+        responsablePdfUrl: dto.responsablePdfUrl,
+
+        incidenciaRemote: incidenciaRemoteJson,
+
         checklist: dto.checklist ?? undefined,
         extra: dto.extra ?? {},
+
         searchText,
       },
       update: {
         tecnicoIp: dto.tecnicoIp,
         clientCreatedAt,
+
         incidencia: dto.data.incidencia,
-        departamentoTienda: dto.data.departamentoTienda,
-        ciudadTienda: dto.data.ciudadTienda,
         tienda: dto.data.tienda,
+
+        departamentoTienda: derivedDepartamento,
+        ciudadTienda: derivedCiudad,
+        descripcionIncidencia: derivedDescripcion,
+
         nombreTecnico: dto.data.nombreTecnico,
         cedulaTecnico: dto.data.cedulaTecnico,
         telefonoTecnico: dto.data.telefonoTecnico,
+
         tipo: dto.data.tipo,
         subTipo: dto.data.subTipo,
+
         observaciones: dto.observaciones,
-        fotosAntes: dto.fotos.antes ?? [],
-        fotosDespues: dto.fotos.despues ?? [],
+
+        fotosAntes: dto.fotos?.antes ?? [],
+        fotosDespues: dto.fotos?.despues ?? [],
+
         firmaTecnicoUrl: dto.firmaTecnicoUrl,
         firmaEncargadoUrl: dto.firmaEncargadoUrl,
+
         encargadoIp: dto.encargadoIp,
         encargadoSignedAt: dto.encargadoSignedAt ? safeDate(dto.encargadoSignedAt) : undefined,
-        responsable: dto.responsable ? toJsonObject(dto.responsable) : undefined,
+
+        responsable: responsableJson,
+        responsablePdfUrl: dto.responsablePdfUrl,
+
+        incidenciaRemote: incidenciaRemoteJson,
+
         checklist: dto.checklist ?? undefined,
         extra: dto.extra ?? {},
+
         searchText,
       },
     });
+
+    // ✅ Notificar SOLO cuando ya hay PDF por primera vez
+    if (shouldNotify) {
+      void this.notifier.notifyReportCreated(saved as any).catch((e: any) => {
+        this.logger.error(`No se pudo notificar reporte: ${e?.message}`);
+      });
+    }
+
+    return saved;
   }
 
   async findAll(q: ListReportsQueryDto) {
@@ -123,16 +259,16 @@ export class ReportsService {
     if (q.tipo) where.tipo = q.tipo;
     if (q.subTipo) where.subTipo = q.subTipo;
 
-    if (q.incidencia) where.incidencia = { contains: q.incidencia, mode: "insensitive" };
-    if (q.tienda) where.tienda = { contains: q.tienda, mode: "insensitive" };
-    if (q.departamentoTienda) where.departamentoTienda = { contains: q.departamentoTienda, mode: "insensitive" };
-    if (q.ciudadTienda) where.ciudadTienda = { contains: q.ciudadTienda, mode: "insensitive" };
+    if (q.incidencia) where.incidencia = { contains: q.incidencia, mode: 'insensitive' };
+    if (q.tienda) where.tienda = { contains: q.tienda, mode: 'insensitive' };
+
+    if (q.departamentoTienda) where.departamentoTienda = { contains: q.departamentoTienda, mode: 'insensitive' };
+    if (q.ciudadTienda) where.ciudadTienda = { contains: q.ciudadTienda, mode: 'insensitive' };
 
     if (q.q) {
       where.searchText = { contains: q.q.toLowerCase() };
     }
 
-    // Filtro dinámico por extra JSON path
     if (q.extraPath && (q.extraEquals || q.extraContains)) {
       const path = [q.extraPath];
 
@@ -153,7 +289,7 @@ export class ReportsService {
       this.prisma.report.count({ where }),
       this.prisma.report.findMany({
         where,
-        orderBy: { createdAt: q.order ?? "desc" },
+        orderBy: { createdAt: q.order ?? 'desc' },
         skip,
         take: limit,
       }),
@@ -185,7 +321,7 @@ export class ReportsService {
         firmaEncargadoUrl: dto.firmaEncargadoUrl,
         encargadoIp: dto.encargadoIp,
         encargadoSignedAt: dto.encargadoSignedAt ? safeDate(dto.encargadoSignedAt) : new Date(),
-        estado: "FIRMADO_ENCARGADO",
+        estado: 'FIRMADO_ENCARGADO',
       },
     });
   }

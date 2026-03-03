@@ -28,7 +28,7 @@ class ListReportsQueryDto {
     extraPath;
     extraEquals;
     extraContains;
-    order = "desc";
+    order = 'desc';
 }
 exports.ListReportsQueryDto = ListReportsQueryDto;
 __decorate([
@@ -68,7 +68,7 @@ __decorate([
 ], ListReportsQueryDto.prototype, "tipo", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsEnum)(create_report_dto_1.AssetKey),
+    (0, class_validator_1.IsEnum)(create_report_dto_1.MaintenanceSubTipo),
     __metadata("design:type", String)
 ], ListReportsQueryDto.prototype, "subTipo", void 0);
 __decorate([
@@ -108,7 +108,7 @@ __decorate([
 ], ListReportsQueryDto.prototype, "extraContains", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsEnum)(["asc", "desc"]),
+    (0, class_validator_1.IsEnum)(['asc', 'desc']),
     __metadata("design:type", String)
 ], ListReportsQueryDto.prototype, "order", void 0);
 //# sourceMappingURL=list-reports.query.dto.js.map

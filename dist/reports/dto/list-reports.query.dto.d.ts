@@ -1,4 +1,4 @@
-import { AssetKey, MaintenanceTipo } from "./create-report.dto";
+import { MaintenanceSubTipo, MaintenanceTipo } from './create-report.dto';
 export declare class ListReportsQueryDto {
     page?: number;
     limit?: number;
@@ -6,7 +6,7 @@ export declare class ListReportsQueryDto {
     from?: string;
     to?: string;
     tipo?: MaintenanceTipo;
-    subTipo?: AssetKey;
+    subTipo?: MaintenanceSubTipo;
     incidencia?: string;
     tienda?: string;
     departamentoTienda?: string;
@@ -14,5 +14,5 @@ export declare class ListReportsQueryDto {
     extraPath?: string;
     extraEquals?: string;
     extraContains?: string;
-    order?: "asc" | "desc";
+    order?: 'asc' | 'desc';
 }

@@ -1,6 +1,6 @@
-import { IsEnum, IsInt, IsOptional, IsString, Max, Min } from "class-validator";
-import { Type } from "class-transformer";
-import { AssetKey, MaintenanceTipo } from "./create-report.dto";
+import { IsEnum, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import { MaintenanceSubTipo, MaintenanceTipo } from './create-report.dto';
 
 export class ListReportsQueryDto {
   @IsOptional() @Type(() => Number) @IsInt() @Min(1)
@@ -21,8 +21,11 @@ export class ListReportsQueryDto {
   @IsOptional() @IsEnum(MaintenanceTipo)
   tipo?: MaintenanceTipo;
 
-  @IsOptional() @IsEnum(AssetKey)
-  subTipo?: AssetKey;
+  /**
+   * ✅ Ahora permite filtrar tanto activos como correctivos
+   */
+  @IsOptional() @IsEnum(MaintenanceSubTipo)
+  subTipo?: MaintenanceSubTipo;
 
   @IsOptional() @IsString()
   incidencia?: string;
@@ -47,6 +50,6 @@ export class ListReportsQueryDto {
   @IsOptional() @IsString()
   extraContains?: string;
 
-  @IsOptional() @IsEnum(["asc", "desc"] as any)
-  order?: "asc" | "desc" = "desc";
+  @IsOptional() @IsEnum(['asc', 'desc'] as any)
+  order?: 'asc' | 'desc' = 'desc';
 }

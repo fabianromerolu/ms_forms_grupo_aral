@@ -6,19 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReportsModule = void 0;
+exports.ReportNotificationsModule = void 0;
 const common_1 = require("@nestjs/common");
-const reports_service_1 = require("./reports.service");
-const reports_controller_1 = require("./reports.controller");
-const report_notifications_module_1 = require("../notifications/report-notifications.module");
-let ReportsModule = class ReportsModule {
+const report_notifications_service_1 = require("./report-notifications.service");
+let ReportNotificationsModule = class ReportNotificationsModule {
 };
-exports.ReportsModule = ReportsModule;
-exports.ReportsModule = ReportsModule = __decorate([
+exports.ReportNotificationsModule = ReportNotificationsModule;
+exports.ReportNotificationsModule = ReportNotificationsModule = __decorate([
     (0, common_1.Module)({
-        imports: [report_notifications_module_1.ReportNotificationsModule],
-        controllers: [reports_controller_1.ReportsController],
-        providers: [reports_service_1.ReportsService],
+        providers: [report_notifications_service_1.ReportNotificationsService],
+        exports: [report_notifications_service_1.ReportNotificationsService],
     })
-], ReportsModule);
-//# sourceMappingURL=reports.module.js.map
+], ReportNotificationsModule);
+//# sourceMappingURL=report-notifications.module.js.map

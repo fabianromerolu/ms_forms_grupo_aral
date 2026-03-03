@@ -2,7 +2,7 @@ export declare enum MaintenanceTipo {
     PREVENTIVO = "PREVENTIVO",
     CORRECTIVO = "CORRECTIVO"
 }
-export declare enum AssetKey {
+export declare enum MaintenanceSubTipo {
     CUBIERTA = "CUBIERTA",
     METALMECANICO_TIENDA = "METALMECANICO_TIENDA",
     PUERTA_AUTOMATICA = "PUERTA_AUTOMATICA",
@@ -10,7 +10,11 @@ export declare enum AssetKey {
     REDES_HIDROSANITARIAS = "REDES_HIDROSANITARIAS",
     REDES_ELECTRICAS = "REDES_ELECTRICAS",
     ESTIBADOR = "ESTIBADOR",
-    CORTINA_ENROLLABLE = "CORTINA_ENROLLABLE"
+    CORTINA_ENROLLABLE = "CORTINA_ENROLLABLE",
+    OBRA_CIVIL = "OBRA_CIVIL",
+    METALMECANICA = "METALMECANICA",
+    ELECTRICA = "ELECTRICA",
+    EQUIPOS_ESPECIALES = "EQUIPOS_ESPECIALES"
 }
 declare class ResponsableDto {
     nombre?: string;
@@ -20,14 +24,15 @@ declare class ResponsableDto {
 }
 declare class FormDataDto {
     incidencia: string;
-    departamentoTienda: string;
-    ciudadTienda: string;
+    departamentoTienda?: string;
+    ciudadTienda?: string;
     tienda: string;
+    descripcionIncidencia?: string;
     nombreTecnico: string;
     cedulaTecnico: string;
     telefonoTecnico: string;
     tipo: MaintenanceTipo;
-    subTipo: AssetKey;
+    subTipo: MaintenanceSubTipo;
 }
 declare class FotosDto {
     antes: string[];
@@ -45,6 +50,8 @@ export declare class CreateReportDto {
     firmaTecnicoUrl?: string;
     firmaEncargadoUrl?: string;
     responsable?: ResponsableDto;
+    responsablePdfUrl?: string;
+    incidenciaRemote?: Record<string, any>;
     encargadoIp?: string;
     encargadoSignedAt?: string;
 }

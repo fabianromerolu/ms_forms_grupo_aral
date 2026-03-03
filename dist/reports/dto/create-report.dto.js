@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateReportDto = exports.AssetKey = exports.MaintenanceTipo = void 0;
+exports.CreateReportDto = exports.MaintenanceSubTipo = exports.MaintenanceTipo = void 0;
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
 var MaintenanceTipo;
@@ -17,17 +17,21 @@ var MaintenanceTipo;
     MaintenanceTipo["PREVENTIVO"] = "PREVENTIVO";
     MaintenanceTipo["CORRECTIVO"] = "CORRECTIVO";
 })(MaintenanceTipo || (exports.MaintenanceTipo = MaintenanceTipo = {}));
-var AssetKey;
-(function (AssetKey) {
-    AssetKey["CUBIERTA"] = "CUBIERTA";
-    AssetKey["METALMECANICO_TIENDA"] = "METALMECANICO_TIENDA";
-    AssetKey["PUERTA_AUTOMATICA"] = "PUERTA_AUTOMATICA";
-    AssetKey["PUNTOS_PAGO"] = "PUNTOS_PAGO";
-    AssetKey["REDES_HIDROSANITARIAS"] = "REDES_HIDROSANITARIAS";
-    AssetKey["REDES_ELECTRICAS"] = "REDES_ELECTRICAS";
-    AssetKey["ESTIBADOR"] = "ESTIBADOR";
-    AssetKey["CORTINA_ENROLLABLE"] = "CORTINA_ENROLLABLE";
-})(AssetKey || (exports.AssetKey = AssetKey = {}));
+var MaintenanceSubTipo;
+(function (MaintenanceSubTipo) {
+    MaintenanceSubTipo["CUBIERTA"] = "CUBIERTA";
+    MaintenanceSubTipo["METALMECANICO_TIENDA"] = "METALMECANICO_TIENDA";
+    MaintenanceSubTipo["PUERTA_AUTOMATICA"] = "PUERTA_AUTOMATICA";
+    MaintenanceSubTipo["PUNTOS_PAGO"] = "PUNTOS_PAGO";
+    MaintenanceSubTipo["REDES_HIDROSANITARIAS"] = "REDES_HIDROSANITARIAS";
+    MaintenanceSubTipo["REDES_ELECTRICAS"] = "REDES_ELECTRICAS";
+    MaintenanceSubTipo["ESTIBADOR"] = "ESTIBADOR";
+    MaintenanceSubTipo["CORTINA_ENROLLABLE"] = "CORTINA_ENROLLABLE";
+    MaintenanceSubTipo["OBRA_CIVIL"] = "OBRA_CIVIL";
+    MaintenanceSubTipo["METALMECANICA"] = "METALMECANICA";
+    MaintenanceSubTipo["ELECTRICA"] = "ELECTRICA";
+    MaintenanceSubTipo["EQUIPOS_ESPECIALES"] = "EQUIPOS_ESPECIALES";
+})(MaintenanceSubTipo || (exports.MaintenanceSubTipo = MaintenanceSubTipo = {}));
 class ResponsableDto {
     nombre;
     cedula;
@@ -59,6 +63,7 @@ class FormDataDto {
     departamentoTienda;
     ciudadTienda;
     tienda;
+    descripcionIncidencia;
     nombreTecnico;
     cedulaTecnico;
     telefonoTecnico;
@@ -71,16 +76,23 @@ __decorate([
 ], FormDataDto.prototype, "incidencia", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], FormDataDto.prototype, "departamentoTienda", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], FormDataDto.prototype, "ciudadTienda", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], FormDataDto.prototype, "tienda", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], FormDataDto.prototype, "descripcionIncidencia", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -98,7 +110,7 @@ __decorate([
     __metadata("design:type", String)
 ], FormDataDto.prototype, "tipo", void 0);
 __decorate([
-    (0, class_validator_1.IsEnum)(AssetKey),
+    (0, class_validator_1.IsEnum)(MaintenanceSubTipo),
     __metadata("design:type", String)
 ], FormDataDto.prototype, "subTipo", void 0);
 class FotosDto {
@@ -127,6 +139,8 @@ class CreateReportDto {
     firmaTecnicoUrl;
     firmaEncargadoUrl;
     responsable;
+    responsablePdfUrl;
+    incidenciaRemote;
     encargadoIp;
     encargadoSignedAt;
 }
@@ -184,6 +198,16 @@ __decorate([
     (0, class_transformer_1.Type)(() => ResponsableDto),
     __metadata("design:type", ResponsableDto)
 ], CreateReportDto.prototype, "responsable", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateReportDto.prototype, "responsablePdfUrl", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", Object)
+], CreateReportDto.prototype, "incidenciaRemote", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

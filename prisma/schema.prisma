@@ -12,7 +12,11 @@ enum MaintenanceTipo {
   CORRECTIVO
 }
 
-enum AssetKey {
+/**
+ * ✅ Ahora soporta PREVENTIVO (activos) + CORRECTIVO (categorías correctivas)
+ * Esto evita que el front reviente cuando mande OBRA_CIVIL, etc.
+ */
+enum MaintenanceSubTipo {
   CUBIERTA
   METALMECANICO_TIENDA
   PUERTA_AUTOMATICA
@@ -21,6 +25,11 @@ enum AssetKey {
   REDES_ELECTRICAS
   ESTIBADOR
   CORTINA_ENROLLABLE
+
+  OBRA_CIVIL
+  METALMECANICA
+  ELECTRICA
+  EQUIPOS_ESPECIALES
 }
 
 enum ReportEstado {
@@ -35,31 +44,52 @@ model Report {
 
   tecnicoIp        String
   incidencia       String
-  departamentoTienda String
-  ciudadTienda     String
-  tienda           String
+
+  /**
+   * ✅ Ya NO obligatorios (tu front no los manda en data).
+   * Se llenan si llega incidenciaRemote o si luego quieres mandarlos.
+   */
+  departamentoTienda String?
+  ciudadTienda       String?
+
+  tienda             String
+
+  /**
+   * ✅ Nuevo (tu front lo tiene en data como descripcionIncidencia readonly)
+   */
+  descripcionIncidencia String?
 
   nombreTecnico    String
   cedulaTecnico    String
   telefonoTecnico  String
 
   tipo             MaintenanceTipo
-  subTipo          AssetKey
+  subTipo          MaintenanceSubTipo
 
   observaciones    String?
 
   fotosAntes       String[]
   fotosDespues     String[]
 
-  firmaTecnicoUrl  String?
+  firmaTecnicoUrl   String?
   firmaEncargadoUrl String?
 
-  encargadoIp      String?
+  encargadoIp       String?
   encargadoSignedAt DateTime?
 
-  responsable      Json?
-  checklist        Json?
-  extra            Json
+  responsable       Json?
+  checklist         Json?
+  extra             Json
+
+  /**
+   * ✅ Nuevo (tu front lo manda: responsablePdfUrl)
+   */
+  responsablePdfUrl String?
+
+  /**
+   * ✅ Nuevo (tu front lo manda: incidenciaRemote)
+   */
+  incidenciaRemote  Json?
 
   estado           ReportEstado    @default(ENVIADO)
 
@@ -71,4 +101,6 @@ model Report {
   @@index([subTipo])
   @@index([incidencia])
   @@index([tienda])
+  @@index([departamentoTienda])
+  @@index([ciudadTienda])
 }
