@@ -27,6 +27,7 @@ var MaintenanceSubTipo;
     MaintenanceSubTipo["REDES_ELECTRICAS"] = "REDES_ELECTRICAS";
     MaintenanceSubTipo["ESTIBADOR"] = "ESTIBADOR";
     MaintenanceSubTipo["CORTINA_ENROLLABLE"] = "CORTINA_ENROLLABLE";
+    MaintenanceSubTipo["CARRITOS_MERCADO"] = "CARRITOS_MERCADO";
     MaintenanceSubTipo["OBRA_CIVIL"] = "OBRA_CIVIL";
     MaintenanceSubTipo["METALMECANICA"] = "METALMECANICA";
     MaintenanceSubTipo["ELECTRICA"] = "ELECTRICA";
@@ -60,6 +61,7 @@ __decorate([
 ], ResponsableDto.prototype, "selloUrl", void 0);
 class FormDataDto {
     incidencia;
+    incidencias;
     departamentoTienda;
     ciudadTienda;
     tienda;
@@ -69,11 +71,19 @@ class FormDataDto {
     telefonoTecnico;
     tipo;
     subTipo;
+    subTipos;
 }
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], FormDataDto.prototype, "incidencia", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    __metadata("design:type", Array)
+], FormDataDto.prototype, "incidencias", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
@@ -110,9 +120,16 @@ __decorate([
     __metadata("design:type", String)
 ], FormDataDto.prototype, "tipo", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEnum)(MaintenanceSubTipo),
     __metadata("design:type", String)
 ], FormDataDto.prototype, "subTipo", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsEnum)(MaintenanceSubTipo, { each: true }),
+    __metadata("design:type", Array)
+], FormDataDto.prototype, "subTipos", void 0);
 class FotosDto {
     antes;
     despues;
@@ -136,13 +153,10 @@ class CreateReportDto {
     extra;
     observaciones;
     fotos;
-    firmaTecnicoUrl;
-    firmaEncargadoUrl;
     responsable;
     responsablePdfUrl;
     incidenciaRemote;
-    encargadoIp;
-    encargadoSignedAt;
+    incidenciasRemote;
 }
 exports.CreateReportDto = CreateReportDto;
 __decorate([
@@ -184,16 +198,6 @@ __decorate([
 ], CreateReportDto.prototype, "fotos", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateReportDto.prototype, "firmaTecnicoUrl", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateReportDto.prototype, "firmaEncargadoUrl", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => ResponsableDto),
     __metadata("design:type", ResponsableDto)
@@ -210,12 +214,7 @@ __decorate([
 ], CreateReportDto.prototype, "incidenciaRemote", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateReportDto.prototype, "encargadoIp", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateReportDto.prototype, "encargadoSignedAt", void 0);
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], CreateReportDto.prototype, "incidenciasRemote", void 0);
 //# sourceMappingURL=create-report.dto.js.map

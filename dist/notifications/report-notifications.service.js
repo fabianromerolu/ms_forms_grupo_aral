@@ -21,6 +21,38 @@ function splitEmails(raw) {
         .map((x) => x.trim())
         .filter(Boolean);
 }
+function uniqueStrings(values) {
+    const out = [];
+    const seen = new Set();
+    for (const v of values) {
+        const t = safeText(v).trim();
+        if (!t)
+            continue;
+        if (seen.has(t))
+            continue;
+        seen.add(t);
+        out.push(t);
+    }
+    return out;
+}
+function normalizeIncidencias(r) {
+    return uniqueStrings([
+        ...(Array.isArray(r?.incidencias) ? r.incidencias : []),
+        r?.incidenciaPrincipal,
+        r?.incidencia,
+        r?.data?.incidencia,
+        ...(Array.isArray(r?.data?.incidencias) ? r.data.incidencias : []),
+    ]);
+}
+function normalizeSubTipos(r) {
+    return uniqueStrings([
+        ...(Array.isArray(r?.subTipos) ? r.subTipos : []),
+        r?.subTipoPrincipal,
+        r?.subTipo,
+        r?.data?.subTipo,
+        ...(Array.isArray(r?.data?.subTipos) ? r.data.subTipos : []),
+    ]);
+}
 async function fetchAsBase64(url, timeoutMs = 15000) {
     const u = safeText(url).trim();
     if (!u)
@@ -73,13 +105,28 @@ function buildEvidenceList(urls, prefix) {
     </ul>
   `;
 }
-function buildTable(rows) {
-    const row = (k, v) => `
-    <tr>
-      <td style="padding:9px 10px;border-bottom:1px solid #eee;color:#555;font-weight:700;width:220px;">${escapeHtml(k)}</td>
-      <td style="padding:9px 10px;border-bottom:1px solid #eee;color:#111;">${escapeHtml(safeText(v).trim() || '—')}</td>
-    </tr>
+function buildBulletList(items, emptyLabel = '—') {
+    if (!Array.isArray(items) || items.length === 0)
+        return `<em>${escapeHtml(emptyLabel)}</em>`;
+    return `
+    <ul style="margin:10px 0 0;padding-left:18px;">
+      ${items.map((item) => `<li style="margin:6px 0;">${escapeHtml(item)}</li>`).join('')}
+    </ul>
   `;
+}
+function buildTable(rows, opts) {
+    const htmlValues = !!opts?.htmlValues;
+    const row = (k, v) => {
+        const rendered = htmlValues
+            ? (safeText(v).trim() ? String(v) : '<em>—</em>')
+            : escapeHtml(safeText(v).trim() || '—');
+        return `
+      <tr>
+        <td style="padding:9px 10px;border-bottom:1px solid #eee;color:#555;font-weight:700;width:220px;">${escapeHtml(k)}</td>
+        <td style="padding:9px 10px;border-bottom:1px solid #eee;color:#111;">${rendered}</td>
+      </tr>
+    `;
+    };
     return `
     <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #eee;border-radius:10px;overflow:hidden;">
       ${rows.map(([k, v]) => row(k, v)).join('')}
@@ -91,24 +138,22 @@ function buildReportHtml(r) {
     const resp = r?.responsable ?? {};
     const fotosAntes = (r?.fotos?.antes ?? r?.fotosAntes ?? []);
     const fotosDespues = (r?.fotos?.despues ?? r?.fotosDespues ?? []);
-    const incidencia = safeText(data?.incidencia || r?.incidencia).trim() || '—';
+    const incidencias = normalizeIncidencias(r);
+    const subTipos = normalizeSubTipos(r);
     const tienda = safeText(data?.tienda || r?.tienda).trim() || '—';
     const tipo = safeText(data?.tipo || r?.tipo).trim() || '—';
-    const subTipo = safeText(data?.subTipo || r?.subTipo).trim() || '—';
     const descInc = safeText(data?.descripcionIncidencia || r?.descripcionIncidencia).trim();
     const observaciones = safeText(r?.observaciones).trim();
     const nombreTec = safeText(data?.nombreTecnico || r?.nombreTecnico).trim();
     const cedulaTec = safeText(data?.cedulaTecnico || r?.cedulaTecnico).trim();
     const telTec = safeText(data?.telefonoTecnico || r?.telefonoTecnico).trim();
-    const firmaTecnicoUrl = safeText(r?.firmaTecnicoUrl).trim();
-    const firmaEncargadoUrl = safeText(r?.firmaEncargadoUrl).trim();
     const pdfUrl = safeText(r?.responsablePdfUrl || '').trim();
     const selloUrl = safeText(resp?.selloUrl).trim();
     const mainRows = [
-        ['Incidencia', incidencia],
         ['Tienda', tienda],
         ['Tipo', tipo],
-        ['Subtipo', subTipo],
+        ['Total incidencias', incidencias.length || '—'],
+        ['Total especialidades', subTipos.length || '—'],
     ];
     const tecnicoRows = [
         ['Nombre', nombreTec || '—'],
@@ -119,15 +164,11 @@ function buildReportHtml(r) {
         ['Nombre', safeText(resp?.nombre).trim() || '—'],
         ['Cédula', safeText(resp?.cedula).trim() || '—'],
         ['Teléfono', safeText(resp?.telefono).trim() || '—'],
-        ['Sello', selloUrl ? buildLink(selloUrl, 'Ver sello') : '—'],
-    ];
-    const firmasRows = [
-        ['Firma técnico', firmaTecnicoUrl ? buildLink(firmaTecnicoUrl, 'Ver firma técnico') : '—'],
-        ['Firma encargado', firmaEncargadoUrl ? buildLink(firmaEncargadoUrl, 'Ver firma encargado') : '—'],
+        ['Acta', selloUrl ? buildLink(selloUrl, 'Ver acta de entrega') : '—'],
     ];
     const pdfBlock = pdfUrl
         ? `<p style="margin:8px 0 0;">
-         ${buildLink(pdfUrl, 'Abrir PDF compendio')}
+         ${buildLink(pdfUrl, 'Descargar PDF compendio')}
          <span style="color:#6b7280;font-size:12px;"> (también va adjunto si el sistema pudo descargarlo)</span>
        </p>`
         : `<p style="margin:8px 0 0;color:#666;"><em>Sin PDF compendio</em></p>`;
@@ -146,6 +187,16 @@ function buildReportHtml(r) {
         <h2 style="margin:0 0 10px;font-size:16px;">Datos principales</h2>
         ${buildTable(mainRows)}
 
+        <h2 style="margin:18px 0 10px;font-size:16px;">Incidencias asociadas</h2>
+        <div style="border:1px solid #eee;border-radius:10px;padding:12px;color:#111;line-height:1.5;">
+          ${buildBulletList(incidencias)}
+        </div>
+
+        <h2 style="margin:18px 0 10px;font-size:16px;">Especialidades del reporte</h2>
+        <div style="border:1px solid #eee;border-radius:10px;padding:12px;color:#111;line-height:1.5;">
+          ${buildBulletList(subTipos)}
+        </div>
+
         <h2 style="margin:18px 0 10px;font-size:16px;">Descripción de la incidencia</h2>
         <div style="border:1px solid #eee;border-radius:10px;padding:12px;color:#111;line-height:1.5;">
           ${escapeHtml(descInc || '—')}
@@ -160,10 +211,7 @@ function buildReportHtml(r) {
         </div>
 
         <h2 style="margin:18px 0 10px;font-size:16px;">Responsable de tienda</h2>
-        ${buildTable(responsableRows)}
-
-        <h2 style="margin:18px 0 10px;font-size:16px;">Firmas</h2>
-        ${buildTable(firmasRows)}
+        ${buildTable(responsableRows, { htmlValues: true })}
 
         <h2 style="margin:18px 0 10px;font-size:16px;">Evidencias fotográficas</h2>
         <div style="border:1px solid #eee;border-radius:10px;padding:12px;">
@@ -197,8 +245,11 @@ let ReportNotificationsService = ReportNotificationsService_1 = class ReportNoti
         }
         const from = process.env.MAIL_FROM || 'Reportes <onboarding@resend.dev>';
         const subjectPrefix = process.env.REPORT_NOTIFY_SUBJECT_PREFIX || 'Nuevo reporte';
-        const incidencia = safeText(report?.incidencia || report?.data?.incidencia || '—').trim();
+        const incidencias = normalizeIncidencias(report);
         const tienda = safeText(report?.tienda || report?.data?.tienda || '—').trim();
+        const incidenciaLabel = incidencias.length <= 1
+            ? `Incidencia ${incidencias[0] || '—'}`
+            : `${incidencias.length} incidencias`;
         const html = buildReportHtml(report);
         const pdfUrl = safeText(report?.responsablePdfUrl || '').trim();
         let attachments;
@@ -214,7 +265,7 @@ let ReportNotificationsService = ReportNotificationsService_1 = class ReportNoti
         const payload = {
             from,
             to,
-            subject: `${subjectPrefix} • Incidencia ${incidencia} • ${tienda}`,
+            subject: `${subjectPrefix} • ${incidenciaLabel} • ${tienda}`,
             html,
             ...(attachments ? { attachments } : {}),
         };

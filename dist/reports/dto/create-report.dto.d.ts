@@ -11,6 +11,7 @@ export declare enum MaintenanceSubTipo {
     REDES_ELECTRICAS = "REDES_ELECTRICAS",
     ESTIBADOR = "ESTIBADOR",
     CORTINA_ENROLLABLE = "CORTINA_ENROLLABLE",
+    CARRITOS_MERCADO = "CARRITOS_MERCADO",
     OBRA_CIVIL = "OBRA_CIVIL",
     METALMECANICA = "METALMECANICA",
     ELECTRICA = "ELECTRICA",
@@ -23,7 +24,8 @@ declare class ResponsableDto {
     selloUrl?: string;
 }
 declare class FormDataDto {
-    incidencia: string;
+    incidencia?: string;
+    incidencias?: string[];
     departamentoTienda?: string;
     ciudadTienda?: string;
     tienda: string;
@@ -32,7 +34,8 @@ declare class FormDataDto {
     cedulaTecnico: string;
     telefonoTecnico: string;
     tipo: MaintenanceTipo;
-    subTipo: MaintenanceSubTipo;
+    subTipo?: MaintenanceSubTipo;
+    subTipos?: MaintenanceSubTipo[];
 }
 declare class FotosDto {
     antes: string[];
@@ -47,12 +50,9 @@ export declare class CreateReportDto {
     extra: Record<string, any>;
     observaciones?: string;
     fotos: FotosDto;
-    firmaTecnicoUrl?: string;
-    firmaEncargadoUrl?: string;
     responsable?: ResponsableDto;
     responsablePdfUrl?: string;
     incidenciaRemote?: Record<string, any>;
-    encargadoIp?: string;
-    encargadoSignedAt?: string;
+    incidenciasRemote?: Record<string, any>[];
 }
 export {};

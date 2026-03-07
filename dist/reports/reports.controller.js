@@ -18,7 +18,6 @@ const swagger_1 = require("@nestjs/swagger");
 const reports_service_1 = require("./reports.service");
 const create_report_dto_1 = require("./dto/create-report.dto");
 const list_reports_query_dto_1 = require("./dto/list-reports.query.dto");
-const update_encargado_signature_dto_1 = require("./dto/update-encargado-signature.dto");
 let ReportsController = class ReportsController {
     service;
     constructor(service) {
@@ -32,9 +31,6 @@ let ReportsController = class ReportsController {
     }
     async findOne(id) {
         return this.service.findOne(id);
-    }
-    updateEncargadoSignature(id, dto) {
-        return this.service.updateEncargadoSignature(id, dto);
     }
 };
 exports.ReportsController = ReportsController;
@@ -59,14 +55,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ReportsController.prototype, "findOne", null);
-__decorate([
-    (0, common_1.Patch)(":id/encargado-signature"),
-    __param(0, (0, common_1.Param)("id")),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_encargado_signature_dto_1.UpdateEncargadoSignatureDto]),
-    __metadata("design:returntype", void 0)
-], ReportsController.prototype, "updateEncargadoSignature", null);
 exports.ReportsController = ReportsController = __decorate([
     (0, swagger_1.ApiTags)("reports"),
     (0, common_1.Controller)("reports"),

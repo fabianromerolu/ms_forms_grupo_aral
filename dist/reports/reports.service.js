@@ -49,6 +49,33 @@ function firstNonEmpty(...vals) {
     }
     return undefined;
 }
+function uniqueStrings(values) {
+    const out = [];
+    const seen = new Set();
+    for (const v of values) {
+        const t = safeText(v);
+        if (!t)
+            continue;
+        if (seen.has(t))
+            continue;
+        seen.add(t);
+        out.push(t);
+    }
+    return out;
+}
+function uniqueEnums(values) {
+    const out = [];
+    const seen = new Set();
+    for (const v of values) {
+        if (!v)
+            continue;
+        if (seen.has(v))
+            continue;
+        seen.add(v);
+        out.push(v);
+    }
+    return out;
+}
 const PREVENTIVO_SUBTIPOS = new Set([
     create_report_dto_1.MaintenanceSubTipo.CUBIERTA,
     create_report_dto_1.MaintenanceSubTipo.METALMECANICO_TIENDA,
@@ -58,6 +85,7 @@ const PREVENTIVO_SUBTIPOS = new Set([
     create_report_dto_1.MaintenanceSubTipo.REDES_ELECTRICAS,
     create_report_dto_1.MaintenanceSubTipo.ESTIBADOR,
     create_report_dto_1.MaintenanceSubTipo.CORTINA_ENROLLABLE,
+    create_report_dto_1.MaintenanceSubTipo.CARRITOS_MERCADO,
 ]);
 const CORRECTIVO_SUBTIPOS = new Set([
     create_report_dto_1.MaintenanceSubTipo.OBRA_CIVIL,
@@ -73,17 +101,61 @@ let ReportsService = ReportsService_1 = class ReportsService {
         this.prisma = prisma;
         this.notifier = notifier;
     }
-    assertTipoSubtipo(tipo, subTipo) {
-        if (tipo === create_report_dto_1.MaintenanceTipo.PREVENTIVO && !PREVENTIVO_SUBTIPOS.has(subTipo)) {
-            throw new common_1.BadRequestException(`subTipo inválido para PREVENTIVO: ${subTipo}`);
+    normalizeIncidencias(data) {
+        const fromArray = Array.isArray(data.incidencias) ? data.incidencias : [];
+        const fromSingle = safeText(data.incidencia);
+        const splitSingle = fromSingle ? fromSingle.split(/[\n,;|]+/g) : [];
+        return uniqueStrings([...fromArray, ...splitSingle]);
+    }
+    normalizeSubTipos(data) {
+        const arr = Array.isArray(data.subTipos) ? data.subTipos : [];
+        const one = data.subTipo ? [data.subTipo] : [];
+        return uniqueEnums([...one, ...arr]);
+    }
+    normalizeIncidenciasRemote(dto) {
+        if (Array.isArray(dto.incidenciasRemote)) {
+            return dto.incidenciasRemote.map((x) => toJsonObject(x));
         }
-        if (tipo === create_report_dto_1.MaintenanceTipo.CORRECTIVO && !CORRECTIVO_SUBTIPOS.has(subTipo)) {
-            throw new common_1.BadRequestException(`subTipo inválido para CORRECTIVO: ${subTipo}`);
+        if (dto.incidenciaRemote && typeof dto.incidenciaRemote === 'object') {
+            return [toJsonObject(dto.incidenciaRemote)];
+        }
+        return [];
+    }
+    firstRemoteValue(remotes, keys) {
+        for (const item of remotes) {
+            for (const key of keys) {
+                const value = safeText(item?.[key]);
+                if (value)
+                    return value;
+            }
+        }
+        return undefined;
+    }
+    mergeRemoteDescriptions(remotes) {
+        const values = uniqueStrings(remotes.flatMap((item) => [
+            item?.descripcionIncidencia,
+            item?.descripcion,
+            item?.detalle,
+        ]));
+        return values.length ? values.join(' | ') : undefined;
+    }
+    assertTipoSubtipos(tipo, subTipos) {
+        if (!subTipos.length) {
+            throw new common_1.BadRequestException('Debes enviar al menos una especialidad');
+        }
+        for (const subTipo of subTipos) {
+            if (tipo === create_report_dto_1.MaintenanceTipo.PREVENTIVO && !PREVENTIVO_SUBTIPOS.has(subTipo)) {
+                throw new common_1.BadRequestException(`subTipo inválido para PREVENTIVO: ${subTipo}`);
+            }
+            if (tipo === create_report_dto_1.MaintenanceTipo.CORRECTIVO && !CORRECTIVO_SUBTIPOS.has(subTipo)) {
+                throw new common_1.BadRequestException(`subTipo inválido para CORRECTIVO: ${subTipo}`);
+            }
         }
     }
-    buildSearchText(dto, derived) {
+    buildSearchText(args) {
+        const { dto, incidencias, subTipos, derived, incidenciasRemote = [] } = args;
         const parts = [
-            dto.data.incidencia,
+            ...incidencias,
             dto.data.tienda,
             derived?.ciudadTienda ?? dto.data.ciudadTienda ?? '',
             derived?.departamentoTienda ?? dto.data.departamentoTienda ?? '',
@@ -92,11 +164,12 @@ let ReportsService = ReportsService_1 = class ReportsService {
             dto.data.cedulaTecnico,
             dto.data.telefonoTecnico,
             dto.data.tipo,
-            dto.data.subTipo,
+            ...subTipos,
             dto.observaciones ?? '',
             JSON.stringify(dto.extra ?? {}),
             dto.responsablePdfUrl ?? '',
             dto.responsable ? JSON.stringify(dto.responsable) : '',
+            incidenciasRemote.length ? JSON.stringify(incidenciasRemote) : '',
         ];
         return parts
             .map((x) => safeText(x))
@@ -104,19 +177,45 @@ let ReportsService = ReportsService_1 = class ReportsService {
             .join(' | ')
             .toLowerCase();
     }
+    serializeReport(report) {
+        if (!report)
+            return report;
+        return {
+            ...report,
+            incidencia: report.incidenciaPrincipal ?? report.incidencias?.[0] ?? null,
+            subTipo: report.subTipoPrincipal ?? report.subTipos?.[0] ?? null,
+            incidenciaRemote: Array.isArray(report.incidenciasRemote)
+                ? (report.incidenciasRemote[0] ?? null)
+                : (report.incidenciasRemote ?? null),
+        };
+    }
     async create(dto) {
         const clientCreatedAt = dto.createdAt ? safeDate(dto.createdAt) : undefined;
-        this.assertTipoSubtipo(dto.data.tipo, dto.data.subTipo);
-        const derivedDepartamento = firstNonEmpty(dto.data.departamentoTienda, dto.incidenciaRemote?.departamentoTienda, dto.incidenciaRemote?.departamento, dto.incidenciaRemote?.dpto);
-        const derivedCiudad = firstNonEmpty(dto.data.ciudadTienda, dto.incidenciaRemote?.ciudadTienda, dto.incidenciaRemote?.ciudad, dto.incidenciaRemote?.municipio);
-        const derivedDescripcion = firstNonEmpty(dto.data.descripcionIncidencia, dto.incidenciaRemote?.descripcionIncidencia, dto.incidenciaRemote?.descripcion, dto.incidenciaRemote?.detalle);
-        const searchText = this.buildSearchText(dto, {
-            ciudadTienda: derivedCiudad,
-            departamentoTienda: derivedDepartamento,
-            descripcionIncidencia: derivedDescripcion,
+        const incidencias = this.normalizeIncidencias(dto.data);
+        if (!incidencias.length) {
+            throw new common_1.BadRequestException('Debes enviar al menos una incidencia');
+        }
+        const subTipos = this.normalizeSubTipos(dto.data);
+        this.assertTipoSubtipos(dto.data.tipo, subTipos);
+        const incidenciaPrincipal = incidencias[0];
+        const subTipoPrincipal = subTipos[0];
+        const incidenciasRemote = this.normalizeIncidenciasRemote(dto);
+        const derivedDepartamento = firstNonEmpty(dto.data.departamentoTienda, this.firstRemoteValue(incidenciasRemote, ['departamentoTienda', 'departamento', 'dpto']));
+        const derivedCiudad = firstNonEmpty(dto.data.ciudadTienda, this.firstRemoteValue(incidenciasRemote, ['ciudadTienda', 'ciudad', 'municipio']));
+        const derivedDescripcion = firstNonEmpty(dto.data.descripcionIncidencia, this.mergeRemoteDescriptions(incidenciasRemote));
+        const searchText = this.buildSearchText({
+            dto,
+            incidencias,
+            subTipos,
+            derived: {
+                ciudadTienda: derivedCiudad,
+                departamentoTienda: derivedDepartamento,
+                descripcionIncidencia: derivedDescripcion,
+            },
+            incidenciasRemote,
         });
         const responsableJson = dto.responsable ? toJsonObject(dto.responsable) : undefined;
-        const incidenciaRemoteJson = dto.incidenciaRemote ? toJsonObject(dto.incidenciaRemote) : undefined;
+        const incidenciasRemoteJson = incidenciasRemote.length ? incidenciasRemote : undefined;
         const wantsPdfNotify = !!(dto.responsablePdfUrl && dto.responsablePdfUrl.trim());
         const prev = await this.prisma.report.findUnique({
             where: { id: dto.id },
@@ -129,7 +228,8 @@ let ReportsService = ReportsService_1 = class ReportsService {
                 id: dto.id,
                 tecnicoIp: dto.tecnicoIp,
                 clientCreatedAt,
-                incidencia: dto.data.incidencia,
+                incidenciaPrincipal,
+                incidencias,
                 tienda: dto.data.tienda,
                 departamentoTienda: derivedDepartamento,
                 ciudadTienda: derivedCiudad,
@@ -138,17 +238,14 @@ let ReportsService = ReportsService_1 = class ReportsService {
                 cedulaTecnico: dto.data.cedulaTecnico,
                 telefonoTecnico: dto.data.telefonoTecnico,
                 tipo: dto.data.tipo,
-                subTipo: dto.data.subTipo,
+                subTipoPrincipal,
+                subTipos,
                 observaciones: dto.observaciones,
                 fotosAntes: dto.fotos?.antes ?? [],
                 fotosDespues: dto.fotos?.despues ?? [],
-                firmaTecnicoUrl: dto.firmaTecnicoUrl,
-                firmaEncargadoUrl: dto.firmaEncargadoUrl,
-                encargadoIp: dto.encargadoIp,
-                encargadoSignedAt: dto.encargadoSignedAt ? safeDate(dto.encargadoSignedAt) : undefined,
                 responsable: responsableJson,
                 responsablePdfUrl: dto.responsablePdfUrl,
-                incidenciaRemote: incidenciaRemoteJson,
+                incidenciasRemote: incidenciasRemoteJson,
                 checklist: dto.checklist ?? undefined,
                 extra: dto.extra ?? {},
                 searchText,
@@ -156,7 +253,8 @@ let ReportsService = ReportsService_1 = class ReportsService {
             update: {
                 tecnicoIp: dto.tecnicoIp,
                 clientCreatedAt,
-                incidencia: dto.data.incidencia,
+                incidenciaPrincipal,
+                incidencias,
                 tienda: dto.data.tienda,
                 departamentoTienda: derivedDepartamento,
                 ciudadTienda: derivedCiudad,
@@ -165,17 +263,14 @@ let ReportsService = ReportsService_1 = class ReportsService {
                 cedulaTecnico: dto.data.cedulaTecnico,
                 telefonoTecnico: dto.data.telefonoTecnico,
                 tipo: dto.data.tipo,
-                subTipo: dto.data.subTipo,
+                subTipoPrincipal,
+                subTipos,
                 observaciones: dto.observaciones,
                 fotosAntes: dto.fotos?.antes ?? [],
                 fotosDespues: dto.fotos?.despues ?? [],
-                firmaTecnicoUrl: dto.firmaTecnicoUrl,
-                firmaEncargadoUrl: dto.firmaEncargadoUrl,
-                encargadoIp: dto.encargadoIp,
-                encargadoSignedAt: dto.encargadoSignedAt ? safeDate(dto.encargadoSignedAt) : undefined,
                 responsable: responsableJson,
                 responsablePdfUrl: dto.responsablePdfUrl,
-                incidenciaRemote: incidenciaRemoteJson,
+                incidenciasRemote: incidenciasRemoteJson,
                 checklist: dto.checklist ?? undefined,
                 extra: dto.extra ?? {},
                 searchText,
@@ -186,7 +281,7 @@ let ReportsService = ReportsService_1 = class ReportsService {
                 this.logger.error(`No se pudo notificar reporte: ${e?.message}`);
             });
         }
-        return saved;
+        return this.serializeReport(saved);
     }
     async findAll(q) {
         const page = q.page ?? 1;
@@ -194,44 +289,73 @@ let ReportsService = ReportsService_1 = class ReportsService {
         const skip = (page - 1) * limit;
         const from = safeDate(q.from);
         const to = safeDate(q.to);
-        const where = {};
+        const andFilters = [];
         if (from || to) {
-            where.createdAt = {};
+            const createdAt = {};
             if (from)
-                where.createdAt.gte = from;
+                createdAt.gte = from;
             if (to)
-                where.createdAt.lte = to;
+                createdAt.lte = to;
+            andFilters.push({ createdAt });
         }
-        if (q.tipo)
-            where.tipo = q.tipo;
-        if (q.subTipo)
-            where.subTipo = q.subTipo;
-        if (q.incidencia)
-            where.incidencia = { contains: q.incidencia, mode: 'insensitive' };
-        if (q.tienda)
-            where.tienda = { contains: q.tienda, mode: 'insensitive' };
-        if (q.departamentoTienda)
-            where.departamentoTienda = { contains: q.departamentoTienda, mode: 'insensitive' };
-        if (q.ciudadTienda)
-            where.ciudadTienda = { contains: q.ciudadTienda, mode: 'insensitive' };
+        if (q.tipo) {
+            andFilters.push({ tipo: q.tipo });
+        }
+        if (q.subTipo) {
+            andFilters.push({
+                OR: [
+                    { subTipoPrincipal: q.subTipo },
+                    { subTipos: { has: q.subTipo } },
+                ],
+            });
+        }
+        if (q.incidencia) {
+            andFilters.push({
+                OR: [
+                    { incidenciaPrincipal: { contains: q.incidencia, mode: 'insensitive' } },
+                    { incidencias: { has: q.incidencia } },
+                    { searchText: { contains: q.incidencia.toLowerCase() } },
+                ],
+            });
+        }
+        if (q.tienda) {
+            andFilters.push({ tienda: { contains: q.tienda, mode: 'insensitive' } });
+        }
+        if (q.departamentoTienda) {
+            andFilters.push({
+                departamentoTienda: { contains: q.departamentoTienda, mode: 'insensitive' },
+            });
+        }
+        if (q.ciudadTienda) {
+            andFilters.push({
+                ciudadTienda: { contains: q.ciudadTienda, mode: 'insensitive' },
+            });
+        }
         if (q.q) {
-            where.searchText = { contains: q.q.toLowerCase() };
+            andFilters.push({
+                searchText: { contains: q.q.toLowerCase() },
+            });
         }
         if (q.extraPath && (q.extraEquals || q.extraContains)) {
             const path = [q.extraPath];
             if (q.extraEquals) {
-                where.extra = {
-                    path,
-                    equals: parseMaybeJsonValue(q.extraEquals),
-                };
+                andFilters.push({
+                    extra: {
+                        path,
+                        equals: parseMaybeJsonValue(q.extraEquals),
+                    },
+                });
             }
             else if (q.extraContains) {
-                where.extra = {
-                    path,
-                    string_contains: q.extraContains,
-                };
+                andFilters.push({
+                    extra: {
+                        path,
+                        string_contains: q.extraContains,
+                    },
+                });
             }
         }
+        const where = andFilters.length ? { AND: andFilters } : {};
         const [total, items] = await Promise.all([
             this.prisma.report.count({ where }),
             this.prisma.report.findMany({
@@ -251,22 +375,12 @@ let ReportsService = ReportsService_1 = class ReportsService {
                 hasPrev: page > 1,
                 hasNext: page < totalPages,
             },
-            items,
+            items: items.map((item) => this.serializeReport(item)),
         };
     }
     async findOne(id) {
-        return this.prisma.report.findUnique({ where: { id } });
-    }
-    async updateEncargadoSignature(id, dto) {
-        return this.prisma.report.update({
-            where: { id },
-            data: {
-                firmaEncargadoUrl: dto.firmaEncargadoUrl,
-                encargadoIp: dto.encargadoIp,
-                encargadoSignedAt: dto.encargadoSignedAt ? safeDate(dto.encargadoSignedAt) : new Date(),
-                estado: 'FIRMADO_ENCARGADO',
-            },
-        });
+        const item = await this.prisma.report.findUnique({ where: { id } });
+        return this.serializeReport(item);
     }
 };
 exports.ReportsService = ReportsService;
