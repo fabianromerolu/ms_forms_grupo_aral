@@ -13,16 +13,16 @@ export class ListReportsQueryDto {
   q?: string;
 
   @IsOptional() @IsString()
-  from?: string; // ISO
+  from?: string;
 
   @IsOptional() @IsString()
-  to?: string; // ISO
+  to?: string;
 
   @IsOptional() @IsEnum(MaintenanceTipo)
   tipo?: MaintenanceTipo;
 
   /**
-   * ✅ Ahora permite filtrar tanto activos como correctivos
+   * ✅ Filtra contra subTipoPrincipal o subTipos[]
    */
   @IsOptional() @IsEnum(MaintenanceSubTipo)
   subTipo?: MaintenanceSubTipo;
@@ -39,8 +39,6 @@ export class ListReportsQueryDto {
   @IsOptional() @IsString()
   ciudadTienda?: string;
 
-  // filtro dinámico por JSON path en extra:
-  // ejemplo: extraPath=ce_1_mov_uniforme_sin_ruidos&extraEquals=SI
   @IsOptional() @IsString()
   extraPath?: string;
 

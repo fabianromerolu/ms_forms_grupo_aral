@@ -12,10 +12,6 @@ enum MaintenanceTipo {
   CORRECTIVO
 }
 
-/**
- * ✅ Ahora soporta PREVENTIVO (activos) + CORRECTIVO (categorías correctivas)
- * Esto evita que el front reviente cuando mande OBRA_CIVIL, etc.
- */
 enum MaintenanceSubTipo {
   CUBIERTA
   METALMECANICO_TIENDA
@@ -25,6 +21,7 @@ enum MaintenanceSubTipo {
   REDES_ELECTRICAS
   ESTIBADOR
   CORTINA_ENROLLABLE
+  CARRITOS_MERCADO
 
   OBRA_CIVIL
   METALMECANICA
@@ -34,72 +31,40 @@ enum MaintenanceSubTipo {
 
 enum ReportEstado {
   ENVIADO
-  FIRMADO_ENCARGADO
 }
 
 model Report {
-  id               String          @id @db.Uuid
-  createdAt        DateTime        @default(now())
-  clientCreatedAt  DateTime?
-
-  tecnicoIp        String
-  incidencia       String
-
-  /**
-   * ✅ Ya NO obligatorios (tu front no los manda en data).
-   * Se llenan si llega incidenciaRemote o si luego quieres mandarlos.
-   */
-  departamentoTienda String?
-  ciudadTienda       String?
-
-  tienda             String
-
-  /**
-   * ✅ Nuevo (tu front lo tiene en data como descripcionIncidencia readonly)
-   */
+  id                 String               @id @db.Uuid
+  createdAt          DateTime             @default(now())
+  clientCreatedAt    DateTime?
+  tecnicoIp          String
+  incidenciaPrincipal String?
+  incidencias         String[]
+  departamentoTienda  String?
+  ciudadTienda        String?
+  tienda              String
   descripcionIncidencia String?
-
-  nombreTecnico    String
-  cedulaTecnico    String
-  telefonoTecnico  String
-
-  tipo             MaintenanceTipo
-  subTipo          MaintenanceSubTipo
-
-  observaciones    String?
-
-  fotosAntes       String[]
-  fotosDespues     String[]
-
-  firmaTecnicoUrl   String?
-  firmaEncargadoUrl String?
-
-  encargadoIp       String?
-  encargadoSignedAt DateTime?
-
-  responsable       Json?
-  checklist         Json?
-  extra             Json
-
-  /**
-   * ✅ Nuevo (tu front lo manda: responsablePdfUrl)
-   */
-  responsablePdfUrl String?
-
-  /**
-   * ✅ Nuevo (tu front lo manda: incidenciaRemote)
-   */
-  incidenciaRemote  Json?
-
-  estado           ReportEstado    @default(ENVIADO)
-
-  searchText       String          @db.Text
-  updatedAt        DateTime        @updatedAt
-
+  nombreTecnico      String
+  cedulaTecnico      String
+  telefonoTecnico    String
+  tipo               MaintenanceTipo
+  subTipoPrincipal   MaintenanceSubTipo?
+  subTipos           MaintenanceSubTipo[]
+  observaciones      String?
+  fotosAntes         String[]
+  fotosDespues       String[]
+  responsable        Json?
+  checklist          Json?
+  extra              Json
+  responsablePdfUrl  String?
+  incidenciasRemote  Json?
+  estado             ReportEstado         @default(ENVIADO)
+  searchText         String               @db.Text
+  updatedAt          DateTime             @updatedAt
   @@index([createdAt])
   @@index([tipo])
-  @@index([subTipo])
-  @@index([incidencia])
+  @@index([subTipoPrincipal])
+  @@index([incidenciaPrincipal])
   @@index([tienda])
   @@index([departamentoTienda])
   @@index([ciudadTienda])

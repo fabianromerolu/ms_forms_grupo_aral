@@ -4,7 +4,6 @@ import { ApiTags } from "@nestjs/swagger";
 import { ReportsService } from "./reports.service";
 import { CreateReportDto } from "./dto/create-report.dto";
 import { ListReportsQueryDto } from "./dto/list-reports.query.dto";
-import { UpdateEncargadoSignatureDto } from "./dto/update-encargado-signature.dto";
 
 @ApiTags("reports")
 @Controller("reports")
@@ -24,14 +23,5 @@ export class ReportsController {
   @Get(":id")
   async findOne(@Param("id") id: string) {
     return this.service.findOne(id);
-  }
-
-  // BONUS: para el flujo QR (firma llega después)
-  @Patch(":id/encargado-signature")
-  updateEncargadoSignature(
-    @Param("id") id: string,
-    @Body() dto: UpdateEncargadoSignatureDto
-  ) {
-    return this.service.updateEncargadoSignature(id, dto);
   }
 }

@@ -14,9 +14,6 @@ export enum MaintenanceTipo {
   CORRECTIVO = 'CORRECTIVO',
 }
 
-/**
- * ✅ Unifica AssetKey + CorrectiveKey (tal como tu front manda subTipo)
- */
 export enum MaintenanceSubTipo {
   CUBIERTA = 'CUBIERTA',
   METALMECANICO_TIENDA = 'METALMECANICO_TIENDA',
@@ -26,6 +23,7 @@ export enum MaintenanceSubTipo {
   REDES_ELECTRICAS = 'REDES_ELECTRICAS',
   ESTIBADOR = 'ESTIBADOR',
   CORTINA_ENROLLABLE = 'CORTINA_ENROLLABLE',
+  CARRITOS_MERCADO = 'CARRITOS_MERCADO',
 
   OBRA_CIVIL = 'OBRA_CIVIL',
   METALMECANICA = 'METALMECANICA',
@@ -41,28 +39,45 @@ class ResponsableDto {
 }
 
 class FormDataDto {
-  @IsString() incidencia!: string;
+  @IsOptional()
+  @IsString()
+  incidencia?: string;
 
-  /**
-   * ✅ Ya no obligatorios (tu front no los manda en data)
-   * Si llegan, se guardan; si no, se intentan derivar de incidenciaRemote.
-   */
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  incidencias?: string[];
+
   @IsString() @IsOptional() departamentoTienda?: string;
   @IsString() @IsOptional() ciudadTienda?: string;
 
-  @IsString() tienda!: string;
+  @IsString()
+  tienda!: string;
 
-  /**
-   * ✅ Nuevo: viene readonly del front (descripcionIncidencia)
-   */
-  @IsString() @IsOptional() descripcionIncidencia?: string;
+  @IsString()
+  @IsOptional()
+  descripcionIncidencia?: string;
 
-  @IsString() nombreTecnico!: string;
-  @IsString() cedulaTecnico!: string;
-  @IsString() telefonoTecnico!: string;
+  @IsString()
+  nombreTecnico!: string;
 
-  @IsEnum(MaintenanceTipo) tipo!: MaintenanceTipo;
-  @IsEnum(MaintenanceSubTipo) subTipo!: MaintenanceSubTipo;
+  @IsString()
+  cedulaTecnico!: string;
+
+  @IsString()
+  telefonoTecnico!: string;
+
+  @IsEnum(MaintenanceTipo)
+  tipo!: MaintenanceTipo;
+
+  @IsOptional()
+  @IsEnum(MaintenanceSubTipo)
+  subTipo?: MaintenanceSubTipo;
+
+  @IsOptional()
+  @IsArray()
+  @IsEnum(MaintenanceSubTipo, { each: true })
+  subTipos?: MaintenanceSubTipo[];
 }
 
 class FotosDto {
@@ -79,7 +94,7 @@ export class CreateReportDto {
 
   @IsOptional()
   @IsString()
-  createdAt?: string; // ISO del cliente (opcional)
+  createdAt?: string;
 
   @ValidateNested()
   @Type(() => FormDataDto)
@@ -101,39 +116,19 @@ export class CreateReportDto {
   fotos!: FotosDto;
 
   @IsOptional()
-  @IsString()
-  firmaTecnicoUrl?: string;
-
-  @IsOptional()
-  @IsString()
-  firmaEncargadoUrl?: string;
-
-  @IsOptional()
   @ValidateNested()
   @Type(() => ResponsableDto)
   responsable?: ResponsableDto;
 
-  /**
-   * ✅ Nuevo: tu front lo manda
-   */
   @IsOptional()
   @IsString()
   responsablePdfUrl?: string;
 
-  /**
-   * ✅ Nuevo: tu front lo manda
-   * Lo guardamos tal cual para auditoría/filtros futuros.
-   */
   @IsOptional()
   @IsObject()
   incidenciaRemote?: Record<string, any>;
 
-  // por si tu front de QR lo manda luego
   @IsOptional()
-  @IsString()
-  encargadoIp?: string;
-
-  @IsOptional()
-  @IsString()
-  encargadoSignedAt?: string;
+  @IsArray()
+  incidenciasRemote?: Record<string, any>[];
 }
