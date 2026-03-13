@@ -65,7 +65,7 @@ async function fetchAsBase64(url, timeoutMs = 15000) {
             throw new Error(`Fetch PDF HTTP ${res.status}`);
         const ab = await res.arrayBuffer();
         const base64 = Buffer.from(ab).toString('base64');
-        return { base64, filename: `compendio_${Date.now()}.pdf` };
+        return { base64, filename: `reporte_${Date.now()}.pdf` };
     }
     finally {
         clearTimeout(timer);
@@ -168,10 +168,10 @@ function buildReportHtml(r) {
     ];
     const pdfBlock = pdfUrl
         ? `<p style="margin:8px 0 0;">
-         ${buildLink(pdfUrl, 'Descargar PDF compendio')}
+         ${buildLink(pdfUrl, 'Descargar PDF Reporte')}
          <span style="color:#6b7280;font-size:12px;"> (también va adjunto si el sistema pudo descargarlo)</span>
        </p>`
-        : `<p style="margin:8px 0 0;color:#666;"><em>Sin PDF compendio</em></p>`;
+        : `<p style="margin:8px 0 0;color:#666;"><em>Sin PDF Reporte</em></p>`;
     return `
   <div style="font-family:Arial,sans-serif;background:#f5f5f5;padding:20px;">
     <div style="max-width:760px;margin:0 auto;background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden;">
@@ -221,7 +221,7 @@ function buildReportHtml(r) {
           ${buildEvidenceList(fotosDespues, 'DESPUÉS')}
         </div>
 
-        <h2 style="margin:18px 0 10px;font-size:16px;">PDF Compendio</h2>
+        <h2 style="margin:18px 0 10px;font-size:16px;">PDF Reporte</h2>
         <div style="border:1px solid #eee;border-radius:10px;padding:12px;">
           ${pdfBlock}
         </div>
