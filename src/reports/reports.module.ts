@@ -1,7 +1,7 @@
-import { Module } from "@nestjs/common";
-import { ReportsService } from "./reports.service";
-import { ReportsController } from "./reports.controller";
-import { ReportNotificationsModule } from "src/notifications/report-notifications.module";
+import { Module } from '@nestjs/common';
+import { ReportsService } from './reports.service';
+import { ReportsController } from './reports.controller';
+import { ReportNotificationsModule } from 'src/notifications/notifications.module';
 
 @Module({
   imports: [ReportNotificationsModule],

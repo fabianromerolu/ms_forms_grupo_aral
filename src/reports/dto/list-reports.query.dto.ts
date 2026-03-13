@@ -3,51 +3,71 @@ import { Type } from 'class-transformer';
 import { MaintenanceSubTipo, MaintenanceTipo } from './create-report.dto';
 
 export class ListReportsQueryDto {
-  @IsOptional() @Type(() => Number) @IsInt() @Min(1)
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
   page?: number = 1;
 
-  @IsOptional() @Type(() => Number) @IsInt() @Min(1) @Max(100)
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(100)
   limit?: number = 20;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   q?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   from?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   to?: string;
 
-  @IsOptional() @IsEnum(MaintenanceTipo)
+  @IsOptional()
+  @IsEnum(MaintenanceTipo)
   tipo?: MaintenanceTipo;
 
   /**
    * ✅ Filtra contra subTipoPrincipal o subTipos[]
    */
-  @IsOptional() @IsEnum(MaintenanceSubTipo)
+  @IsOptional()
+  @IsEnum(MaintenanceSubTipo)
   subTipo?: MaintenanceSubTipo;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   incidencia?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   tienda?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   departamentoTienda?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   ciudadTienda?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   extraPath?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   extraEquals?: string;
 
-  @IsOptional() @IsString()
+  @IsOptional()
+  @IsString()
   extraContains?: string;
 
-  @IsOptional() @IsEnum(['asc', 'desc'] as any)
+  @IsOptional()
+  @IsEnum(['asc', 'desc'] as any)
   order?: 'asc' | 'desc' = 'desc';
 }

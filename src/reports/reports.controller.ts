@@ -1,12 +1,12 @@
 //src/reports/reports.controller.ts
-import { Body, Controller, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { ReportsService } from "./reports.service";
-import { CreateReportDto } from "./dto/create-report.dto";
-import { ListReportsQueryDto } from "./dto/list-reports.query.dto";
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { ReportsService } from './reports.service';
+import { CreateReportDto } from './dto/create-report.dto';
+import { ListReportsQueryDto } from './dto/list-reports.query.dto';
 
-@ApiTags("reports")
-@Controller("reports")
+@ApiTags('reports')
+@Controller('reports')
 export class ReportsController {
   constructor(private readonly service: ReportsService) {}
 
@@ -20,8 +20,8 @@ export class ReportsController {
     return this.service.findAll(q);
   }
 
-  @Get(":id")
-  async findOne(@Param("id") id: string) {
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
     return this.service.findOne(id);
   }
 }
