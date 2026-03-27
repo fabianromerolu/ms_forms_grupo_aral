@@ -7,6 +7,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ─── Enums existentes (Reports) ───────────────────────────────────────────────
+
 enum MaintenanceTipo {
   PREVENTIVO
   CORRECTIVO
@@ -33,34 +35,92 @@ enum ReportEstado {
   ENVIADO
 }
 
+// ─── Enums nuevos ─────────────────────────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  COORDINADOR
+  OPERARIO
+  SUPERVISOR
+}
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum IncidenciaStatus {
+  CREADA
+  COTIZADA
+  INFORMADA
+  ORDEN_COMPRA
+  FACTURADA
+  CONSOLIDADO
+  CERRADA
+}
+
+enum IncidenciaMaintenanceType {
+  CORRECTIVO
+  PREVENTIVO
+  OBRA
+  OTRO
+}
+
+enum IncidenciaPriority {
+  ALTA
+  MEDIA
+  BAJA
+  VENCIDA
+}
+
+enum QuoteFormat {
+  COTIZACION
+  FACTURA
+}
+
+enum InvoiceMode {
+  IVA
+  AIU
+}
+
+enum SolicitudStatus {
+  PENDIENTE
+  APROBADA
+  RECHAZADA
+  OBSERVADA
+}
+
+// ─── Modelo existente (Reports) ───────────────────────────────────────────────
+
 model Report {
-  id                 String               @id @db.Uuid
-  createdAt          DateTime             @default(now())
-  clientCreatedAt    DateTime?
-  tecnicoIp          String
-  incidenciaPrincipal String?
-  incidencias         String[]
-  departamentoTienda  String?
-  ciudadTienda        String?
-  tienda              String
+  id                    String              @id @db.Uuid
+  createdAt             DateTime            @default(now())
+  clientCreatedAt       DateTime?
+  tecnicoIp             String
+  incidenciaPrincipal   String?
+  incidencias           String[]
+  departamentoTienda    String?
+  ciudadTienda          String?
+  tienda                String
   descripcionIncidencia String?
-  nombreTecnico      String
-  cedulaTecnico      String
-  telefonoTecnico    String
-  tipo               MaintenanceTipo
-  subTipoPrincipal   MaintenanceSubTipo?
-  subTipos           MaintenanceSubTipo[]
-  observaciones      String?
-  fotosAntes         String[]
-  fotosDespues       String[]
-  responsable        Json?
-  checklist          Json?
-  extra              Json
-  responsablePdfUrl  String?
-  incidenciasRemote  Json?
-  estado             ReportEstado         @default(ENVIADO)
-  searchText         String               @db.Text
-  updatedAt          DateTime             @updatedAt
+  nombreTecnico         String
+  cedulaTecnico         String
+  telefonoTecnico       String
+  tipo                  MaintenanceTipo
+  subTipoPrincipal      MaintenanceSubTipo?
+  subTipos              MaintenanceSubTipo[]
+  observaciones         String?
+  fotosAntes            String[]
+  fotosDespues          String[]
+  responsable           Json?
+  checklist             Json?
+  extra                 Json
+  responsablePdfUrl     String?
+  incidenciasRemote     Json?
+  estado                ReportEstado        @default(ENVIADO)
+  searchText            String              @db.Text
+  updatedAt             DateTime            @updatedAt
+
   @@index([createdAt])
   @@index([tipo])
   @@index([subTipoPrincipal])
@@ -68,4 +128,289 @@ model Report {
   @@index([tienda])
   @@index([departamentoTienda])
   @@index([ciudadTienda])
+}
+
+// ─── Usuarios ─────────────────────────────────────────────────────────────────
+
+model User {
+  id         String     @id @default(uuid()) @db.Uuid
+  fullName   String
+  email      String     @unique
+  password   String
+  role       UserRole   @default(OPERARIO)
+  document   String?
+  phone      String?
+  city       String?
+  status     UserStatus @default(ACTIVE)
+  avatarUrl  String?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  incidenciasCreadas    Incidencia[]         @relation("CreatedBy")
+  incidenciasActualizadas Incidencia[]       @relation("UpdatedBy")
+  cotizacionesCreadas   Cotizacion[]         @relation("QuoteCreatedBy")
+  solicitudesCreadas    Solicitud[]          @relation("SolicitudCreatedBy")
+  actividades           Actividad[]
+
+  @@index([email])
+  @@index([role])
+  @@index([status])
+}
+
+// ─── Tiendas ──────────────────────────────────────────────────────────────────
+
+model Tienda {
+  id                String              @id @default(uuid()) @db.Uuid
+  storeCode         String              @unique
+  storeName         String
+  address           String?
+  department        String?
+  city              String?
+  neighborhood      String?
+  phone             String?
+  regional          String?
+  typology          String?
+  responsibleName   String?
+  responsiblePhone  String?
+  responsibleEmail  String?
+  isActive          Boolean             @default(true)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  labels            TiendaLabel[]
+  history           TiendaHistoryEvent[]
+  incidencias       Incidencia[]
+
+  @@index([storeCode])
+  @@index([regional])
+  @@index([city])
+  @@index([department])
+}
+
+model TiendaLabel {
+  id        String   @id @default(uuid()) @db.Uuid
+  tiendaId  String   @db.Uuid
+  label     String
+  tienda    Tienda   @relation(fields: [tiendaId], references: [id], onDelete: Cascade)
+
+  @@unique([tiendaId, label])
+  @@index([tiendaId])
+}
+
+model TiendaHistoryEvent {
+  id        String   @id @default(uuid()) @db.Uuid
+  tiendaId  String   @db.Uuid
+  action    String
+  by        String?
+  data      Json?
+  createdAt DateTime @default(now())
+  tienda    Tienda   @relation(fields: [tiendaId], references: [id], onDelete: Cascade)
+
+  @@index([tiendaId])
+  @@index([createdAt])
+}
+
+// ─── Tipologías ───────────────────────────────────────────────────────────────
+
+model Tipologia {
+  id          String   @id @default(uuid()) @db.Uuid
+  code        String   @unique
+  name        String
+  description String?
+  category    String?
+  unitPrice   Float?
+  unit        String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  cotizacionItems CotizacionItem[]
+
+  @@index([category])
+  @@index([code])
+}
+
+// ─── Incidencias ──────────────────────────────────────────────────────────────
+
+model Incidencia {
+  id                      String                    @id @default(uuid()) @db.Uuid
+  incidentNumber          String                    @unique
+  tiendaId                String?                   @db.Uuid
+  storeCode               String?
+  storeName               String
+  city                    String?
+  department              String?
+  maintenanceType         IncidenciaMaintenanceType
+  customMaintenanceType   String?
+  specialty               String?
+  description             String
+  expirationAt            DateTime?
+  priority                IncidenciaPriority        @default(MEDIA)
+  status                  IncidenciaStatus          @default(CREADA)
+  quotedAmount            Float?
+  saleCost                Float?
+  purchaseOrderNumber     String?
+  purchaseOrderDocumentUrl String?
+  invoiceNumber           String?
+  invoiceDocumentUrl      String?
+  consolidatedNote        String?
+  closedAt                DateTime?
+  isDisabled              Boolean                   @default(false)
+  createdById             String?                   @db.Uuid
+  updatedById             String?                   @db.Uuid
+  searchText              String                    @db.Text
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
+
+  tienda                  Tienda?                   @relation(fields: [tiendaId], references: [id])
+  createdBy               User?                     @relation("CreatedBy", fields: [createdById], references: [id])
+  updatedBy               User?                     @relation("UpdatedBy", fields: [updatedById], references: [id])
+  history                 IncidenciaHistoryEvent[]
+  cotizaciones            CotizacionIncidencia[]
+
+  @@index([incidentNumber])
+  @@index([status])
+  @@index([priority])
+  @@index([maintenanceType])
+  @@index([storeName])
+  @@index([city])
+  @@index([createdAt])
+}
+
+model IncidenciaHistoryEvent {
+  id           String     @id @default(uuid()) @db.Uuid
+  incidenciaId String     @db.Uuid
+  action       String
+  fromStatus   IncidenciaStatus?
+  toStatus     IncidenciaStatus?
+  by           String?
+  note         String?
+  data         Json?
+  createdAt    DateTime   @default(now())
+
+  incidencia   Incidencia @relation(fields: [incidenciaId], references: [id], onDelete: Cascade)
+
+  @@index([incidenciaId])
+  @@index([createdAt])
+}
+
+// ─── Cotizaciones ─────────────────────────────────────────────────────────────
+
+model Cotizacion {
+  id               String               @id @default(uuid()) @db.Uuid
+  number           String               @unique
+  format           QuoteFormat          @default(COTIZACION)
+  specialty        String?
+  storeCode        String?
+  storeName        String?
+  storeCity        String?
+  typology         String?
+  maintenanceType  String?
+  note             String?
+  invoiceMode      InvoiceMode          @default(IVA)
+  aiuAdministration Float               @default(0)
+  aiuUnexpected    Float                @default(0)
+  aiuUtility       Float                @default(0)
+  aiuIva           Float                @default(0)
+  quoteDocumentUrl String?
+  quoteDocumentName String?
+  totalAmount      Float                @default(0)
+  createdById      String?              @db.Uuid
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+
+  createdBy        User?                @relation("QuoteCreatedBy", fields: [createdById], references: [id])
+  items            CotizacionItem[]
+  incidencias      CotizacionIncidencia[]
+
+  @@index([number])
+  @@index([format])
+  @@index([storeCode])
+  @@index([createdAt])
+}
+
+model CotizacionItem {
+  id             String      @id @default(uuid()) @db.Uuid
+  cotizacionId   String      @db.Uuid
+  tipologiaId    String?     @db.Uuid
+  activityCode   String?
+  description    String
+  unit           String?
+  quantity       Float       @default(1)
+  unitPrice      Float
+  hasIva         Boolean     @default(false)
+  reference      String?
+  subtotal       Float       @default(0)
+  order          Int         @default(0)
+  createdAt      DateTime    @default(now())
+
+  cotizacion     Cotizacion  @relation(fields: [cotizacionId], references: [id], onDelete: Cascade)
+  tipologia      Tipologia?  @relation(fields: [tipologiaId], references: [id])
+
+  @@index([cotizacionId])
+}
+
+model CotizacionIncidencia {
+  cotizacionId String     @db.Uuid
+  incidenciaId String     @db.Uuid
+
+  cotizacion   Cotizacion @relation(fields: [cotizacionId], references: [id], onDelete: Cascade)
+  incidencia   Incidencia @relation(fields: [incidenciaId], references: [id], onDelete: Cascade)
+
+  @@id([cotizacionId, incidenciaId])
+  @@index([cotizacionId])
+  @@index([incidenciaId])
+}
+
+// ─── Solicitudes ──────────────────────────────────────────────────────────────
+
+model Solicitud {
+  id          String          @id @default(uuid()) @db.Uuid
+  number      String          @unique
+  title       String
+  description String
+  status      SolicitudStatus @default(PENDIENTE)
+  priority    IncidenciaPriority @default(MEDIA)
+  storeCode   String?
+  storeName   String?
+  city        String?
+  type        String?
+  assignedTo  String?
+  note        String?
+  resolvedAt  DateTime?
+  createdById String?         @db.Uuid
+  searchText  String          @db.Text
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  createdBy   User?           @relation("SolicitudCreatedBy", fields: [createdById], references: [id])
+
+  @@index([number])
+  @@index([status])
+  @@index([priority])
+  @@index([storeCode])
+  @@index([createdAt])
+}
+
+// ─── Actividades (auditoría) ──────────────────────────────────────────────────
+
+model Actividad {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String?  @db.Uuid
+  userName   String?
+  userRole   String?
+  action     String
+  entity     String?
+  entityId   String?
+  detail     String?
+  metadata   Json?
+  ip         String?
+  createdAt  DateTime @default(now())
+
+  user       User?    @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([entity])
+  @@index([action])
+  @@index([createdAt])
 }

@@ -18,17 +18,19 @@ async function bootstrap() {
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('ms_forms_grupo_aral')
-    .setDescription('Microservicio de almacenamiento de reportes/forms')
-    .setVersion('1.0.0')
+    .setDescription(
+      'API completa de Grupo Aral: reportes de campo, incidencias, cotizaciones, solicitudes, tiendas, tipologías, usuarios y métricas',
+    )
+    .setVersion('2.0.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('docs', app, document);
 
-  // Esto maneja SIGTERM/SIGINT (Railway) y dispara OnModuleDestroy
   app.enableShutdownHooks();
 
   const port = process.env.PORT ? Number(process.env.PORT) : 3005;
   await app.listen(port);
 }
-bootstrap();
+void bootstrap();

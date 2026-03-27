@@ -68,6 +68,6 @@ export class ListReportsQueryDto {
   extraContains?: string;
 
   @IsOptional()
-  @IsEnum(['asc', 'desc'] as any)
+  @IsEnum(['asc', 'desc'] as const)
   order?: 'asc' | 'desc' = 'desc';
 }
