@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { paginateResponse } from '../utils/pagination.util';
+import { UpdateCatalogActivityDto } from './dto/update-catalog-activity.dto';
 
 @Injectable()
 export class CatalogActivitiesService {
@@ -60,5 +61,20 @@ export class CatalogActivitiesService {
       orderBy: { chapter: 'asc' },
     });
     return rows.map((r) => r.chapter);
+  }
+
+  async update(id: string, dto: UpdateCatalogActivityDto) {
+    await this.findOne(id); // throws NotFoundException if not found
+    return this.prisma.catalogActivity.update({
+      where: { id },
+      data: {
+        ...(dto.specialty !== undefined && { specialty: dto.specialty }),
+        ...(dto.chapter !== undefined && { chapter: dto.chapter }),
+        ...(dto.name !== undefined && { name: dto.name }),
+        ...(dto.unit !== undefined && { unit: dto.unit }),
+        ...(dto.brandRef !== undefined && { brandRef: dto.brandRef }),
+        ...(dto.basePrice !== undefined && { basePrice: dto.basePrice }),
+      },
+    });
   }
 }
