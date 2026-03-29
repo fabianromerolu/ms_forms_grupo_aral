@@ -1,6 +1,7 @@
 // prisma/seed.ts
 import { PrismaClient, UserRole } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { CATALOG_ACTIVITIES_SEED } from './catalog-activities-data';
 
 const prisma = new PrismaClient();
 
@@ -57,7 +58,36 @@ async function main() {
     console.log(`  ✅  Created ${u.role}: ${u.email} / ${u.password}`);
   }
 
-  console.log('✅ Seed complete');
+  console.log('\n🌱 Seeding catalog activities (722 rows from Excel)...');
+
+  let count = 0;
+  for (const a of CATALOG_ACTIVITIES_SEED) {
+    await prisma.catalogActivity.upsert({
+      where: { code: a.code },
+      update: {
+        specialty: a.specialty,
+        chapter: a.chapter,
+        name: a.name,
+        unit: a.unit ?? undefined,
+        brandRef: a.brandRef ?? undefined,
+        basePrice: a.basePrice ?? undefined,
+      },
+      create: {
+        code: a.code,
+        specialty: a.specialty,
+        chapter: a.chapter,
+        name: a.name,
+        unit: a.unit ?? undefined,
+        brandRef: a.brandRef ?? undefined,
+        basePrice: a.basePrice ?? undefined,
+      },
+    });
+    count++;
+    if (count % 200 === 0) console.log(`  ✅  ${count} activities upserted...`);
+  }
+  console.log(`  ✅  ${count} catalog activities seeded`);
+
+  console.log('\n✅ Seed complete');
 }
 
 main()

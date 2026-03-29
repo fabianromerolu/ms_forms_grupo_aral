@@ -4,12 +4,13 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ReportsModule } from './reports/reports.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { IncidenciasModule } from './incidencias/incidencias.module';
-import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
-import { SolicitudesModule } from './solicitudes/solicitudes.module';
-import { TiendasModule } from './tiendas/tiendas.module';
-import { TipologiasModule } from './tipologias/tipologias.module';
-import { ActividadesModule } from './actividades/actividades.module';
+import { IncidentsModule } from './incidents/incidents.module';
+import { QuotesModule } from './quotes/quotes.module';
+import { RequestsModule } from './requests/requests.module';
+import { StoresModule } from './stores/stores.module';
+import { TypologiesModule } from './typologies/typologies.module';
+import { ActivitiesModule } from './activities/activities.module';
+import { CatalogActivitiesModule } from './catalog-activities/catalog-activities.module';
 import { MetricsModule } from './metrics/metrics.module';
 
 @Module({
@@ -22,12 +23,13 @@ import { MetricsModule } from './metrics/metrics.module';
     AuthModule,
     // Gestión
     UsersModule,
-    IncidenciasModule,
-    CotizacionesModule,
-    SolicitudesModule,
-    TiendasModule,
-    TipologiasModule,
-    ActividadesModule,
+    IncidentsModule,
+    QuotesModule,
+    RequestsModule,
+    StoresModule,
+    TypologiesModule,
+    ActivitiesModule,
+    CatalogActivitiesModule,
     MetricsModule,
   ],
 })

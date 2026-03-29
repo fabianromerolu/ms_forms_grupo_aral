@@ -414,3 +414,23 @@ model Actividad {
   @@index([action])
   @@index([createdAt])
 }
+
+// ─── Catálogo de actividades ───────────────────────────────────────────────────
+
+model CatalogActivity {
+  id         String   @id @default(uuid()) @db.Uuid
+  code       String   @unique
+  specialty  String
+  chapter    String
+  name       String
+  unit       String?
+  brandRef   String?
+  basePrice  Float?
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([specialty])
+  @@index([chapter])
+  @@index([code])
+}
