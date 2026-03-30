@@ -10,13 +10,16 @@ exports.IncidentsModule = void 0;
 const common_1 = require("@nestjs/common");
 const incidents_controller_1 = require("./incidents.controller");
 const incidents_service_1 = require("./incidents.service");
+const incidents_scheduler_1 = require("./incidents.scheduler");
+const notifications_module_1 = require("../notifications/notifications.module");
 let IncidentsModule = class IncidentsModule {
 };
 exports.IncidentsModule = IncidentsModule;
 exports.IncidentsModule = IncidentsModule = __decorate([
     (0, common_1.Module)({
+        imports: [notifications_module_1.ReportNotificationsModule],
         controllers: [incidents_controller_1.IncidentsController],
-        providers: [incidents_service_1.IncidentsService],
+        providers: [incidents_service_1.IncidentsService, incidents_scheduler_1.IncidentsScheduler],
         exports: [incidents_service_1.IncidentsService],
     })
 ], IncidentsModule);

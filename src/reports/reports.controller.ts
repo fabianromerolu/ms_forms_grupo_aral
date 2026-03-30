@@ -1,4 +1,4 @@
-//src/reports/reports.controller.ts
+// src/reports/reports.controller.ts
 import {
   Body,
   Controller,
@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { OptionalJwtAuthGuard } from '../auth/optional-jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '@prisma/client';
@@ -18,28 +19,38 @@ import { CreateReportDto } from './dto/create-report.dto';
 import { ListReportsQueryDto } from './dto/list-reports.query.dto';
 
 @ApiTags('reports')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(
-  UserRole.ADMIN,
-  UserRole.COORDINADOR,
-  UserRole.OPERARIO,
-  UserRole.SUPERVISOR,
-)
 @Controller('reports')
 export class ReportsController {
   constructor(private readonly service: ReportsService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(OptionalJwtAuthGuard)
   @Post()
   create(@Body() dto: CreateReportDto) {
     return this.service.create(dto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(
+    UserRole.ADMIN,
+    UserRole.COORDINADOR,
+    UserRole.OPERARIO,
+    UserRole.SUPERVISOR,
+  )
   @Get()
   findAll(@Query() q: ListReportsQueryDto) {
     return this.service.findAll(q);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(
+    UserRole.ADMIN,
+    UserRole.COORDINADOR,
+    UserRole.OPERARIO,
+    UserRole.SUPERVISOR,
+  )
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.service.findOne(id);

@@ -8,18 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var IncidentsService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IncidentsService = void 0;
 const common_1 = require("@nestjs/common");
 const client_1 = require("@prisma/client");
 const prisma_service_1 = require("../prisma/prisma.service");
+const notifications_service_1 = require("../notifications/notifications.service");
 const generate_number_util_1 = require("../utils/generate-number.util");
 const search_text_util_1 = require("../utils/search-text.util");
 const pagination_util_1 = require("../utils/pagination.util");
-let IncidentsService = class IncidentsService {
+const incident_priority_util_1 = require("../utils/incident-priority.util");
+let IncidentsService = IncidentsService_1 = class IncidentsService {
     prisma;
-    constructor(prisma) {
+    notifier;
+    logger = new common_1.Logger(IncidentsService_1.name);
+    constructor(prisma, notifier) {
         this.prisma = prisma;
+        this.notifier = notifier;
     }
     async create(dto, userId) {
         const searchText = (0, search_text_util_1.buildSearchText)([
@@ -65,7 +71,10 @@ let IncidentsService = class IncidentsService {
                 by: dto.createdBy ?? userId,
             },
         });
-        return incidencia;
+        void this.notifier.notifyIncidentCreated(incidencia).catch((err) => {
+            this.logger.error(`Failed to send incident created notification: ${err instanceof Error ? err.message : String(err)}`);
+        });
+        return { ...incidencia, priority: (0, incident_priority_util_1.computeIncidentPriority)(incidencia.expirationAt) };
     }
     async findAll(q) {
         const page = Number(q.page) || 1;
@@ -115,7 +124,11 @@ let IncidentsService = class IncidentsService {
                 include: { history: { orderBy: { createdAt: 'desc' }, take: 5 } },
             }),
         ]);
-        return (0, pagination_util_1.paginateResponse)(items, total, page, limit);
+        const enriched = items.map((item) => ({
+            ...item,
+            priority: (0, incident_priority_util_1.computeIncidentPriority)(item.expirationAt),
+        }));
+        return (0, pagination_util_1.paginateResponse)(enriched, total, page, limit);
     }
     async findOne(id) {
         const item = await this.prisma.incidencia.findUnique({
@@ -124,7 +137,7 @@ let IncidentsService = class IncidentsService {
         });
         if (!item)
             throw new common_1.NotFoundException('Incidencia no encontrada');
-        return item;
+        return { ...item, priority: (0, incident_priority_util_1.computeIncidentPriority)(item.expirationAt) };
     }
     async findByNumber(numero) {
         const item = await this.prisma.incidencia.findUnique({
@@ -133,7 +146,7 @@ let IncidentsService = class IncidentsService {
         });
         if (!item)
             throw new common_1.NotFoundException('Incidencia no encontrada');
-        return item;
+        return { ...item, priority: (0, incident_priority_util_1.computeIncidentPriority)(item.expirationAt) };
     }
     async update(id, dto, userId) {
         const current = await this.findOne(id);
@@ -206,7 +219,7 @@ let IncidentsService = class IncidentsService {
                 },
             });
         }
-        return updated;
+        return { ...updated, priority: (0, incident_priority_util_1.computeIncidentPriority)(updated.expirationAt) };
     }
     async remove(id) {
         await this.findOne(id);
@@ -224,8 +237,9 @@ let IncidentsService = class IncidentsService {
     }
 };
 exports.IncidentsService = IncidentsService;
-exports.IncidentsService = IncidentsService = __decorate([
+exports.IncidentsService = IncidentsService = IncidentsService_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        notifications_service_1.ReportNotificationsService])
 ], IncidentsService);
 //# sourceMappingURL=incidents.service.js.map

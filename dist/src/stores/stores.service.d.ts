@@ -20,8 +20,8 @@ export declare class StoresService {
         isActive: boolean;
         storeCode: string;
         storeName: string;
-        department: string | null;
         address: string | null;
+        department: string | null;
         neighborhood: string | null;
         regional: string | null;
         typology: string | null;
@@ -53,8 +53,8 @@ export declare class StoresService {
             isActive: boolean;
             storeCode: string;
             storeName: string;
-            department: string | null;
             address: string | null;
+            department: string | null;
             neighborhood: string | null;
             regional: string | null;
             typology: string | null;
@@ -64,6 +64,11 @@ export declare class StoresService {
         })[];
     }>;
     findOne(id: string): Promise<{
+        labels: {
+            id: string;
+            tiendaId: string;
+            label: string;
+        }[];
         history: {
             id: string;
             createdAt: Date;
@@ -71,11 +76,6 @@ export declare class StoresService {
             tiendaId: string;
             action: string;
             by: string | null;
-        }[];
-        labels: {
-            id: string;
-            tiendaId: string;
-            label: string;
         }[];
     } & {
         id: string;
@@ -86,8 +86,8 @@ export declare class StoresService {
         isActive: boolean;
         storeCode: string;
         storeName: string;
-        department: string | null;
         address: string | null;
+        department: string | null;
         neighborhood: string | null;
         regional: string | null;
         typology: string | null;
@@ -110,8 +110,8 @@ export declare class StoresService {
         isActive: boolean;
         storeCode: string;
         storeName: string;
-        department: string | null;
         address: string | null;
+        department: string | null;
         neighborhood: string | null;
         regional: string | null;
         typology: string | null;
@@ -134,8 +134,8 @@ export declare class StoresService {
         isActive: boolean;
         storeCode: string;
         storeName: string;
-        department: string | null;
         address: string | null;
+        department: string | null;
         neighborhood: string | null;
         regional: string | null;
         typology: string | null;
@@ -152,8 +152,8 @@ export declare class StoresService {
         isActive: boolean;
         storeCode: string;
         storeName: string;
-        department: string | null;
         address: string | null;
+        department: string | null;
         neighborhood: string | null;
         regional: string | null;
         typology: string | null;

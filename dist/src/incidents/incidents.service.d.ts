@@ -1,12 +1,16 @@
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import { ReportNotificationsService } from '../notifications/notifications.service';
 import { CreateIncidentDto } from './dto/create-incident.dto';
 import { UpdateIncidentDto } from './dto/update-incident.dto';
 import { ListIncidentsQueryDto } from './dto/list-incidents.query.dto';
 export declare class IncidentsService {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private readonly notifier;
+    private readonly logger;
+    constructor(prisma: PrismaService, notifier: ReportNotificationsService);
     create(dto: CreateIncidentDto, userId?: string): Promise<{
+        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
             createdAt: Date;
@@ -18,23 +22,22 @@ export declare class IncidentsService {
             note: string | null;
             incidenciaId: string;
         }[];
-    } & {
         id: string;
         city: string | null;
         status: import("@prisma/client").$Enums.IncidenciaStatus;
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
-        searchText: string;
-        description: string;
-        tiendaId: string | null;
         storeCode: string | null;
         storeName: string;
         department: string | null;
+        searchText: string;
+        incidentNumber: string;
+        tiendaId: string | null;
         maintenanceType: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
         customMaintenanceType: string | null;
+        description: string;
         expirationAt: Date | null;
-        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         quotedAmount: number | null;
         saleCost: number | null;
         purchaseOrderNumber: string | null;
@@ -42,13 +45,13 @@ export declare class IncidentsService {
         invoiceNumber: string | null;
         invoiceDocumentUrl: string | null;
         consolidatedNote: string | null;
-        isDisabled: boolean;
-        incidentNumber: string;
         closedAt: Date | null;
+        isDisabled: boolean;
         createdById: string | null;
         updatedById: string | null;
     }>;
     findAll(q: ListIncidentsQueryDto): Promise<import("../utils/pagination.util").PaginatedResponse<{
+        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
             createdAt: Date;
@@ -60,23 +63,22 @@ export declare class IncidentsService {
             note: string | null;
             incidenciaId: string;
         }[];
-    } & {
         id: string;
         city: string | null;
         status: import("@prisma/client").$Enums.IncidenciaStatus;
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
-        searchText: string;
-        description: string;
-        tiendaId: string | null;
         storeCode: string | null;
         storeName: string;
         department: string | null;
+        searchText: string;
+        incidentNumber: string;
+        tiendaId: string | null;
         maintenanceType: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
         customMaintenanceType: string | null;
+        description: string;
         expirationAt: Date | null;
-        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         quotedAmount: number | null;
         saleCost: number | null;
         purchaseOrderNumber: string | null;
@@ -84,13 +86,13 @@ export declare class IncidentsService {
         invoiceNumber: string | null;
         invoiceDocumentUrl: string | null;
         consolidatedNote: string | null;
-        isDisabled: boolean;
-        incidentNumber: string;
         closedAt: Date | null;
+        isDisabled: boolean;
         createdById: string | null;
         updatedById: string | null;
     }>>;
     findOne(id: string): Promise<{
+        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
             createdAt: Date;
@@ -102,23 +104,22 @@ export declare class IncidentsService {
             note: string | null;
             incidenciaId: string;
         }[];
-    } & {
         id: string;
         city: string | null;
         status: import("@prisma/client").$Enums.IncidenciaStatus;
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
-        searchText: string;
-        description: string;
-        tiendaId: string | null;
         storeCode: string | null;
         storeName: string;
         department: string | null;
+        searchText: string;
+        incidentNumber: string;
+        tiendaId: string | null;
         maintenanceType: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
         customMaintenanceType: string | null;
+        description: string;
         expirationAt: Date | null;
-        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         quotedAmount: number | null;
         saleCost: number | null;
         purchaseOrderNumber: string | null;
@@ -126,13 +127,13 @@ export declare class IncidentsService {
         invoiceNumber: string | null;
         invoiceDocumentUrl: string | null;
         consolidatedNote: string | null;
-        isDisabled: boolean;
-        incidentNumber: string;
         closedAt: Date | null;
+        isDisabled: boolean;
         createdById: string | null;
         updatedById: string | null;
     }>;
     findByNumber(numero: string): Promise<{
+        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
             createdAt: Date;
@@ -144,23 +145,22 @@ export declare class IncidentsService {
             note: string | null;
             incidenciaId: string;
         }[];
-    } & {
         id: string;
         city: string | null;
         status: import("@prisma/client").$Enums.IncidenciaStatus;
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
-        searchText: string;
-        description: string;
-        tiendaId: string | null;
         storeCode: string | null;
         storeName: string;
         department: string | null;
+        searchText: string;
+        incidentNumber: string;
+        tiendaId: string | null;
         maintenanceType: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
         customMaintenanceType: string | null;
+        description: string;
         expirationAt: Date | null;
-        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         quotedAmount: number | null;
         saleCost: number | null;
         purchaseOrderNumber: string | null;
@@ -168,13 +168,13 @@ export declare class IncidentsService {
         invoiceNumber: string | null;
         invoiceDocumentUrl: string | null;
         consolidatedNote: string | null;
-        isDisabled: boolean;
-        incidentNumber: string;
         closedAt: Date | null;
+        isDisabled: boolean;
         createdById: string | null;
         updatedById: string | null;
     }>;
     update(id: string, dto: UpdateIncidentDto, userId?: string): Promise<{
+        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
             createdAt: Date;
@@ -186,23 +186,22 @@ export declare class IncidentsService {
             note: string | null;
             incidenciaId: string;
         }[];
-    } & {
         id: string;
         city: string | null;
         status: import("@prisma/client").$Enums.IncidenciaStatus;
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
-        searchText: string;
-        description: string;
-        tiendaId: string | null;
         storeCode: string | null;
         storeName: string;
         department: string | null;
+        searchText: string;
+        incidentNumber: string;
+        tiendaId: string | null;
         maintenanceType: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
         customMaintenanceType: string | null;
+        description: string;
         expirationAt: Date | null;
-        priority: import("@prisma/client").$Enums.IncidenciaPriority;
         quotedAmount: number | null;
         saleCost: number | null;
         purchaseOrderNumber: string | null;
@@ -210,9 +209,8 @@ export declare class IncidentsService {
         invoiceNumber: string | null;
         invoiceDocumentUrl: string | null;
         consolidatedNote: string | null;
-        isDisabled: boolean;
-        incidentNumber: string;
         closedAt: Date | null;
+        isDisabled: boolean;
         createdById: string | null;
         updatedById: string | null;
     }>;
@@ -223,14 +221,15 @@ export declare class IncidentsService {
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
-        searchText: string;
-        description: string;
-        tiendaId: string | null;
         storeCode: string | null;
         storeName: string;
         department: string | null;
+        searchText: string;
+        incidentNumber: string;
+        tiendaId: string | null;
         maintenanceType: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
         customMaintenanceType: string | null;
+        description: string;
         expirationAt: Date | null;
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         quotedAmount: number | null;
@@ -240,9 +239,8 @@ export declare class IncidentsService {
         invoiceNumber: string | null;
         invoiceDocumentUrl: string | null;
         consolidatedNote: string | null;
-        isDisabled: boolean;
-        incidentNumber: string;
         closedAt: Date | null;
+        isDisabled: boolean;
         createdById: string | null;
         updatedById: string | null;
     }>;

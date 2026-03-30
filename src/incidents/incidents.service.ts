@@ -1,16 +1,23 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Prisma, IncidenciaStatus } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import { ReportNotificationsService } from '../notifications/notifications.service';
 import { CreateIncidentDto } from './dto/create-incident.dto';
 import { UpdateIncidentDto } from './dto/update-incident.dto';
 import { ListIncidentsQueryDto } from './dto/list-incidents.query.dto';
 import { generateUniqueNumber } from '../utils/generate-number.util';
 import { buildSearchText } from '../utils/search-text.util';
 import { paginateResponse } from '../utils/pagination.util';
+import { computeIncidentPriority } from '../utils/incident-priority.util';
 
 @Injectable()
 export class IncidentsService {
-  constructor(private readonly prisma: PrismaService) {}
+  private readonly logger = new Logger(IncidentsService.name);
+
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notifier: ReportNotificationsService,
+  ) {}
 
   async create(dto: CreateIncidentDto, userId?: string) {
     const searchText = buildSearchText([
@@ -59,7 +66,13 @@ export class IncidentsService {
       },
     });
 
-    return incidencia;
+    void this.notifier.notifyIncidentCreated(incidencia).catch((err: unknown) => {
+      this.logger.error(
+        `Failed to send incident created notification: ${err instanceof Error ? err.message : String(err)}`,
+      );
+    });
+
+    return { ...incidencia, priority: computeIncidentPriority(incidencia.expirationAt) };
   }
 
   async findAll(q: ListIncidentsQueryDto) {
@@ -113,7 +126,12 @@ export class IncidentsService {
       }),
     ]);
 
-    return paginateResponse(items, total, page, limit);
+    const enriched = items.map((item) => ({
+      ...item,
+      priority: computeIncidentPriority(item.expirationAt),
+    }));
+
+    return paginateResponse(enriched, total, page, limit);
   }
 
   async findOne(id: string) {
@@ -122,7 +140,7 @@ export class IncidentsService {
       include: { history: { orderBy: { createdAt: 'asc' } } },
     });
     if (!item) throw new NotFoundException('Incidencia no encontrada');
-    return item;
+    return { ...item, priority: computeIncidentPriority(item.expirationAt) };
   }
 
   async findByNumber(numero: string) {
@@ -131,7 +149,7 @@ export class IncidentsService {
       include: { history: { orderBy: { createdAt: 'asc' } } },
     });
     if (!item) throw new NotFoundException('Incidencia no encontrada');
-    return item;
+    return { ...item, priority: computeIncidentPriority(item.expirationAt) };
   }
 
   async update(id: string, dto: UpdateIncidentDto, userId?: string) {
@@ -212,7 +230,7 @@ export class IncidentsService {
       });
     }
 
-    return updated;
+    return { ...updated, priority: computeIncidentPriority(updated.expirationAt) };
   }
 
   async remove(id: string) {

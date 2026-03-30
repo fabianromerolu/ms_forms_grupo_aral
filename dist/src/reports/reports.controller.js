@@ -16,6 +16,7 @@ exports.ReportsController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const optional_jwt_auth_guard_1 = require("../auth/optional-jwt-auth.guard");
 const roles_guard_1 = require("../auth/roles.guard");
 const roles_decorator_1 = require("../auth/roles.decorator");
 const client_1 = require("@prisma/client");
@@ -39,6 +40,8 @@ let ReportsController = class ReportsController {
 };
 exports.ReportsController = ReportsController;
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, common_1.UseGuards)(optional_jwt_auth_guard_1.OptionalJwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -46,6 +49,9 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ReportsController.prototype, "create", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -53,6 +59,9 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ReportsController.prototype, "findAll", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -61,9 +70,6 @@ __decorate([
 ], ReportsController.prototype, "findOne", null);
 exports.ReportsController = ReportsController = __decorate([
     (0, swagger_1.ApiTags)('reports'),
-    (0, swagger_1.ApiBearerAuth)(),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     (0, common_1.Controller)('reports'),
     __metadata("design:paramtypes", [reports_service_1.ReportsService])
 ], ReportsController);

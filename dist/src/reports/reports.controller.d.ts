@@ -8,8 +8,8 @@ export declare class ReportsController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        tienda: string;
         incidencias: string[];
+        tienda: string;
         incidenciaPrincipal: string | null;
         subTipos: import("@prisma/client").$Enums.MaintenanceSubTipo[];
         subTipoPrincipal: import("@prisma/client").$Enums.MaintenanceSubTipo | null;
@@ -38,8 +38,8 @@ export declare class ReportsController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
-        tienda: string;
         incidencias: string[];
+        tienda: string;
         incidenciaPrincipal: string | null;
         subTipos: import("@prisma/client").$Enums.MaintenanceSubTipo[];
         subTipoPrincipal: import("@prisma/client").$Enums.MaintenanceSubTipo | null;

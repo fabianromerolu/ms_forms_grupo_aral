@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 const bcrypt = __importStar(require("bcrypt"));
 const catalog_activities_data_1 = require("./catalog-activities-data");
+const stores_data_1 = require("./stores-data");
 const prisma = new client_1.PrismaClient();
 const testUsers = [
     {
@@ -115,6 +116,39 @@ async function main() {
             console.log(`  ✅  ${count} activities upserted...`);
     }
     console.log(`  ✅  ${count} catalog activities seeded`);
+    console.log('\n🌱 Seeding stores (1169 rows from Excel)...');
+    let storeCount = 0;
+    for (const s of stores_data_1.STORES_SEED) {
+        await prisma.tienda.upsert({
+            where: { storeCode: s.storeCode },
+            update: {
+                storeName: s.storeName,
+                address: s.address,
+                department: s.department,
+                city: s.city,
+                neighborhood: s.neighborhood,
+                phone: s.phone,
+                regional: s.regional,
+            },
+            create: {
+                storeCode: s.storeCode,
+                storeName: s.storeName,
+                address: s.address,
+                department: s.department,
+                city: s.city,
+                neighborhood: s.neighborhood,
+                phone: s.phone,
+                regional: s.regional,
+                responsibleName: s.responsibleName,
+                responsiblePhone: s.responsiblePhone,
+                responsibleEmail: s.responsibleEmail,
+            },
+        });
+        storeCount++;
+        if (storeCount % 200 === 0)
+            console.log(`  ✅  ${storeCount} stores upserted...`);
+    }
+    console.log(`  ✅  ${storeCount} stores seeded`);
     console.log('\n✅ Seed complete');
 }
 main()

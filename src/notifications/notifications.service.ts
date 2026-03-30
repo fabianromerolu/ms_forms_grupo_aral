@@ -10,6 +10,7 @@ import {
   splitEmails,
 } from 'src/utils/notifications.utils';
 import { safeText } from 'src/utils/reports.utils';
+import type { Incidencia } from '@prisma/client';
 
 type SendEmailPayload = Parameters<Resend['emails']['send']>[0];
 
@@ -137,6 +138,93 @@ export class ReportNotificationsService {
 
     this.logger.log(
       `Resend queued id=${resendData?.id ?? '—'} to=${to.join(', ')}`,
+    );
+  }
+
+  async notifyIncidentCreated(incidencia: Incidencia): Promise<void> {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) return;
+
+    const to = splitEmails(
+      process.env.INCIDENT_NOTIFY_TO || process.env.REPORT_NOTIFY_TO,
+    );
+    if (to.length === 0) return;
+
+    const from = process.env.MAIL_FROM || 'Incidencias <onboarding@resend.dev>';
+    const subject = `Nueva incidencia • ${incidencia.incidentNumber} • ${incidencia.storeName}`;
+
+    const html = `
+      <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
+        <h2 style="color:#1B2634">Nueva incidencia creada</h2>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Número</td><td style="padding:6px 0">${incidencia.incidentNumber}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Tienda</td><td style="padding:6px 0">${incidencia.storeName}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Ciudad</td><td style="padding:6px 0">${incidencia.city ?? '—'}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Tipo de mantenimiento</td><td style="padding:6px 0">${incidencia.maintenanceType}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Especialidad</td><td style="padding:6px 0">${incidencia.specialty ?? '—'}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Descripción</td><td style="padding:6px 0">${incidencia.description}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Prioridad</td><td style="padding:6px 0">${incidencia.priority}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Vence</td><td style="padding:6px 0">${incidencia.expirationAt ? new Date(incidencia.expirationAt).toLocaleString('es-CO') : '—'}</td></tr>
+        </table>
+      </div>`;
+
+    const { data: resendData, error } = await this.resend.emails.send({
+      from,
+      to,
+      subject,
+      html,
+    });
+
+    if (error) {
+      this.logger.error(`Resend incident created error: ${JSON.stringify(error)}`);
+      return;
+    }
+
+    this.logger.log(
+      `Incident created notification queued id=${resendData?.id ?? '—'}`,
+    );
+  }
+
+  async notifyIncidentExpired(incidencia: Incidencia): Promise<void> {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) return;
+
+    const to = splitEmails(
+      process.env.INCIDENT_NOTIFY_TO || process.env.REPORT_NOTIFY_TO,
+    );
+    if (to.length === 0) return;
+
+    const from = process.env.MAIL_FROM || 'Incidencias <onboarding@resend.dev>';
+    const subject = `⚠️ Incidencia vencida • ${incidencia.incidentNumber} • ${incidencia.storeName}`;
+
+    const html = `
+      <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
+        <h2 style="color:#c0392b">Incidencia vencida sin resolver</h2>
+        <table style="width:100%;border-collapse:collapse">
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Número</td><td style="padding:6px 0">${incidencia.incidentNumber}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Tienda</td><td style="padding:6px 0">${incidencia.storeName}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Ciudad</td><td style="padding:6px 0">${incidencia.city ?? '—'}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Tipo</td><td style="padding:6px 0">${incidencia.maintenanceType}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Descripción</td><td style="padding:6px 0">${incidencia.description}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Estado</td><td style="padding:6px 0">${incidencia.status}</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:#555">Venció</td><td style="padding:6px 0">${incidencia.expirationAt ? new Date(incidencia.expirationAt).toLocaleString('es-CO') : '—'}</td></tr>
+        </table>
+      </div>`;
+
+    const { data: resendData, error } = await this.resend.emails.send({
+      from,
+      to,
+      subject,
+      html,
+    });
+
+    if (error) {
+      this.logger.error(`Resend incident expired error: ${JSON.stringify(error)}`);
+      return;
+    }
+
+    this.logger.log(
+      `Incident expired notification queued id=${resendData?.id ?? '—'}`,
     );
   }
 }

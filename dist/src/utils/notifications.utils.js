@@ -73,7 +73,8 @@ async function fetchAsBase64(url, timeoutMs = 15000) {
             throw new Error(`Fetch PDF HTTP ${response.status}`);
         }
         const contentType = response.headers.get('content-type') ?? '';
-        if (!contentType.includes('application/pdf') && !contentType.includes('application/octet-stream')) {
+        if (!contentType.includes('application/pdf') &&
+            !contentType.includes('application/octet-stream')) {
             throw new Error(`Expected PDF content-type but received: ${contentType}`);
         }
         const arrayBuffer = await response.arrayBuffer();
