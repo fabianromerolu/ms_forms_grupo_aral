@@ -15,7 +15,6 @@ export function splitEmails(raw?: string): string[] {
     .filter(Boolean);
 }
 
-
 export function asStringArray(value: unknown): string[] {
   if (!Array.isArray(value)) {
     return [];
@@ -75,7 +74,10 @@ export async function fetchAsBase64(
     }
 
     const contentType = response.headers.get('content-type') ?? '';
-    if (!contentType.includes('application/pdf') && !contentType.includes('application/octet-stream')) {
+    if (
+      !contentType.includes('application/pdf') &&
+      !contentType.includes('application/octet-stream')
+    ) {
       throw new Error(`Expected PDF content-type but received: ${contentType}`);
     }
 
