@@ -1,0 +1,231 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IncidentsService = void 0;
+const common_1 = require("@nestjs/common");
+const client_1 = require("@prisma/client");
+const prisma_service_1 = require("../prisma/prisma.service");
+const generate_number_util_1 = require("../utils/generate-number.util");
+const search_text_util_1 = require("../utils/search-text.util");
+const pagination_util_1 = require("../utils/pagination.util");
+let IncidentsService = class IncidentsService {
+    prisma;
+    constructor(prisma) {
+        this.prisma = prisma;
+    }
+    async create(dto, userId) {
+        const searchText = (0, search_text_util_1.buildSearchText)([
+            dto.storeName,
+            dto.description,
+            dto.city,
+            dto.department,
+            dto.specialty,
+            dto.storeCode,
+        ]);
+        const incidentNumber = (0, generate_number_util_1.generateUniqueNumber)('INC');
+        const incidencia = await this.prisma.incidencia.create({
+            data: {
+                incidentNumber,
+                tiendaId: dto.tiendaId,
+                storeCode: dto.storeCode,
+                storeName: dto.storeName,
+                city: dto.city,
+                department: dto.department,
+                maintenanceType: dto.maintenanceType,
+                customMaintenanceType: dto.customMaintenanceType,
+                specialty: dto.specialty,
+                description: dto.description,
+                expirationAt: dto.expirationAt ? new Date(dto.expirationAt) : undefined,
+                priority: dto.priority ?? 'MEDIA',
+                quotedAmount: dto.quotedAmount,
+                saleCost: dto.saleCost,
+                purchaseOrderNumber: dto.purchaseOrderNumber,
+                purchaseOrderDocumentUrl: dto.purchaseOrderDocumentUrl,
+                invoiceNumber: dto.invoiceNumber,
+                invoiceDocumentUrl: dto.invoiceDocumentUrl,
+                consolidatedNote: dto.consolidatedNote,
+                createdById: userId,
+                searchText,
+            },
+            include: { history: true },
+        });
+        await this.prisma.incidenciaHistoryEvent.create({
+            data: {
+                incidenciaId: incidencia.id,
+                action: 'CREADA',
+                toStatus: 'CREADA',
+                by: dto.createdBy ?? userId,
+            },
+        });
+        return incidencia;
+    }
+    async findAll(q) {
+        const page = Number(q.page) || 1;
+        const limit = Math.min(Number(q.limit) || 20, 100);
+        const skip = (page - 1) * limit;
+        const where = {};
+        const and = [];
+        if (q.status)
+            and.push({ status: q.status });
+        if (q.maintenanceType)
+            and.push({ maintenanceType: q.maintenanceType });
+        if (q.priority)
+            and.push({ priority: q.priority });
+        if (q.storeName) {
+            and.push({
+                storeName: {
+                    contains: q.storeName,
+                    mode: client_1.Prisma.QueryMode.insensitive,
+                },
+            });
+        }
+        if (q.city) {
+            and.push({
+                city: { contains: q.city, mode: client_1.Prisma.QueryMode.insensitive },
+            });
+        }
+        if (q.from || q.to) {
+            const createdAt = {};
+            if (q.from)
+                createdAt.gte = new Date(q.from);
+            if (q.to)
+                createdAt.lte = new Date(q.to);
+            and.push({ createdAt });
+        }
+        if (q.q) {
+            and.push({ searchText: { contains: q.q.toLowerCase() } });
+        }
+        if (and.length > 0)
+            where.AND = and;
+        const [total, items] = await Promise.all([
+            this.prisma.incidencia.count({ where }),
+            this.prisma.incidencia.findMany({
+                where,
+                skip,
+                take: limit,
+                orderBy: { createdAt: q.order ?? 'desc' },
+                include: { history: { orderBy: { createdAt: 'desc' }, take: 5 } },
+            }),
+        ]);
+        return (0, pagination_util_1.paginateResponse)(items, total, page, limit);
+    }
+    async findOne(id) {
+        const item = await this.prisma.incidencia.findUnique({
+            where: { id },
+            include: { history: { orderBy: { createdAt: 'asc' } } },
+        });
+        if (!item)
+            throw new common_1.NotFoundException('Incidencia no encontrada');
+        return item;
+    }
+    async findByNumber(numero) {
+        const item = await this.prisma.incidencia.findUnique({
+            where: { incidentNumber: numero },
+            include: { history: { orderBy: { createdAt: 'asc' } } },
+        });
+        if (!item)
+            throw new common_1.NotFoundException('Incidencia no encontrada');
+        return item;
+    }
+    async update(id, dto, userId) {
+        const current = await this.findOne(id);
+        const searchText = (0, search_text_util_1.buildSearchText)([
+            dto.storeName ?? current.storeName,
+            dto.description ?? current.description,
+            dto.city ?? current.city,
+            dto.department ?? current.department,
+            dto.specialty ?? current.specialty,
+            dto.storeCode ?? current.storeCode,
+        ]);
+        const statusChanged = dto.status !== undefined && dto.status !== current.status;
+        const updateData = {
+            ...(dto.tiendaId !== undefined && {
+                tienda: { connect: { id: dto.tiendaId } },
+            }),
+            ...(dto.storeCode !== undefined && { storeCode: dto.storeCode }),
+            ...(dto.storeName !== undefined && { storeName: dto.storeName }),
+            ...(dto.city !== undefined && { city: dto.city }),
+            ...(dto.department !== undefined && { department: dto.department }),
+            ...(dto.maintenanceType !== undefined && {
+                maintenanceType: dto.maintenanceType,
+            }),
+            ...(dto.customMaintenanceType !== undefined && {
+                customMaintenanceType: dto.customMaintenanceType,
+            }),
+            ...(dto.specialty !== undefined && { specialty: dto.specialty }),
+            ...(dto.description !== undefined && { description: dto.description }),
+            ...(dto.expirationAt !== undefined && {
+                expirationAt: new Date(dto.expirationAt),
+            }),
+            ...(dto.priority !== undefined && { priority: dto.priority }),
+            ...(dto.status !== undefined && { status: dto.status }),
+            ...(dto.quotedAmount !== undefined && { quotedAmount: dto.quotedAmount }),
+            ...(dto.saleCost !== undefined && { saleCost: dto.saleCost }),
+            ...(dto.purchaseOrderNumber !== undefined && {
+                purchaseOrderNumber: dto.purchaseOrderNumber,
+            }),
+            ...(dto.purchaseOrderDocumentUrl !== undefined && {
+                purchaseOrderDocumentUrl: dto.purchaseOrderDocumentUrl,
+            }),
+            ...(dto.invoiceNumber !== undefined && {
+                invoiceNumber: dto.invoiceNumber,
+            }),
+            ...(dto.invoiceDocumentUrl !== undefined && {
+                invoiceDocumentUrl: dto.invoiceDocumentUrl,
+            }),
+            ...(dto.consolidatedNote !== undefined && {
+                consolidatedNote: dto.consolidatedNote,
+            }),
+            ...(dto.isDisabled !== undefined && { isDisabled: dto.isDisabled }),
+            ...(dto.status === 'CERRADA' && { closedAt: new Date() }),
+            updatedBy: userId ? { connect: { id: userId } } : undefined,
+            searchText,
+        };
+        const updated = await this.prisma.incidencia.update({
+            where: { id },
+            data: updateData,
+            include: { history: { orderBy: { createdAt: 'desc' }, take: 10 } },
+        });
+        if (statusChanged) {
+            await this.prisma.incidenciaHistoryEvent.create({
+                data: {
+                    incidenciaId: id,
+                    action: `ESTADO_CAMBIADO`,
+                    fromStatus: current.status,
+                    toStatus: dto.status,
+                    by: dto.updatedBy ?? userId,
+                    note: dto.statusNote,
+                },
+            });
+        }
+        return updated;
+    }
+    async remove(id) {
+        await this.findOne(id);
+        return this.prisma.incidencia.update({
+            where: { id },
+            data: { isDisabled: true },
+        });
+    }
+    async getHistory(id) {
+        await this.findOne(id);
+        return this.prisma.incidenciaHistoryEvent.findMany({
+            where: { incidenciaId: id },
+            orderBy: { createdAt: 'asc' },
+        });
+    }
+};
+exports.IncidentsService = IncidentsService;
+exports.IncidentsService = IncidentsService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+], IncidentsService);
+//# sourceMappingURL=incidents.service.js.map

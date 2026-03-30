@@ -9,6 +9,7 @@ import {
   MaintenanceTipo,
 } from './dto/create-report.dto';
 import { ListReportsQueryDto } from './dto/list-reports.query.dto';
+import { paginateResponse } from '../utils/pagination.util';
 import {
   CORRECTIVO_SUBTIPOS,
   DerivedFields,
@@ -381,7 +382,7 @@ export class ReportsService {
 
   async findAll(q: ListReportsQueryDto): Promise<FindAllResponse> {
     const page = q.page ?? 1;
-    const limit = q.limit ?? 20;
+    const limit = Math.min(q.limit ?? 20, 100);
     const skip = (page - 1) * limit;
 
     const from = safeDate(q.from);
@@ -496,19 +497,12 @@ export class ReportsService {
       }),
     ]);
 
-    const totalPages = Math.max(1, Math.ceil(total / limit));
-
-    return {
-      meta: {
-        page,
-        limit,
-        total,
-        totalPages,
-        hasPrev: page > 1,
-        hasNext: page < totalPages,
-      },
-      items: items.map((item) => this.serializeReport(item)),
-    };
+    return paginateResponse(
+      items.map((item) => this.serializeReport(item)),
+      total,
+      page,
+      limit,
+    );
   }
 
   async findOne(id: string): Promise<SerializedReport<Report> | null> {

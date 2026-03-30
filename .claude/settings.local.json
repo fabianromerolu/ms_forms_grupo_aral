@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npx prisma:*)",
+      "Bash(npm run:*)",
+      "Bash(find /c/Users/FROMERO/Desktop/dashboard_grupoAral/src/components/dashboards -name *.tsx -type f)",
+      "Bash(wc -l /c/Users/FROMERO/Desktop/dashboard_grupoAral/src/components/dashboards/user/*.tsx)",
+      "Bash(npx eslint:*)",
+      "Bash(find c:UsersFROMERODesktopdashboard_grupoAralnode_modulespdf-lib -name *.d.ts)"
+    ]
+  }
+}

@@ -2,6 +2,7 @@ import { BadRequestException } from '@nestjs/common';
 import { MaintenanceSubTipo } from '@prisma/client';
 import { Prisma, type Report } from '@prisma/client';
 import { CreateReportDto } from 'src/reports/dto/create-report.dto';
+import { safeText as _safeText, uniqueStrings as _uniqueStrings } from './text.utils';
 
 export const PREVENTIVO_SUBTIPOS = new Set<MaintenanceSubTipo>([
   MaintenanceSubTipo.CUBIERTA,
@@ -93,10 +94,7 @@ export function parseMaybeJsonValue(s: string) {
   return t;
 }
 
-export function safeText(v: any) {
-  if (v == null) return '';
-  return typeof v === 'string' ? v.trim() : String(v).trim();
-}
+export const safeText = _safeText;
 
 export function firstNonEmpty(...vals: any[]) {
   for (const v of vals) {
@@ -106,20 +104,7 @@ export function firstNonEmpty(...vals: any[]) {
   return undefined;
 }
 
-export function uniqueStrings(values: any[]) {
-  const out: string[] = [];
-  const seen = new Set<string>();
-
-  for (const v of values) {
-    const t = safeText(v);
-    if (!t) continue;
-    if (seen.has(t)) continue;
-    seen.add(t);
-    out.push(t);
-  }
-
-  return out;
-}
+export const uniqueStrings = _uniqueStrings;
 
 export function uniqueEnums<T extends string>(values: T[]) {
   const out: T[] = [];

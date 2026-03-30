@@ -1,39 +1,12 @@
+import { safeText, uniqueStrings } from './text.utils';
+
 export type AnyObj = Record<string, unknown>;
 
 export function isRecord(value: unknown): value is AnyObj {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-export function safeText(value: unknown): string {
-  if (value == null) {
-    return '';
-  }
-
-  if (typeof value === 'string') {
-    return value;
-  }
-
-  if (
-    typeof value === 'number' ||
-    typeof value === 'boolean' ||
-    typeof value === 'bigint'
-  ) {
-    return String(value);
-  }
-
-  if (value instanceof Date) {
-    return value.toISOString();
-  }
-
-  if (Array.isArray(value)) {
-    return value
-      .map((item) => safeText(item))
-      .filter(Boolean)
-      .join(', ');
-  }
-
-  return '';
-}
+export { safeText, uniqueStrings };
 
 export function splitEmails(raw?: string): string[] {
   return safeText(raw)
@@ -42,22 +15,6 @@ export function splitEmails(raw?: string): string[] {
     .filter(Boolean);
 }
 
-export function uniqueStrings(values: unknown[]): string[] {
-  const out: string[] = [];
-  const seen = new Set<string>();
-
-  for (const value of values) {
-    const text = safeText(value).trim();
-    if (!text || seen.has(text)) {
-      continue;
-    }
-
-    seen.add(text);
-    out.push(text);
-  }
-
-  return out;
-}
 
 export function asStringArray(value: unknown): string[] {
   if (!Array.isArray(value)) {
@@ -115,6 +72,11 @@ export async function fetchAsBase64(
 
     if (!response.ok) {
       throw new Error(`Fetch PDF HTTP ${response.status}`);
+    }
+
+    const contentType = response.headers.get('content-type') ?? '';
+    if (!contentType.includes('application/pdf') && !contentType.includes('application/octet-stream')) {
+      throw new Error(`Expected PDF content-type but received: ${contentType}`);
     }
 
     const arrayBuffer = await response.arrayBuffer();

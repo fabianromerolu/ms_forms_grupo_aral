@@ -91,15 +91,22 @@ export class MetricsService {
 
     const counts: Record<string, number> = {};
 
-    await Promise.all(
+    const results = await Promise.allSettled(
       tiendas.map(async (t) => {
         if (!t.regional) return;
         const count = await this.prisma.incidencia.count({
           where: { storeCode: t.storeCode ?? undefined, isDisabled: false },
         });
-        counts[t.regional] = (counts[t.regional] ?? 0) + count;
+        return { regional: t.regional, count };
       }),
     );
+
+    for (const result of results) {
+      if (result.status === 'fulfilled' && result.value) {
+        counts[result.value.regional] =
+          (counts[result.value.regional] ?? 0) + result.value.count;
+      }
+    }
 
     return Object.entries(counts).map(([regional, count]) => ({
       regional,

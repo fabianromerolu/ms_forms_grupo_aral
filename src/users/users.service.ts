@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { paginateResponse } from '../utils/pagination.util';
 
 const SELECT_SAFE = {
   id: true,
@@ -49,7 +50,8 @@ export class UsersService {
     });
   }
 
-  async findAll(page = 1, limit = 20) {
+  async findAll(page = 1, limit_ = 20) {
+    const limit = Math.min(limit_, 100);
     const skip = (page - 1) * limit;
     const [total, items] = await Promise.all([
       this.prisma.user.count(),
@@ -60,17 +62,7 @@ export class UsersService {
         orderBy: { createdAt: 'desc' },
       }),
     ]);
-    return {
-      meta: {
-        page,
-        limit,
-        total,
-        totalPages: Math.max(1, Math.ceil(total / limit)),
-        hasPrev: page > 1,
-        hasNext: page < Math.ceil(total / limit),
-      },
-      items,
-    };
+    return paginateResponse(items, total, page, limit);
   }
 
   async findOne(id: string) {
@@ -87,10 +79,6 @@ export class UsersService {
 
     const data: Record<string, unknown> = { ...dto };
 
-    if (dto.password) {
-      data['password'] = await bcrypt.hash(dto.password, 10);
-    }
-    delete data['password'];
     if (dto.password) {
       data['password'] = await bcrypt.hash(dto.password, 10);
     }

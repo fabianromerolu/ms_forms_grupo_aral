@@ -72,8 +72,10 @@ export class AuthService {
     }
 
     const payload = { sub: user.id, email: user.email, role: user.role };
-    const secret =
-      this.config.get<string>('JWT_SECRET') ?? 'grupoaral_secret_key';
+    const secret = this.config.get<string>('JWT_SECRET');
+    if (!secret) {
+      throw new Error('JWT_SECRET environment variable is not defined');
+    }
     const expiresIn = this.config.get<string>('JWT_EXPIRES_IN') ?? '7d';
 
     const token = this.jwt.sign(payload, {
