@@ -93,6 +93,7 @@ export class StoresController {
   }
 
   @Delete(':id')
+  @Roles(UserRole.ADMIN)
   remove(@Param('id') id: string) {
     return this.service.remove(id);
   }

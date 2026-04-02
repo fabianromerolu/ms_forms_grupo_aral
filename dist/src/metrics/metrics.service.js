@@ -18,31 +18,33 @@ let MetricsService = class MetricsService {
         this.prisma = prisma;
     }
     async getOverview() {
-        const [incidenciasActivas, solicitudesPendientes, reportesTotales, cotizacionesTotales, tiendasActivas, usuariosActivos, actividadesHoy,] = await Promise.all([
-            this.prisma.incidencia.count({
-                where: { status: { notIn: ['CERRADA'] }, isDisabled: false },
-            }),
-            this.prisma.solicitud.count({
-                where: { status: { in: ['PENDIENTE', 'OBSERVADA'] } },
-            }),
-            this.prisma.report.count(),
-            this.prisma.cotizacion.count(),
-            this.prisma.tienda.count({ where: { isActive: true } }),
-            this.prisma.user.count({ where: { status: 'ACTIVE' } }),
-            this.prisma.actividad.count({
-                where: {
-                    createdAt: {
-                        gte: new Date(new Date().setHours(0, 0, 0, 0)),
-                    },
-                },
-            }),
-        ]);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const incidenciasActivas = await this.prisma.incidencia.count({
+            where: { status: { notIn: ['CERRADA'] }, isDisabled: false },
+        });
+        const solicitudesAbiertas = await this.prisma.solicitud.count({
+            where: {
+                status: { notIn: ['APROBADA', 'RECHAZADA'] },
+            },
+        });
+        const reportesRecibidos = await this.prisma.report.count();
+        const cotizaciones = await this.prisma.cotizacion.count();
+        const tiendasCubiertas = await this.prisma.tienda.count({
+            where: { isActive: true },
+        });
+        const usuariosActivos = await this.prisma.user.count({
+            where: { status: 'ACTIVE' },
+        });
+        const actividadesHoy = await this.prisma.actividad.count({
+            where: { createdAt: { gte: today } },
+        });
         return {
             incidenciasActivas,
-            solicitudesAbiertas: solicitudesPendientes,
-            reportesRecibidos: reportesTotales,
-            cotizaciones: cotizacionesTotales,
-            tiendasCubiertas: tiendasActivas,
+            solicitudesAbiertas,
+            reportesRecibidos,
+            cotizaciones,
+            tiendasCubiertas,
             usuariosActivos,
             actividadesHoy,
         };
@@ -80,22 +82,22 @@ let MetricsService = class MetricsService {
     async getIncidenciasByRegional() {
         const tiendas = await this.prisma.tienda.findMany({
             where: { isActive: true },
-            select: { regional: true, storeCode: true },
+            select: { storeCode: true, regional: true },
         });
+        const storeGroups = await this.prisma.incidencia.groupBy({
+            by: ['storeCode'],
+            _count: { id: true },
+            where: { isDisabled: false, storeCode: { not: null } },
+        });
+        const regionalOf = new Map(tiendas
+            .filter((t) => t.storeCode && t.regional)
+            .map((t) => [t.storeCode, t.regional]));
         const counts = {};
-        const results = await Promise.allSettled(tiendas.map(async (t) => {
-            if (!t.regional)
-                return;
-            const count = await this.prisma.incidencia.count({
-                where: { storeCode: t.storeCode ?? undefined, isDisabled: false },
-            });
-            return { regional: t.regional, count };
-        }));
-        for (const result of results) {
-            if (result.status === 'fulfilled' && result.value) {
-                counts[result.value.regional] =
-                    (counts[result.value.regional] ?? 0) + result.value.count;
-            }
+        for (const g of storeGroups) {
+            const regional = regionalOf.get(g.storeCode ?? '');
+            if (!regional)
+                continue;
+            counts[regional] = (counts[regional] ?? 0) + g._count.id;
         }
         return Object.entries(counts).map(([regional, count]) => ({
             regional,
@@ -105,27 +107,25 @@ let MetricsService = class MetricsService {
     async getTimeSeries(days = 30) {
         const from = new Date();
         from.setDate(from.getDate() - days);
-        const [reports, incidencias] = await Promise.all([
-            this.prisma.report.findMany({
-                where: { createdAt: { gte: from } },
-                select: { createdAt: true },
-                orderBy: { createdAt: 'asc' },
-            }),
-            this.prisma.incidencia.findMany({
-                where: { createdAt: { gte: from }, isDisabled: false },
-                select: { createdAt: true },
-                orderBy: { createdAt: 'asc' },
-            }),
-        ]);
+        const reports = await this.prisma.report.findMany({
+            where: { createdAt: { gte: from } },
+            select: { createdAt: true },
+            orderBy: { createdAt: 'asc' },
+        });
+        const incidencias = await this.prisma.incidencia.findMany({
+            where: { createdAt: { gte: from }, isDisabled: false },
+            select: { createdAt: true },
+            orderBy: { createdAt: 'asc' },
+        });
         const buckets = {};
-        const addToDate = (date, key) => {
+        const add = (date, key) => {
             const d = date.toISOString().substring(0, 10);
             if (!buckets[d])
                 buckets[d] = { date: d, reports: 0, incidencias: 0 };
             buckets[d][key]++;
         };
-        reports.forEach((r) => addToDate(r.createdAt, 'reports'));
-        incidencias.forEach((i) => addToDate(i.createdAt, 'incidencias'));
+        reports.forEach((r) => add(r.createdAt, 'reports'));
+        incidencias.forEach((i) => add(i.createdAt, 'incidencias'));
         return Object.values(buckets).sort((a, b) => a.date.localeCompare(b.date));
     }
 };

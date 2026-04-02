@@ -12,6 +12,7 @@ export declare class RequestsController {
         status: import("@prisma/client").$Enums.SolicitudStatus;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         searchText: string;
@@ -37,6 +38,7 @@ export declare class RequestsController {
         status: import("@prisma/client").$Enums.SolicitudStatus;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         searchText: string;
@@ -62,6 +64,7 @@ export declare class RequestsController {
         status: import("@prisma/client").$Enums.SolicitudStatus;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         searchText: string;
@@ -81,6 +84,7 @@ export declare class RequestsController {
         status: import("@prisma/client").$Enums.SolicitudStatus;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         searchText: string;
@@ -100,6 +104,7 @@ export declare class RequestsController {
         status: import("@prisma/client").$Enums.SolicitudStatus;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         searchText: string;

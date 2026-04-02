@@ -10,13 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListReportsQueryDto = void 0;
-const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
+const class_validator_1 = require("class-validator");
 const create_report_dto_1 = require("./create-report.dto");
+function parseOptionalBoolean(value) {
+    if (typeof value === 'boolean')
+        return value;
+    if (typeof value === 'string') {
+        const normalized = value.trim().toLowerCase();
+        if (normalized === 'true')
+            return true;
+        if (normalized === 'false')
+            return false;
+    }
+    return value;
+}
 class ListReportsQueryDto {
     page = 1;
     limit = 20;
     q;
+    hasPdf;
     from;
     to;
     tipo;
@@ -51,6 +64,12 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], ListReportsQueryDto.prototype, "q", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Transform)(({ value }) => parseOptionalBoolean(value)),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], ListReportsQueryDto.prototype, "hasPdf", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

@@ -82,7 +82,7 @@ export class QuotesService {
   async findAll(page = 1, limit_ = 20, q?: string, format?: string) {
     const limit = Math.min(limit_, 100);
     const skip = (page - 1) * limit;
-    const where: Prisma.CotizacionWhereInput = {};
+    const where: Prisma.CotizacionWhereInput = { isActive: true };
 
     if (format) where.format = format as 'COTIZACION' | 'FACTURA';
     if (q) {
@@ -219,6 +219,9 @@ export class QuotesService {
 
   async remove(id: string) {
     await this.findOne(id);
-    return this.prisma.cotizacion.delete({ where: { id } });
+    return this.prisma.cotizacion.update({
+      where: { id },
+      data: { isActive: false },
+    });
   }
 }

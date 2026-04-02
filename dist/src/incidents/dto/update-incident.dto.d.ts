@@ -1,5 +1,6 @@
 import { IncidenciaMaintenanceType, IncidenciaPriority, IncidenciaStatus } from '@prisma/client';
 export declare class UpdateIncidentDto {
+    incidentNumber?: string;
     tiendaId?: string;
     storeCode?: string;
     storeName?: string;

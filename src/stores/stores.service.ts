@@ -58,7 +58,7 @@ export class StoresService {
     city?: string,
   ) {
     const skip = (page - 1) * limit;
-    const where: Prisma.TiendaWhereInput = {};
+    const where: Prisma.TiendaWhereInput = { isActive: true };
     const and: Prisma.TiendaWhereInput[] = [];
 
     if (regional)

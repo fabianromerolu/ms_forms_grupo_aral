@@ -46,7 +46,7 @@ export class RequestsService {
   ) {
     const limit = Math.min(limit_, 100);
     const skip = (page - 1) * limit;
-    const where: Prisma.SolicitudWhereInput = {};
+    const where: Prisma.SolicitudWhereInput = { isActive: true };
     const and: Prisma.SolicitudWhereInput[] = [];
 
     if (status) and.push({ status: status as SolicitudStatus });
@@ -120,6 +120,9 @@ export class RequestsService {
 
   async remove(id: string) {
     await this.findOne(id);
-    return this.prisma.solicitud.delete({ where: { id } });
+    return this.prisma.solicitud.update({
+      where: { id },
+      data: { isActive: false },
+    });
   }
 }

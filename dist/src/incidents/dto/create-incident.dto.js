@@ -14,6 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const client_1 = require("@prisma/client");
 class CreateIncidentDto {
+    incidentNumber;
     tiendaId;
     storeCode;
     storeName;
@@ -35,6 +36,11 @@ class CreateIncidentDto {
     createdBy;
 }
 exports.CreateIncidentDto = CreateIncidentDto;
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Número o serial entregado por el solicitante' }),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateIncidentDto.prototype, "incidentNumber", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ description: 'ID de tienda registrada' }),
     (0, class_validator_1.IsOptional)(),

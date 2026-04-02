@@ -4,6 +4,9 @@
 NestJS 11 REST API for Grupo Aral's field maintenance management system.
 Stack: NestJS · Prisma ORM · PostgreSQL · JWT Auth · Swagger/OpenAPI
 
+## Response Language
+- **ALWAYS respond to the user in Spanish**, regardless of what language the user writes in.
+
 ## Language Rules
 - **Architecture (files, folders, classes, interfaces, variables, functions):** English only
 - **Content (UI strings, comments, API route paths, DB field names):** Spanish is acceptable

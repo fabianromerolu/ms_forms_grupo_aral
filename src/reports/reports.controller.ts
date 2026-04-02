@@ -2,6 +2,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -51,8 +52,29 @@ export class ReportsController {
     UserRole.OPERARIO,
     UserRole.SUPERVISOR,
   )
+  @Get('summary')
+  getSummary(@Query() q: ListReportsQueryDto) {
+    return this.service.getSummary(q);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(
+    UserRole.ADMIN,
+    UserRole.COORDINADOR,
+    UserRole.OPERARIO,
+    UserRole.SUPERVISOR,
+  )
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.service.findOne(id);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.service.remove(id);
   }
 }

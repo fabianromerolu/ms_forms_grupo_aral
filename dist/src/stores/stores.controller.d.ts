@@ -98,8 +98,8 @@ export declare class StoresController {
             createdAt: Date;
             data: import("@prisma/client/runtime/library").JsonValue | null;
             tiendaId: string;
-            action: string;
             by: string | null;
+            action: string;
         }[];
     } & {
         id: string;

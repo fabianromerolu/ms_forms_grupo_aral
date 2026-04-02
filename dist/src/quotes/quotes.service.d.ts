@@ -62,6 +62,7 @@ export declare class QuotesService {
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;
@@ -111,6 +112,7 @@ export declare class QuotesService {
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;
@@ -185,6 +187,7 @@ export declare class QuotesService {
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;
@@ -259,6 +262,7 @@ export declare class QuotesService {
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;
@@ -282,6 +286,7 @@ export declare class QuotesService {
         createdAt: Date;
         updatedAt: Date;
         specialty: string | null;
+        isActive: boolean;
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;

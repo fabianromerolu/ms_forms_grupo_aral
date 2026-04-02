@@ -47,7 +47,7 @@ let RequestsService = class RequestsService {
     async findAll(page = 1, limit_ = 20, q, status, priority) {
         const limit = Math.min(limit_, 100);
         const skip = (page - 1) * limit;
-        const where = {};
+        const where = { isActive: true };
         const and = [];
         if (status)
             and.push({ status: status });
@@ -117,7 +117,10 @@ let RequestsService = class RequestsService {
     }
     async remove(id) {
         await this.findOne(id);
-        return this.prisma.solicitud.delete({ where: { id } });
+        return this.prisma.solicitud.update({
+            where: { id },
+            data: { isActive: false },
+        });
     }
 };
 exports.RequestsService = RequestsService;

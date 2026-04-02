@@ -55,7 +55,7 @@ let StoresService = class StoresService {
     }
     async findAll(page = 1, limit = 20, q, regional, city) {
         const skip = (page - 1) * limit;
-        const where = {};
+        const where = { isActive: true };
         const and = [];
         if (regional)
             and.push({

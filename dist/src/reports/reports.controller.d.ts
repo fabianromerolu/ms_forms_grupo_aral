@@ -8,6 +8,7 @@ export declare class ReportsController {
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         incidencias: string[];
         tienda: string;
         incidenciaPrincipal: string | null;
@@ -34,10 +35,17 @@ export declare class ReportsController {
         searchText: string;
     }>>;
     findAll(q: ListReportsQueryDto): Promise<import("../utils/reports.utils").FindAllResponse>;
+    getSummary(q: ListReportsQueryDto): Promise<{
+        total: number;
+        preventivos: number;
+        correctivos: number;
+        conPdf: number;
+    }>;
     findOne(id: string): Promise<import("../utils/reports.utils").SerializedReport<{
         id: string;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         incidencias: string[];
         tienda: string;
         incidenciaPrincipal: string | null;
@@ -63,4 +71,34 @@ export declare class ReportsController {
         estado: import("@prisma/client").$Enums.ReportEstado;
         searchText: string;
     }> | null>;
+    remove(id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isActive: boolean;
+        incidencias: string[];
+        tienda: string;
+        incidenciaPrincipal: string | null;
+        subTipos: import("@prisma/client").$Enums.MaintenanceSubTipo[];
+        subTipoPrincipal: import("@prisma/client").$Enums.MaintenanceSubTipo | null;
+        responsable: import("@prisma/client/runtime/library").JsonValue | null;
+        fotosAntes: string[];
+        fotosDespues: string[];
+        tipo: import("@prisma/client").$Enums.MaintenanceTipo;
+        descripcionIncidencia: string | null;
+        observaciones: string | null;
+        nombreTecnico: string;
+        cedulaTecnico: string;
+        telefonoTecnico: string;
+        responsablePdfUrl: string | null;
+        departamentoTienda: string | null;
+        ciudadTienda: string | null;
+        tecnicoIp: string;
+        checklist: import("@prisma/client/runtime/library").JsonValue | null;
+        extra: import("@prisma/client/runtime/library").JsonValue;
+        incidenciasRemote: import("@prisma/client/runtime/library").JsonValue | null;
+        clientCreatedAt: Date | null;
+        estado: import("@prisma/client").$Enums.ReportEstado;
+        searchText: string;
+    }>;
 }

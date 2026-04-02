@@ -18,6 +18,11 @@ import {
 export class UpdateIncidentDto {
   @ApiPropertyOptional()
   @IsOptional()
+  @IsString()
+  incidentNumber?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsUUID()
   tiendaId?: string;
 

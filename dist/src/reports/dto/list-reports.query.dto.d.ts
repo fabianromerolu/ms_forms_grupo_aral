@@ -3,6 +3,7 @@ export declare class ListReportsQueryDto {
     page?: number;
     limit?: number;
     q?: string;
+    hasPdf?: boolean;
     from?: string;
     to?: string;
     tipo?: MaintenanceTipo;

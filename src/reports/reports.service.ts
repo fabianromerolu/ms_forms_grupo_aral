@@ -1,6 +1,11 @@
 // src/reports/reports.service.ts
 import { Prisma, type Report } from '@prisma/client';
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { ReportNotificationsService } from '../notifications/notifications.service';
 import { PrismaService } from '../prisma/prisma.service';
 import {
@@ -280,6 +285,129 @@ export class ReportsService {
     return safeText(error) || 'Error desconocido';
   }
 
+  private buildReportWhere(
+    q: Partial<ListReportsQueryDto>,
+  ): Prisma.ReportWhereInput {
+    const from = safeDate(q.from);
+    const to = safeDate(q.to);
+
+    const andFilters: Prisma.ReportWhereInput[] = [{ isActive: true }];
+
+    if (from || to) {
+      const createdAt: Prisma.DateTimeFilter = {};
+
+      if (from) {
+        createdAt.gte = from;
+      }
+
+      if (to) {
+        createdAt.lte = to;
+      }
+
+      andFilters.push({ createdAt });
+    }
+
+    if (q.tipo) {
+      andFilters.push({ tipo: q.tipo });
+    }
+
+    if (q.subTipo) {
+      andFilters.push({
+        OR: [{ subTipoPrincipal: q.subTipo }, { subTipos: { has: q.subTipo } }],
+      });
+    }
+
+    if (q.incidencia) {
+      andFilters.push({
+        OR: [
+          {
+            incidenciaPrincipal: {
+              contains: q.incidencia,
+              mode: Prisma.QueryMode.insensitive,
+            },
+          },
+          { incidencias: { has: q.incidencia } },
+          { searchText: { contains: q.incidencia.toLowerCase() } },
+        ],
+      });
+    }
+
+    if (q.tienda) {
+      andFilters.push({
+        tienda: {
+          contains: q.tienda,
+          mode: Prisma.QueryMode.insensitive,
+        },
+      });
+    }
+
+    if (q.departamentoTienda) {
+      andFilters.push({
+        departamentoTienda: {
+          contains: q.departamentoTienda,
+          mode: Prisma.QueryMode.insensitive,
+        },
+      });
+    }
+
+    if (q.ciudadTienda) {
+      andFilters.push({
+        ciudadTienda: {
+          contains: q.ciudadTienda,
+          mode: Prisma.QueryMode.insensitive,
+        },
+      });
+    }
+
+    if (q.q) {
+      andFilters.push({
+        searchText: {
+          contains: q.q.toLowerCase(),
+        },
+      });
+    }
+
+    if (q.hasPdf !== undefined) {
+      andFilters.push(
+        q.hasPdf
+          ? {
+              AND: [
+                { responsablePdfUrl: { not: null } },
+                { responsablePdfUrl: { not: '' } },
+              ],
+            }
+          : {
+              OR: [
+                { responsablePdfUrl: { equals: null } },
+                { responsablePdfUrl: '' },
+              ],
+            },
+      );
+    }
+
+    if (q.extraPath && (q.extraEquals || q.extraContains)) {
+      const path = [q.extraPath];
+
+      if (q.extraEquals) {
+        andFilters.push({
+          extra: {
+            path,
+            equals: parseMaybeJsonValue(q.extraEquals),
+          },
+        });
+      } else if (q.extraContains) {
+        andFilters.push({
+          extra: {
+            path,
+            string_contains: q.extraContains,
+          },
+        });
+      }
+    }
+
+    return andFilters.length > 0 ? { AND: andFilters } : {};
+  }
+
   async create(dto: CreateReportDto): Promise<SerializedReport<Report>> {
     const clientCreatedAt = dto.createdAt ? safeDate(dto.createdAt) : undefined;
 
@@ -384,108 +512,7 @@ export class ReportsService {
     const page = q.page ?? 1;
     const limit = Math.min(q.limit ?? 20, 100);
     const skip = (page - 1) * limit;
-
-    const from = safeDate(q.from);
-    const to = safeDate(q.to);
-
-    const andFilters: Prisma.ReportWhereInput[] = [];
-
-    if (from || to) {
-      const createdAt: Prisma.DateTimeFilter = {};
-
-      if (from) {
-        createdAt.gte = from;
-      }
-
-      if (to) {
-        createdAt.lte = to;
-      }
-
-      andFilters.push({ createdAt });
-    }
-
-    if (q.tipo) {
-      andFilters.push({ tipo: q.tipo });
-    }
-
-    if (q.subTipo) {
-      andFilters.push({
-        OR: [{ subTipoPrincipal: q.subTipo }, { subTipos: { has: q.subTipo } }],
-      });
-    }
-
-    if (q.incidencia) {
-      andFilters.push({
-        OR: [
-          {
-            incidenciaPrincipal: {
-              contains: q.incidencia,
-              mode: Prisma.QueryMode.insensitive,
-            },
-          },
-          { incidencias: { has: q.incidencia } },
-          { searchText: { contains: q.incidencia.toLowerCase() } },
-        ],
-      });
-    }
-
-    if (q.tienda) {
-      andFilters.push({
-        tienda: {
-          contains: q.tienda,
-          mode: Prisma.QueryMode.insensitive,
-        },
-      });
-    }
-
-    if (q.departamentoTienda) {
-      andFilters.push({
-        departamentoTienda: {
-          contains: q.departamentoTienda,
-          mode: Prisma.QueryMode.insensitive,
-        },
-      });
-    }
-
-    if (q.ciudadTienda) {
-      andFilters.push({
-        ciudadTienda: {
-          contains: q.ciudadTienda,
-          mode: Prisma.QueryMode.insensitive,
-        },
-      });
-    }
-
-    if (q.q) {
-      andFilters.push({
-        searchText: {
-          contains: q.q.toLowerCase(),
-        },
-      });
-    }
-
-    if (q.extraPath && (q.extraEquals || q.extraContains)) {
-      const path = [q.extraPath];
-
-      if (q.extraEquals) {
-        andFilters.push({
-          extra: {
-            path,
-            equals: parseMaybeJsonValue(q.extraEquals),
-          },
-        });
-      } else if (q.extraContains) {
-        andFilters.push({
-          extra: {
-            path,
-            string_contains: q.extraContains,
-          },
-        });
-      }
-    }
-
-    const where: Prisma.ReportWhereInput =
-      andFilters.length > 0 ? { AND: andFilters } : {};
+    const where = this.buildReportWhere(q);
 
     const [total, items] = await Promise.all([
       this.prisma.report.count({ where }),
@@ -505,11 +532,66 @@ export class ReportsService {
     );
   }
 
+  async getSummary(q: ListReportsQueryDto) {
+    const summaryFilters: Partial<ListReportsQueryDto> = {
+      q: q.q,
+      from: q.from,
+      to: q.to,
+      subTipo: q.subTipo,
+      incidencia: q.incidencia,
+      tienda: q.tienda,
+      departamentoTienda: q.departamentoTienda,
+      ciudadTienda: q.ciudadTienda,
+      extraPath: q.extraPath,
+      extraEquals: q.extraEquals,
+      extraContains: q.extraContains,
+    };
+
+    const total = await this.prisma.report.count({
+      where: this.buildReportWhere(summaryFilters),
+    });
+
+    const rows = await this.prisma.report.groupBy({
+      by: ['tipo'],
+      _count: { id: true },
+      where: this.buildReportWhere(summaryFilters),
+    });
+
+    const conPdf = await this.prisma.report.count({
+      where: this.buildReportWhere({ ...summaryFilters, hasPdf: true }),
+    });
+
+    const byType = new Map(rows.map((row) => [row.tipo, row._count.id]));
+
+    return {
+      total,
+      preventivos: byType.get('PREVENTIVO') ?? 0,
+      correctivos: byType.get('CORRECTIVO') ?? 0,
+      conPdf,
+    };
+  }
+
   async findOne(id: string): Promise<SerializedReport<Report> | null> {
-    const item = await this.prisma.report.findUnique({
-      where: { id },
+    const item = await this.prisma.report.findFirst({
+      where: { id, isActive: true },
     });
 
     return this.serializeReport(item);
+  }
+
+  async remove(id: string) {
+    const item = await this.prisma.report.findUnique({
+      where: { id },
+      select: { id: true },
+    });
+
+    if (!item) {
+      throw new NotFoundException('Reporte no encontrado');
+    }
+
+    return this.prisma.report.update({
+      where: { id },
+      data: { isActive: false },
+    });
   }
 }

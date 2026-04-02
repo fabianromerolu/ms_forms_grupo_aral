@@ -1,4 +1,4 @@
-import { type Report } from '@prisma/client';
+import { Prisma, type Report } from '@prisma/client';
 import { ReportNotificationsService } from '../notifications/notifications.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateReportDto } from './dto/create-report.dto';
@@ -21,7 +21,44 @@ export declare class ReportsService {
     private buildPersistPayload;
     private serializeReport;
     private getErrorMessage;
+    private buildReportWhere;
     create(dto: CreateReportDto): Promise<SerializedReport<Report>>;
     findAll(q: ListReportsQueryDto): Promise<FindAllResponse>;
+    getSummary(q: ListReportsQueryDto): Promise<{
+        total: number;
+        preventivos: number;
+        correctivos: number;
+        conPdf: number;
+    }>;
     findOne(id: string): Promise<SerializedReport<Report> | null>;
+    remove(id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isActive: boolean;
+        incidencias: string[];
+        tienda: string;
+        incidenciaPrincipal: string | null;
+        subTipos: import("@prisma/client").$Enums.MaintenanceSubTipo[];
+        subTipoPrincipal: import("@prisma/client").$Enums.MaintenanceSubTipo | null;
+        responsable: Prisma.JsonValue | null;
+        fotosAntes: string[];
+        fotosDespues: string[];
+        tipo: import("@prisma/client").$Enums.MaintenanceTipo;
+        descripcionIncidencia: string | null;
+        observaciones: string | null;
+        nombreTecnico: string;
+        cedulaTecnico: string;
+        telefonoTecnico: string;
+        responsablePdfUrl: string | null;
+        departamentoTienda: string | null;
+        ciudadTienda: string | null;
+        tecnicoIp: string;
+        checklist: Prisma.JsonValue | null;
+        extra: Prisma.JsonValue;
+        incidenciasRemote: Prisma.JsonValue | null;
+        clientCreatedAt: Date | null;
+        estado: import("@prisma/client").$Enums.ReportEstado;
+        searchText: string;
+    }>;
 }

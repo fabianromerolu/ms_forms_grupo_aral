@@ -15,7 +15,6 @@ const common_1 = require("@nestjs/common");
 const client_1 = require("@prisma/client");
 const prisma_service_1 = require("../prisma/prisma.service");
 const notifications_service_1 = require("../notifications/notifications.service");
-const generate_number_util_1 = require("../utils/generate-number.util");
 const search_text_util_1 = require("../utils/search-text.util");
 const pagination_util_1 = require("../utils/pagination.util");
 const incident_priority_util_1 = require("../utils/incident-priority.util");
@@ -28,7 +27,19 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         this.notifier = notifier;
     }
     async create(dto, userId) {
+        const incidentNumber = dto.incidentNumber.trim();
+        if (!incidentNumber) {
+            throw new common_1.ConflictException('El número o serial de la incidencia es obligatorio');
+        }
+        const existingIncident = await this.prisma.incidencia.findUnique({
+            where: { incidentNumber },
+            select: { id: true },
+        });
+        if (existingIncident) {
+            throw new common_1.ConflictException('El número de incidencia ya existe');
+        }
         const searchText = (0, search_text_util_1.buildSearchText)([
+            incidentNumber,
             dto.storeName,
             dto.description,
             dto.city,
@@ -36,7 +47,6 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
             dto.specialty,
             dto.storeCode,
         ]);
-        const incidentNumber = (0, generate_number_util_1.generateUniqueNumber)('INC');
         const incidencia = await this.prisma.incidencia.create({
             data: {
                 incidentNumber,
@@ -80,7 +90,7 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         const page = Number(q.page) || 1;
         const limit = Math.min(Number(q.limit) || 20, 100);
         const skip = (page - 1) * limit;
-        const where = {};
+        const where = { isDisabled: false };
         const and = [];
         if (q.status)
             and.push({ status: q.status });
@@ -150,7 +160,18 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
     }
     async update(id, dto, userId) {
         const current = await this.findOne(id);
+        if (dto.incidentNumber !== undefined &&
+            dto.incidentNumber.trim() !== current.incidentNumber) {
+            const existingIncident = await this.prisma.incidencia.findUnique({
+                where: { incidentNumber: dto.incidentNumber.trim() },
+                select: { id: true },
+            });
+            if (existingIncident) {
+                throw new common_1.ConflictException('El número de incidencia ya existe');
+            }
+        }
         const searchText = (0, search_text_util_1.buildSearchText)([
+            dto.incidentNumber ?? current.incidentNumber,
             dto.storeName ?? current.storeName,
             dto.description ?? current.description,
             dto.city ?? current.city,
@@ -162,6 +183,9 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         const updateData = {
             ...(dto.tiendaId !== undefined && {
                 tienda: { connect: { id: dto.tiendaId } },
+            }),
+            ...(dto.incidentNumber !== undefined && {
+                incidentNumber: dto.incidentNumber.trim(),
             }),
             ...(dto.storeCode !== undefined && { storeCode: dto.storeCode }),
             ...(dto.storeName !== undefined && { storeName: dto.storeName }),
@@ -222,7 +246,13 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         return { ...updated, priority: (0, incident_priority_util_1.computeIncidentPriority)(updated.expirationAt) };
     }
     async remove(id) {
-        await this.findOne(id);
+        const incident = await this.prisma.incidencia.findUnique({
+            where: { id },
+            select: { id: true },
+        });
+        if (!incident) {
+            throw new common_1.NotFoundException('Incidencia no encontrada');
+        }
         return this.prisma.incidencia.update({
             where: { id },
             data: { isDisabled: true },

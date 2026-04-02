@@ -11,6 +11,10 @@ import {
 import { IncidenciaMaintenanceType, IncidenciaPriority } from '@prisma/client';
 
 export class CreateIncidentDto {
+  @ApiProperty({ description: 'Número o serial entregado por el solicitante' })
+  @IsString()
+  incidentNumber: string;
+
   @ApiPropertyOptional({ description: 'ID de tienda registrada' })
   @IsOptional()
   @IsUUID()

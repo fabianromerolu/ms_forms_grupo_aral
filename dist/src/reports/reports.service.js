@@ -170,6 +170,109 @@ let ReportsService = ReportsService_1 = class ReportsService {
         }
         return (0, reports_utils_1.safeText)(error) || 'Error desconocido';
     }
+    buildReportWhere(q) {
+        const from = (0, reports_utils_1.safeDate)(q.from);
+        const to = (0, reports_utils_1.safeDate)(q.to);
+        const andFilters = [{ isActive: true }];
+        if (from || to) {
+            const createdAt = {};
+            if (from) {
+                createdAt.gte = from;
+            }
+            if (to) {
+                createdAt.lte = to;
+            }
+            andFilters.push({ createdAt });
+        }
+        if (q.tipo) {
+            andFilters.push({ tipo: q.tipo });
+        }
+        if (q.subTipo) {
+            andFilters.push({
+                OR: [{ subTipoPrincipal: q.subTipo }, { subTipos: { has: q.subTipo } }],
+            });
+        }
+        if (q.incidencia) {
+            andFilters.push({
+                OR: [
+                    {
+                        incidenciaPrincipal: {
+                            contains: q.incidencia,
+                            mode: client_1.Prisma.QueryMode.insensitive,
+                        },
+                    },
+                    { incidencias: { has: q.incidencia } },
+                    { searchText: { contains: q.incidencia.toLowerCase() } },
+                ],
+            });
+        }
+        if (q.tienda) {
+            andFilters.push({
+                tienda: {
+                    contains: q.tienda,
+                    mode: client_1.Prisma.QueryMode.insensitive,
+                },
+            });
+        }
+        if (q.departamentoTienda) {
+            andFilters.push({
+                departamentoTienda: {
+                    contains: q.departamentoTienda,
+                    mode: client_1.Prisma.QueryMode.insensitive,
+                },
+            });
+        }
+        if (q.ciudadTienda) {
+            andFilters.push({
+                ciudadTienda: {
+                    contains: q.ciudadTienda,
+                    mode: client_1.Prisma.QueryMode.insensitive,
+                },
+            });
+        }
+        if (q.q) {
+            andFilters.push({
+                searchText: {
+                    contains: q.q.toLowerCase(),
+                },
+            });
+        }
+        if (q.hasPdf !== undefined) {
+            andFilters.push(q.hasPdf
+                ? {
+                    AND: [
+                        { responsablePdfUrl: { not: null } },
+                        { responsablePdfUrl: { not: '' } },
+                    ],
+                }
+                : {
+                    OR: [
+                        { responsablePdfUrl: { equals: null } },
+                        { responsablePdfUrl: '' },
+                    ],
+                });
+        }
+        if (q.extraPath && (q.extraEquals || q.extraContains)) {
+            const path = [q.extraPath];
+            if (q.extraEquals) {
+                andFilters.push({
+                    extra: {
+                        path,
+                        equals: (0, reports_utils_1.parseMaybeJsonValue)(q.extraEquals),
+                    },
+                });
+            }
+            else if (q.extraContains) {
+                andFilters.push({
+                    extra: {
+                        path,
+                        string_contains: q.extraContains,
+                    },
+                });
+            }
+        }
+        return andFilters.length > 0 ? { AND: andFilters } : {};
+    }
     async create(dto) {
         const clientCreatedAt = dto.createdAt ? (0, reports_utils_1.safeDate)(dto.createdAt) : undefined;
         const incidencias = this.normalizeIncidencias(dto.data);
@@ -244,92 +347,7 @@ let ReportsService = ReportsService_1 = class ReportsService {
         const page = q.page ?? 1;
         const limit = Math.min(q.limit ?? 20, 100);
         const skip = (page - 1) * limit;
-        const from = (0, reports_utils_1.safeDate)(q.from);
-        const to = (0, reports_utils_1.safeDate)(q.to);
-        const andFilters = [];
-        if (from || to) {
-            const createdAt = {};
-            if (from) {
-                createdAt.gte = from;
-            }
-            if (to) {
-                createdAt.lte = to;
-            }
-            andFilters.push({ createdAt });
-        }
-        if (q.tipo) {
-            andFilters.push({ tipo: q.tipo });
-        }
-        if (q.subTipo) {
-            andFilters.push({
-                OR: [{ subTipoPrincipal: q.subTipo }, { subTipos: { has: q.subTipo } }],
-            });
-        }
-        if (q.incidencia) {
-            andFilters.push({
-                OR: [
-                    {
-                        incidenciaPrincipal: {
-                            contains: q.incidencia,
-                            mode: client_1.Prisma.QueryMode.insensitive,
-                        },
-                    },
-                    { incidencias: { has: q.incidencia } },
-                    { searchText: { contains: q.incidencia.toLowerCase() } },
-                ],
-            });
-        }
-        if (q.tienda) {
-            andFilters.push({
-                tienda: {
-                    contains: q.tienda,
-                    mode: client_1.Prisma.QueryMode.insensitive,
-                },
-            });
-        }
-        if (q.departamentoTienda) {
-            andFilters.push({
-                departamentoTienda: {
-                    contains: q.departamentoTienda,
-                    mode: client_1.Prisma.QueryMode.insensitive,
-                },
-            });
-        }
-        if (q.ciudadTienda) {
-            andFilters.push({
-                ciudadTienda: {
-                    contains: q.ciudadTienda,
-                    mode: client_1.Prisma.QueryMode.insensitive,
-                },
-            });
-        }
-        if (q.q) {
-            andFilters.push({
-                searchText: {
-                    contains: q.q.toLowerCase(),
-                },
-            });
-        }
-        if (q.extraPath && (q.extraEquals || q.extraContains)) {
-            const path = [q.extraPath];
-            if (q.extraEquals) {
-                andFilters.push({
-                    extra: {
-                        path,
-                        equals: (0, reports_utils_1.parseMaybeJsonValue)(q.extraEquals),
-                    },
-                });
-            }
-            else if (q.extraContains) {
-                andFilters.push({
-                    extra: {
-                        path,
-                        string_contains: q.extraContains,
-                    },
-                });
-            }
-        }
-        const where = andFilters.length > 0 ? { AND: andFilters } : {};
+        const where = this.buildReportWhere(q);
         const [total, items] = await Promise.all([
             this.prisma.report.count({ where }),
             this.prisma.report.findMany({
@@ -341,11 +359,57 @@ let ReportsService = ReportsService_1 = class ReportsService {
         ]);
         return (0, pagination_util_1.paginateResponse)(items.map((item) => this.serializeReport(item)), total, page, limit);
     }
+    async getSummary(q) {
+        const summaryFilters = {
+            q: q.q,
+            from: q.from,
+            to: q.to,
+            subTipo: q.subTipo,
+            incidencia: q.incidencia,
+            tienda: q.tienda,
+            departamentoTienda: q.departamentoTienda,
+            ciudadTienda: q.ciudadTienda,
+            extraPath: q.extraPath,
+            extraEquals: q.extraEquals,
+            extraContains: q.extraContains,
+        };
+        const total = await this.prisma.report.count({
+            where: this.buildReportWhere(summaryFilters),
+        });
+        const rows = await this.prisma.report.groupBy({
+            by: ['tipo'],
+            _count: { id: true },
+            where: this.buildReportWhere(summaryFilters),
+        });
+        const conPdf = await this.prisma.report.count({
+            where: this.buildReportWhere({ ...summaryFilters, hasPdf: true }),
+        });
+        const byType = new Map(rows.map((row) => [row.tipo, row._count.id]));
+        return {
+            total,
+            preventivos: byType.get('PREVENTIVO') ?? 0,
+            correctivos: byType.get('CORRECTIVO') ?? 0,
+            conPdf,
+        };
+    }
     async findOne(id) {
-        const item = await this.prisma.report.findUnique({
-            where: { id },
+        const item = await this.prisma.report.findFirst({
+            where: { id, isActive: true },
         });
         return this.serializeReport(item);
+    }
+    async remove(id) {
+        const item = await this.prisma.report.findUnique({
+            where: { id },
+            select: { id: true },
+        });
+        if (!item) {
+            throw new common_1.NotFoundException('Reporte no encontrado');
+        }
+        return this.prisma.report.update({
+            where: { id },
+            data: { isActive: false },
+        });
     }
 };
 exports.ReportsService = ReportsService;

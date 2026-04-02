@@ -15,8 +15,10 @@ const config_1 = require("@nestjs/config");
 const passport_1 = require("@nestjs/passport");
 const passport_jwt_1 = require("passport-jwt");
 const prisma_service_1 = require("../prisma/prisma.service");
+const USER_CACHE_TTL_MS = 60_000;
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     prisma;
+    cache = new Map();
     constructor(config, prisma) {
         const secret = config.get('JWT_SECRET');
         if (!secret) {
@@ -30,6 +32,11 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         this.prisma = prisma;
     }
     async validate(payload) {
+        const now = Date.now();
+        const cached = this.cache.get(payload.sub);
+        if (cached && cached.expiresAt > now) {
+            return cached.user;
+        }
         const user = await this.prisma.user.findUnique({
             where: { id: payload.sub },
             select: {
@@ -41,8 +48,10 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
             },
         });
         if (!user || user.status === 'DISABLED') {
+            this.cache.delete(payload.sub);
             throw new common_1.UnauthorizedException('Usuario inactivo o no encontrado');
         }
+        this.cache.set(payload.sub, { user, expiresAt: now + USER_CACHE_TTL_MS });
         return user;
     }
 };

@@ -85,7 +85,7 @@ let QuotesService = class QuotesService {
     async findAll(page = 1, limit_ = 20, q, format) {
         const limit = Math.min(limit_, 100);
         const skip = (page - 1) * limit;
-        const where = {};
+        const where = { isActive: true };
         if (format)
             where.format = format;
         if (q) {
@@ -211,7 +211,10 @@ let QuotesService = class QuotesService {
     }
     async remove(id) {
         await this.findOne(id);
-        return this.prisma.cotizacion.delete({ where: { id } });
+        return this.prisma.cotizacion.update({
+            where: { id },
+            data: { isActive: false },
+        });
     }
 };
 exports.QuotesService = QuotesService;

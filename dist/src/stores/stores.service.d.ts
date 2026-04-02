@@ -74,8 +74,8 @@ export declare class StoresService {
             createdAt: Date;
             data: Prisma.JsonValue | null;
             tiendaId: string;
-            action: string;
             by: string | null;
+            action: string;
         }[];
     } & {
         id: string;
