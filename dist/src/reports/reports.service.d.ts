@@ -22,7 +22,10 @@ export declare class ReportsService {
     private serializeReport;
     private getErrorMessage;
     private buildReportWhere;
-    create(dto: CreateReportDto): Promise<SerializedReport<Report>>;
+    create(dto: CreateReportDto, actor?: {
+        id: string;
+        role: string;
+    } | null): Promise<SerializedReport<Report>>;
     findAll(q: ListReportsQueryDto): Promise<FindAllResponse>;
     getSummary(q: ListReportsQueryDto): Promise<{
         total: number;

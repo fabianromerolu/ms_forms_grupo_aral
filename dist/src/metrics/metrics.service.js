@@ -26,10 +26,15 @@ let MetricsService = class MetricsService {
         const solicitudesAbiertas = await this.prisma.solicitud.count({
             where: {
                 status: { notIn: ['APROBADA', 'RECHAZADA'] },
+                isActive: true,
             },
         });
-        const reportesRecibidos = await this.prisma.report.count();
-        const cotizaciones = await this.prisma.cotizacion.count();
+        const reportesRecibidos = await this.prisma.report.count({
+            where: { isActive: true },
+        });
+        const cotizaciones = await this.prisma.cotizacion.count({
+            where: { isActive: true },
+        });
         const tiendasCubiertas = await this.prisma.tienda.count({
             where: { isActive: true },
         });
@@ -69,6 +74,7 @@ let MetricsService = class MetricsService {
         const rows = await this.prisma.solicitud.groupBy({
             by: ['status'],
             _count: { id: true },
+            where: { isActive: true },
         });
         return rows.map((r) => ({ status: r.status, count: r._count.id }));
     }
@@ -76,6 +82,7 @@ let MetricsService = class MetricsService {
         const rows = await this.prisma.report.groupBy({
             by: ['tipo'],
             _count: { id: true },
+            where: { isActive: true },
         });
         return rows.map((r) => ({ tipo: r.tipo, count: r._count.id }));
     }
@@ -108,7 +115,7 @@ let MetricsService = class MetricsService {
         const from = new Date();
         from.setDate(from.getDate() - days);
         const reports = await this.prisma.report.findMany({
-            where: { createdAt: { gte: from } },
+            where: { createdAt: { gte: from }, isActive: true },
             select: { createdAt: true },
             orderBy: { createdAt: 'asc' },
         });

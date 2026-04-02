@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -27,8 +28,11 @@ export class ReportsController {
   @ApiBearerAuth()
   @UseGuards(OptionalJwtAuthGuard)
   @Post()
-  create(@Body() dto: CreateReportDto) {
-    return this.service.create(dto);
+  create(
+    @Body() dto: CreateReportDto,
+    @Req() req: { user?: { id: string; role: string } },
+  ) {
+    return this.service.create(dto, req.user ?? null);
   }
 
   @ApiBearerAuth()

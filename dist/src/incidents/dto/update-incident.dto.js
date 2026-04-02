@@ -31,9 +31,13 @@ class UpdateIncidentDto {
     saleCost;
     purchaseOrderNumber;
     purchaseOrderDocumentUrl;
+    purchaseOrderDocumentName;
     invoiceNumber;
     invoiceDocumentUrl;
+    invoiceDocumentName;
     consolidatedNote;
+    consolidatedDocumentUrl;
+    consolidatedDocumentName;
     isDisabled;
     statusNote;
     updatedBy;
@@ -148,6 +152,12 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
+], UpdateIncidentDto.prototype, "purchaseOrderDocumentName", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
 ], UpdateIncidentDto.prototype, "invoiceNumber", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)(),
@@ -160,7 +170,25 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
+], UpdateIncidentDto.prototype, "invoiceDocumentName", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
 ], UpdateIncidentDto.prototype, "consolidatedNote", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateIncidentDto.prototype, "consolidatedDocumentUrl", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateIncidentDto.prototype, "consolidatedDocumentName", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)(),
     (0, class_validator_1.IsOptional)(),

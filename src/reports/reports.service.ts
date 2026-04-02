@@ -2,6 +2,7 @@
 import { Prisma, type Report } from '@prisma/client';
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   Logger,
   NotFoundException,
@@ -408,7 +409,10 @@ export class ReportsService {
     return andFilters.length > 0 ? { AND: andFilters } : {};
   }
 
-  async create(dto: CreateReportDto): Promise<SerializedReport<Report>> {
+  async create(
+    dto: CreateReportDto,
+    actor?: { id: string; role: string } | null,
+  ): Promise<SerializedReport<Report>> {
     const clientCreatedAt = dto.createdAt ? safeDate(dto.createdAt) : undefined;
 
     const incidencias = this.normalizeIncidencias(dto.data);
@@ -468,8 +472,18 @@ export class ReportsService {
 
     const prev = await this.prisma.report.findUnique({
       where: { id: dto.id },
-      select: { id: true, responsablePdfUrl: true },
+      select: { id: true, responsablePdfUrl: true, isActive: true },
     });
+
+    if (prev && actor?.role !== 'ADMIN') {
+      throw new ForbiddenException(
+        'Solo el administrador puede editar reportes existentes',
+      );
+    }
+
+    if (prev && !prev.isActive) {
+      throw new NotFoundException('El reporte no está disponible');
+    }
 
     const shouldNotify = wantsPdfNotify && !prev?.responsablePdfUrl;
 

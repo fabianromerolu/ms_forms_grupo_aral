@@ -30,9 +30,13 @@ class CreateIncidentDto {
     saleCost;
     purchaseOrderNumber;
     purchaseOrderDocumentUrl;
+    purchaseOrderDocumentName;
     invoiceNumber;
     invoiceDocumentUrl;
+    invoiceDocumentName;
     consolidatedNote;
+    consolidatedDocumentUrl;
+    consolidatedDocumentName;
     createdBy;
 }
 exports.CreateIncidentDto = CreateIncidentDto;
@@ -135,6 +139,12 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
+], CreateIncidentDto.prototype, "purchaseOrderDocumentName", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
 ], CreateIncidentDto.prototype, "invoiceNumber", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)(),
@@ -147,7 +157,25 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
+], CreateIncidentDto.prototype, "invoiceDocumentName", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
 ], CreateIncidentDto.prototype, "consolidatedNote", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateIncidentDto.prototype, "consolidatedDocumentUrl", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateIncidentDto.prototype, "consolidatedDocumentName", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)(),
     (0, class_validator_1.IsOptional)(),

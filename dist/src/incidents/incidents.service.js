@@ -65,9 +65,13 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
                 saleCost: dto.saleCost,
                 purchaseOrderNumber: dto.purchaseOrderNumber,
                 purchaseOrderDocumentUrl: dto.purchaseOrderDocumentUrl,
+                purchaseOrderDocumentName: dto.purchaseOrderDocumentName,
                 invoiceNumber: dto.invoiceNumber,
                 invoiceDocumentUrl: dto.invoiceDocumentUrl,
+                invoiceDocumentName: dto.invoiceDocumentName,
                 consolidatedNote: dto.consolidatedNote,
+                consolidatedDocumentUrl: dto.consolidatedDocumentUrl,
+                consolidatedDocumentName: dto.consolidatedDocumentName,
                 createdById: userId,
                 searchText,
             },
@@ -212,14 +216,26 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
             ...(dto.purchaseOrderDocumentUrl !== undefined && {
                 purchaseOrderDocumentUrl: dto.purchaseOrderDocumentUrl,
             }),
+            ...(dto.purchaseOrderDocumentName !== undefined && {
+                purchaseOrderDocumentName: dto.purchaseOrderDocumentName,
+            }),
             ...(dto.invoiceNumber !== undefined && {
                 invoiceNumber: dto.invoiceNumber,
             }),
             ...(dto.invoiceDocumentUrl !== undefined && {
                 invoiceDocumentUrl: dto.invoiceDocumentUrl,
             }),
+            ...(dto.invoiceDocumentName !== undefined && {
+                invoiceDocumentName: dto.invoiceDocumentName,
+            }),
             ...(dto.consolidatedNote !== undefined && {
                 consolidatedNote: dto.consolidatedNote,
+            }),
+            ...(dto.consolidatedDocumentUrl !== undefined && {
+                consolidatedDocumentUrl: dto.consolidatedDocumentUrl,
+            }),
+            ...(dto.consolidatedDocumentName !== undefined && {
+                consolidatedDocumentName: dto.consolidatedDocumentName,
             }),
             ...(dto.isDisabled !== undefined && { isDisabled: dto.isDisabled }),
             ...(dto.status === 'CERRADA' && { closedAt: new Date() }),

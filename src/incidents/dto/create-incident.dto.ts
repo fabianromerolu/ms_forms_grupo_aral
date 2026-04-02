@@ -92,6 +92,11 @@ export class CreateIncidentDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  purchaseOrderDocumentName?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   invoiceNumber?: string;
 
   @ApiPropertyOptional()
@@ -102,7 +107,22 @@ export class CreateIncidentDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  invoiceDocumentName?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   consolidatedNote?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  consolidatedDocumentUrl?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  consolidatedDocumentName?: string;
 
   @ApiPropertyOptional()
   @IsOptional()

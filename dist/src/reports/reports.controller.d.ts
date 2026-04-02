@@ -4,7 +4,12 @@ import { ListReportsQueryDto } from './dto/list-reports.query.dto';
 export declare class ReportsController {
     private readonly service;
     constructor(service: ReportsService);
-    create(dto: CreateReportDto): Promise<import("../utils/reports.utils").SerializedReport<{
+    create(dto: CreateReportDto, req: {
+        user?: {
+            id: string;
+            role: string;
+        };
+    }): Promise<import("../utils/reports.utils").SerializedReport<{
         id: string;
         createdAt: Date;
         updatedAt: Date;

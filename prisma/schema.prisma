@@ -252,9 +252,13 @@ model Incidencia {
   saleCost                Float?
   purchaseOrderNumber     String?
   purchaseOrderDocumentUrl String?
+  purchaseOrderDocumentName String?
   invoiceNumber           String?
   invoiceDocumentUrl      String?
+  invoiceDocumentName     String?
   consolidatedNote        String?
+  consolidatedDocumentUrl String?
+  consolidatedDocumentName String?
   closedAt                DateTime?
   isDisabled              Boolean                   @default(false)
   createdById             String?                   @db.Uuid

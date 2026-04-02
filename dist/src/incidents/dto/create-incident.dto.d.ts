@@ -16,8 +16,12 @@ export declare class CreateIncidentDto {
     saleCost?: number;
     purchaseOrderNumber?: string;
     purchaseOrderDocumentUrl?: string;
+    purchaseOrderDocumentName?: string;
     invoiceNumber?: string;
     invoiceDocumentUrl?: string;
+    invoiceDocumentName?: string;
     consolidatedNote?: string;
+    consolidatedDocumentUrl?: string;
+    consolidatedDocumentName?: string;
     createdBy?: string;
 }

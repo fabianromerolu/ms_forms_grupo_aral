@@ -273,7 +273,7 @@ let ReportsService = ReportsService_1 = class ReportsService {
         }
         return andFilters.length > 0 ? { AND: andFilters } : {};
     }
-    async create(dto) {
+    async create(dto, actor) {
         const clientCreatedAt = dto.createdAt ? (0, reports_utils_1.safeDate)(dto.createdAt) : undefined;
         const incidencias = this.normalizeIncidencias(dto.data);
         if (incidencias.length === 0) {
@@ -311,8 +311,14 @@ let ReportsService = ReportsService_1 = class ReportsService {
         const wantsPdfNotify = Boolean(dto.responsablePdfUrl?.trim());
         const prev = await this.prisma.report.findUnique({
             where: { id: dto.id },
-            select: { id: true, responsablePdfUrl: true },
+            select: { id: true, responsablePdfUrl: true, isActive: true },
         });
+        if (prev && actor?.role !== 'ADMIN') {
+            throw new common_1.ForbiddenException('Solo el administrador puede editar reportes existentes');
+        }
+        if (prev && !prev.isActive) {
+            throw new common_1.NotFoundException('El reporte no está disponible');
+        }
         const shouldNotify = wantsPdfNotify && !prev?.responsablePdfUrl;
         const persistPayload = this.buildPersistPayload({
             dto,

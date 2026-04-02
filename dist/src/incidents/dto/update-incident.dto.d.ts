@@ -17,9 +17,13 @@ export declare class UpdateIncidentDto {
     saleCost?: number;
     purchaseOrderNumber?: string;
     purchaseOrderDocumentUrl?: string;
+    purchaseOrderDocumentName?: string;
     invoiceNumber?: string;
     invoiceDocumentUrl?: string;
+    invoiceDocumentName?: string;
     consolidatedNote?: string;
+    consolidatedDocumentUrl?: string;
+    consolidatedDocumentName?: string;
     isDisabled?: boolean;
     statusNote?: string;
     updatedBy?: string;
