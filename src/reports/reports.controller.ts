@@ -35,14 +35,6 @@ export class ReportsController {
     return this.service.create(dto, req.user ?? null);
   }
 
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(
-    UserRole.ADMIN,
-    UserRole.COORDINADOR,
-    UserRole.OPERARIO,
-    UserRole.SUPERVISOR,
-  )
   @Get()
   findAll(@Query() q: ListReportsQueryDto) {
     return this.service.findAll(q);
