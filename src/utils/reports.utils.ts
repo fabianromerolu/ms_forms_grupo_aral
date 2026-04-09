@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import { MaintenanceSubTipo } from '@prisma/client';
 import { Prisma, type Report } from '@prisma/client';
-import { CreateReportDto } from 'src/reports/dto/create-report.dto';
+import { CreateReportDto } from '../reports/dto/create-report.dto';
 import { safeText as _safeText, uniqueStrings as _uniqueStrings } from './text.utils';
 
 export const PREVENTIVO_SUBTIPOS = new Set<MaintenanceSubTipo>([

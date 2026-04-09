@@ -3,7 +3,7 @@ import { ReportNotificationsService } from '../notifications/notifications.servi
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateReportDto } from './dto/create-report.dto';
 import { ListReportsQueryDto } from './dto/list-reports.query.dto';
-import { FindAllResponse, SerializedReport } from 'src/utils/reports.utils';
+import { FindAllResponse, SerializedReport } from '../utils/reports.utils';
 export declare class ReportsService {
     private readonly prisma;
     private readonly notifier;

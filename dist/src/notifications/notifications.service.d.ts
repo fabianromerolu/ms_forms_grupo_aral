@@ -1,4 +1,4 @@
-import { AnyObj } from 'src/utils/notifications.utils';
+import { AnyObj } from '../utils/notifications.utils';
 import type { Incidencia } from '@prisma/client';
 export declare class ReportNotificationsService {
     private readonly logger;

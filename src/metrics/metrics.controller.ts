@@ -58,4 +58,21 @@ export class MetricsController {
   getTimeSeries(@Query('days') days?: string) {
     return this.service.getTimeSeries(Number(days) || 30);
   }
+
+  @Get('store')
+  @ApiQuery({ name: 'storeCode', required: true, description: 'Código de tienda' })
+  @ApiQuery({ name: 'year', required: false, description: 'Año (default año actual)' })
+  @ApiQuery({ name: 'month', required: false, description: 'Mes 1-12 (default mes actual)' })
+  getStoreMetrics(
+    @Query('storeCode') storeCode: string,
+    @Query('year') year?: string,
+    @Query('month') month?: string,
+  ) {
+    const now = new Date();
+    return this.service.getStoreMetrics(
+      storeCode,
+      Number(year) || now.getFullYear(),
+      Number(month) || now.getMonth() + 1,
+    );
+  }
 }

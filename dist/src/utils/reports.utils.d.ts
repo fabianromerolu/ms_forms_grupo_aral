@@ -1,6 +1,6 @@
 import { MaintenanceSubTipo } from '@prisma/client';
 import { Prisma, type Report } from '@prisma/client';
-import { CreateReportDto } from 'src/reports/dto/create-report.dto';
+import { CreateReportDto } from '../reports/dto/create-report.dto';
 import { safeText as _safeText, uniqueStrings as _uniqueStrings } from './text.utils';
 export declare const PREVENTIVO_SUBTIPOS: Set<import("@prisma/client").$Enums.MaintenanceSubTipo>;
 export declare const CORRECTIVO_SUBTIPOS: Set<import("@prisma/client").$Enums.MaintenanceSubTipo>;

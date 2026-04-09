@@ -32,7 +32,7 @@ import {
   toJsonObject,
   uniqueEnums,
   uniqueStrings,
-} from 'src/utils/reports.utils';
+} from '../utils/reports.utils';
 
 @Injectable()
 export class ReportsService {
@@ -519,7 +519,66 @@ export class ReportsService {
       });
     }
 
+    // Auto-avanzar incidencias vinculadas a INFORMADA cuando el reporte tiene PDF.
+    // Solo aplica para reportes creados a partir del 09/04/2026 (migración a nueva plataforma).
+    const AUTO_INFORMADA_SINCE = new Date("2026-04-09T00:00:00.000Z");
+    const reportCreatedAt = saved.clientCreatedAt ?? saved.createdAt;
+    const isEligibleForAutoInformada =
+      wantsPdfNotify &&
+      incidencias.length > 0 &&
+      new Date(reportCreatedAt) >= AUTO_INFORMADA_SINCE;
+
+    if (isEligibleForAutoInformada) {
+      void this.autoAdvanceIncidenciasToInformada(incidencias, AUTO_INFORMADA_SINCE).catch(
+        (error: unknown) => {
+          this.logger.warn(
+            `Auto-INFORMADA falló: ${this.getErrorMessage(error)}`,
+          );
+        },
+      );
+    }
+
     return this.serializeReport(saved);
+  }
+
+  /** Avanza a INFORMADA todas las incidencias vinculadas que estén en CREADA o COTIZADA.
+   *  Solo procesa incidencias creadas a partir de `since` para evitar ensuciar data histórica. */
+  private async autoAdvanceIncidenciasToInformada(
+    incidencias: string[],
+    since?: Date,
+  ): Promise<void> {
+    const ELIGIBLE_STATUSES = ['CREADA', 'COTIZADA'];
+
+    for (const numero of incidencias) {
+      const inc = await this.prisma.incidencia.findFirst({
+        where: { incidentNumber: numero },
+        select: { id: true, status: true, createdAt: true },
+      });
+
+      if (!inc) continue;
+      if (!ELIGIBLE_STATUSES.includes(inc.status)) continue;
+      // No tocar incidencias creadas antes de la fecha de migración
+      if (since && new Date(inc.createdAt) < since) continue;
+
+      await this.prisma.incidencia.update({
+        where: { id: inc.id },
+        data: { status: 'INFORMADA' },
+      });
+
+      await this.prisma.incidenciaHistoryEvent.create({
+        data: {
+          incidenciaId: inc.id,
+          action: 'ESTADO_CAMBIADO',
+          fromStatus: inc.status as any,
+          toStatus: 'INFORMADA' as any,
+          note: 'Avanzado automáticamente al recibir reporte del operario',
+        },
+      });
+
+      this.logger.log(
+        `Incidencia ${numero} → INFORMADA (reporte del operario)`,
+      );
+    }
   }
 
   async findAll(q: ListReportsQueryDto): Promise<FindAllResponse> {

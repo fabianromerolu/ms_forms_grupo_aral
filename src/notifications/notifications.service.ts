@@ -8,8 +8,8 @@ import {
   getNestedObject,
   normalizeIncidencias,
   splitEmails,
-} from 'src/utils/notifications.utils';
-import { safeText } from 'src/utils/reports.utils';
+} from '../utils/notifications.utils';
+import { safeText } from '../utils/reports.utils';
 import type { Incidencia } from '@prisma/client';
 
 type SendEmailPayload = Parameters<Resend['emails']['send']>[0];
