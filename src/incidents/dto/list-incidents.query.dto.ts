@@ -50,6 +50,11 @@ export class ListIncidentsQueryDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  regional?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   from?: string;
 
   @ApiPropertyOptional()

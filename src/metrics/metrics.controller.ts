@@ -75,4 +75,21 @@ export class MetricsController {
       Number(month) || now.getMonth() + 1,
     );
   }
+
+  @Get('regional')
+  @ApiQuery({ name: 'regional', required: true, description: 'Nombre de la regional' })
+  @ApiQuery({ name: 'year', required: false, description: 'Año (default año actual)' })
+  @ApiQuery({ name: 'month', required: false, description: 'Mes 1-12 (default mes actual)' })
+  getRegionalMetrics(
+    @Query('regional') regional: string,
+    @Query('year') year?: string,
+    @Query('month') month?: string,
+  ) {
+    const now = new Date();
+    return this.service.getRegionalMetrics(
+      regional,
+      Number(year) || now.getFullYear(),
+      Number(month) || now.getMonth() + 1,
+    );
+  }
 }

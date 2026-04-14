@@ -126,6 +126,14 @@ export class IncidentsService {
       });
     }
 
+    if (q.regional) {
+      and.push({
+        tienda: {
+          regional: { contains: q.regional, mode: Prisma.QueryMode.insensitive },
+        },
+      });
+    }
+
     if (q.from || q.to) {
       const createdAt: Prisma.DateTimeFilter = {};
       if (q.from) createdAt.gte = new Date(q.from);

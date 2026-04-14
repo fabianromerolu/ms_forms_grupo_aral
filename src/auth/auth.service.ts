@@ -39,6 +39,7 @@ export class AuthService {
         document: dto.document,
         phone: dto.phone,
         city: dto.city,
+        regional: dto.regional,
       },
       select: {
         id: true,
@@ -46,6 +47,7 @@ export class AuthService {
         email: true,
         role: true,
         status: true,
+        regional: true,
         createdAt: true,
       },
     });
@@ -71,7 +73,7 @@ export class AuthService {
       throw new UnauthorizedException('Credenciales inválidas');
     }
 
-    const payload = { sub: user.id, email: user.email, role: user.role };
+    const payload = { sub: user.id, email: user.email, role: user.role, regional: user.regional };
     const secret = this.config.get<string>('JWT_SECRET');
     if (!secret) {
       throw new Error('JWT_SECRET environment variable is not defined');
@@ -92,6 +94,7 @@ export class AuthService {
         role: user.role,
         status: user.status,
         avatarUrl: user.avatarUrl,
+        regional: user.regional,
       },
     };
   }
@@ -108,6 +111,7 @@ export class AuthService {
         document: true,
         phone: true,
         city: true,
+        regional: true,
         avatarUrl: true,
         createdAt: true,
       },

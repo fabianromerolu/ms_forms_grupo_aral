@@ -142,6 +142,7 @@ model User {
   document   String?
   phone      String?
   city       String?
+  regional   String?
   status     UserStatus @default(ACTIVE)
   avatarUrl  String?
   createdAt  DateTime   @default(now())

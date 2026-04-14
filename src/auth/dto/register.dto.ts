@@ -41,4 +41,9 @@ export class RegisterDto {
   @IsOptional()
   @IsString()
   city?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  regional?: string;
 }
