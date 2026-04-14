@@ -121,6 +121,8 @@ model Report {
   isActive              Boolean             @default(true)
   searchText            String              @db.Text
   updatedAt             DateTime            @updatedAt
+  createdById           String?             @db.Uuid
+  createdBy             User?               @relation("ReportCreatedBy", fields: [createdById], references: [id])
 
   @@index([createdAt])
   @@index([tipo])
@@ -152,6 +154,7 @@ model User {
   incidenciasActualizadas Incidencia[]       @relation("UpdatedBy")
   cotizacionesCreadas   Cotizacion[]         @relation("QuoteCreatedBy")
   solicitudesCreadas    Solicitud[]          @relation("SolicitudCreatedBy")
+  reportesCreados       Report[]             @relation("ReportCreatedBy")
   actividades           Actividad[]
 
   @@index([email])

@@ -43,6 +43,7 @@ export class RequestsService {
     q?: string,
     status?: string,
     priority?: string,
+    regional?: string,
   ) {
     const limit = Math.min(limit_, 100);
     const skip = (page - 1) * limit;
@@ -52,6 +53,15 @@ export class RequestsService {
     if (status) and.push({ status: status as SolicitudStatus });
     if (priority) and.push({ priority: priority as IncidenciaPriority });
     if (q) and.push({ searchText: { contains: q.toLowerCase() } });
+
+    if (regional) {
+      const tiendas = await this.prisma.tienda.findMany({
+        where: { regional: { contains: regional, mode: Prisma.QueryMode.insensitive } },
+        select: { storeCode: true },
+      });
+      const codes = tiendas.map((t) => t.storeCode);
+      and.push({ storeCode: codes.length > 0 ? { in: codes } : { equals: '__NO_MATCH__' } });
+    }
 
     if (and.length > 0) where.AND = and;
 

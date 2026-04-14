@@ -45,12 +45,14 @@ export class RequestsController {
   @ApiQuery({ name: 'q', required: false })
   @ApiQuery({ name: 'status', required: false })
   @ApiQuery({ name: 'priority', required: false })
+  @ApiQuery({ name: 'regional', required: false })
   findAll(
     @Query('page') page?: string,
     @Query('limit') limit?: string,
     @Query('q') q?: string,
     @Query('status') status?: string,
     @Query('priority') priority?: string,
+    @Query('regional') regional?: string,
   ) {
     return this.service.findAll(
       Number(page) || 1,
@@ -58,6 +60,7 @@ export class RequestsController {
       q,
       status,
       priority,
+      regional,
     );
   }
 

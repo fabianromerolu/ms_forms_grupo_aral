@@ -93,4 +93,8 @@ export class ListReportsQueryDto {
   @IsOptional()
   @IsEnum(['asc', 'desc'] as const)
   order?: 'asc' | 'desc' = 'desc';
+
+  @IsOptional()
+  @IsString()
+  createdById?: string;
 }

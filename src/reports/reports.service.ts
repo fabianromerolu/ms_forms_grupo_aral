@@ -386,6 +386,10 @@ export class ReportsService {
       );
     }
 
+    if (q.createdById) {
+      andFilters.push({ createdById: q.createdById });
+    }
+
     if (q.extraPath && (q.extraEquals || q.extraContains)) {
       const path = [q.extraPath];
 
@@ -507,6 +511,7 @@ export class ReportsService {
       create: {
         id: dto.id,
         ...persistPayload,
+        createdById: actor?.id ?? undefined,
       },
       update: persistPayload,
     });
