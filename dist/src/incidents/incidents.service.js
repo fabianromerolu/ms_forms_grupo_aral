@@ -115,6 +115,13 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
                 city: { contains: q.city, mode: client_1.Prisma.QueryMode.insensitive },
             });
         }
+        if (q.regional) {
+            and.push({
+                tienda: {
+                    regional: { contains: q.regional, mode: client_1.Prisma.QueryMode.insensitive },
+                },
+            });
+        }
         if (q.from || q.to) {
             const createdAt = {};
             if (q.from)

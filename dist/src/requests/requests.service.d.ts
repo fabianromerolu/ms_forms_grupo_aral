@@ -15,16 +15,16 @@ export declare class RequestsService {
         storeCode: string | null;
         storeName: string | null;
         searchText: string;
+        createdById: string | null;
         description: string;
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
-        createdById: string | null;
+        note: string | null;
         type: string | null;
         title: string;
-        note: string | null;
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>;
-    findAll(page?: number, limit_?: number, q?: string, status?: string, priority?: string): Promise<import("../utils/pagination.util").PaginatedResponse<{
+    findAll(page?: number, limit_?: number, q?: string, status?: string, priority?: string, regional?: string): Promise<import("../utils/pagination.util").PaginatedResponse<{
         createdBy: {
             id: string;
             email: string;
@@ -41,12 +41,12 @@ export declare class RequestsService {
         storeCode: string | null;
         storeName: string | null;
         searchText: string;
+        createdById: string | null;
         description: string;
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
-        createdById: string | null;
+        note: string | null;
         type: string | null;
         title: string;
-        note: string | null;
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>>;
@@ -67,12 +67,12 @@ export declare class RequestsService {
         storeCode: string | null;
         storeName: string | null;
         searchText: string;
+        createdById: string | null;
         description: string;
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
-        createdById: string | null;
+        note: string | null;
         type: string | null;
         title: string;
-        note: string | null;
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>;
@@ -87,12 +87,12 @@ export declare class RequestsService {
         storeCode: string | null;
         storeName: string | null;
         searchText: string;
+        createdById: string | null;
         description: string;
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
-        createdById: string | null;
+        note: string | null;
         type: string | null;
         title: string;
-        note: string | null;
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>;
@@ -107,12 +107,12 @@ export declare class RequestsService {
         storeCode: string | null;
         storeName: string | null;
         searchText: string;
+        createdById: string | null;
         description: string;
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
-        createdById: string | null;
+        note: string | null;
         type: string | null;
         title: string;
-        note: string | null;
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>;

@@ -70,10 +70,11 @@ let AuthService = class AuthService {
                 fullName: dto.fullName,
                 email: dto.email,
                 password: hashed,
-                role: dto.role ?? 'OPERARIO',
+                role: 'OPERARIO',
                 document: dto.document,
                 phone: dto.phone,
                 city: dto.city,
+                regional: dto.regional,
             },
             select: {
                 id: true,
@@ -81,6 +82,7 @@ let AuthService = class AuthService {
                 email: true,
                 role: true,
                 status: true,
+                regional: true,
                 createdAt: true,
             },
         });
@@ -100,7 +102,7 @@ let AuthService = class AuthService {
         if (!valid) {
             throw new common_1.UnauthorizedException('Credenciales inválidas');
         }
-        const payload = { sub: user.id, email: user.email, role: user.role };
+        const payload = { sub: user.id, email: user.email, role: user.role, regional: user.regional };
         const secret = this.config.get('JWT_SECRET');
         if (!secret) {
             throw new Error('JWT_SECRET environment variable is not defined');
@@ -119,6 +121,7 @@ let AuthService = class AuthService {
                 role: user.role,
                 status: user.status,
                 avatarUrl: user.avatarUrl,
+                regional: user.regional,
             },
         };
     }
@@ -134,6 +137,7 @@ let AuthService = class AuthService {
                 document: true,
                 phone: true,
                 city: true,
+                regional: true,
                 avatarUrl: true,
                 createdAt: true,
             },

@@ -30,6 +30,9 @@ let UsersController = class UsersController {
     create(dto) {
         return this.service.create(dto);
     }
+    createPrivileged(dto) {
+        return this.service.createPrivileged(dto);
+    }
     findAll(page, limit) {
         return this.service.findAll(Number(page) || 1, Number(limit) || 20);
     }
@@ -42,6 +45,9 @@ let UsersController = class UsersController {
     remove(id) {
         return this.service.remove(id);
     }
+    hardRemove(id) {
+        return this.service.hardRemove(id);
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -51,6 +57,13 @@ __decorate([
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('privileged'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [users_service_1.CreatePrivilegedUserDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "createPrivileged", null);
 __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiQuery)({ name: 'page', required: false }),
@@ -83,6 +96,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Delete)(':id/permanent'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "hardRemove", null);
 exports.UsersController = UsersController = __decorate([
     (0, swagger_1.ApiTags)('users'),
     (0, swagger_1.ApiBearerAuth)(),

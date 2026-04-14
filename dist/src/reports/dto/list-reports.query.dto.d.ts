@@ -16,4 +16,5 @@ export declare class ListReportsQueryDto {
     extraEquals?: string;
     extraContains?: string;
     order?: 'asc' | 'desc';
+    createdById?: string;
 }

@@ -36,4 +36,33 @@ export declare class MetricsController {
         reports: number;
         incidencias: number;
     }[]>;
+    getStoreMetrics(storeCode: string, year?: string, month?: string): Promise<{
+        storeCode: string;
+        year: number;
+        month: number;
+        totalMes: number;
+        correctivosMes: number;
+        preventivosMes: number;
+        atendidas: number;
+        cotizacionesCount: number;
+        conReporteCount: number;
+        cumplimientoTotal: number;
+        cumplimientoCorrectivo: number;
+        cumplimientoPreventivo: number;
+    }>;
+    getRegionalMetrics(regional: string, year?: string, month?: string): Promise<{
+        regional: string;
+        year: number;
+        month: number;
+        tiendas: number;
+        totalMes: number;
+        correctivosMes: number;
+        preventivosMes: number;
+        atendidas: number;
+        cotizacionesCount: number;
+        conReporteCount: number;
+        cumplimientoTotal: number;
+        cumplimientoCorrectivo: number;
+        cumplimientoPreventivo: number;
+    }>;
 }

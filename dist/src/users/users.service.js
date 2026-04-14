@@ -42,11 +42,74 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = void 0;
+exports.UsersService = exports.CreatePrivilegedUserDto = void 0;
 const common_1 = require("@nestjs/common");
 const bcrypt = __importStar(require("bcrypt"));
+const class_validator_1 = require("class-validator");
 const prisma_service_1 = require("../prisma/prisma.service");
+const notifications_service_1 = require("../notifications/notifications.service");
 const pagination_util_1 = require("../utils/pagination.util");
+class CreatePrivilegedUserDto {
+    fullName;
+    email;
+    role;
+    regional;
+    city;
+    phone;
+    document;
+}
+exports.CreatePrivilegedUserDto = CreatePrivilegedUserDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(3),
+    __metadata("design:type", String)
+], CreatePrivilegedUserDto.prototype, "fullName", void 0);
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], CreatePrivilegedUserDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(['COORDINADOR', 'SUPERVISOR']),
+    __metadata("design:type", String)
+], CreatePrivilegedUserDto.prototype, "role", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePrivilegedUserDto.prototype, "regional", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePrivilegedUserDto.prototype, "city", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePrivilegedUserDto.prototype, "phone", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePrivilegedUserDto.prototype, "document", void 0);
+function generatePassword() {
+    const upper = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+    const lower = 'abcdefghjkmnpqrstuvwxyz';
+    const digits = '23456789';
+    const special = '!@#$&*';
+    const all = upper + lower + digits + special;
+    let password = upper[Math.floor(Math.random() * upper.length)] +
+        lower[Math.floor(Math.random() * lower.length)] +
+        digits[Math.floor(Math.random() * digits.length)] +
+        special[Math.floor(Math.random() * special.length)];
+    for (let i = 0; i < 6; i++) {
+        password += all[Math.floor(Math.random() * all.length)];
+    }
+    return password
+        .split('')
+        .sort(() => Math.random() - 0.5)
+        .join('');
+}
 const SELECT_SAFE = {
     id: true,
     fullName: true,
@@ -62,8 +125,10 @@ const SELECT_SAFE = {
 };
 let UsersService = class UsersService {
     prisma;
-    constructor(prisma) {
+    notifier;
+    constructor(prisma, notifier) {
         this.prisma = prisma;
+        this.notifier = notifier;
     }
     async create(dto) {
         const exists = await this.prisma.user.findUnique({
@@ -129,10 +194,52 @@ let UsersService = class UsersService {
             select: SELECT_SAFE,
         });
     }
+    async createPrivileged(dto) {
+        const exists = await this.prisma.user.findUnique({ where: { email: dto.email } });
+        if (exists)
+            throw new common_1.ConflictException('El email ya está registrado');
+        const plainPassword = generatePassword();
+        const hashed = await bcrypt.hash(plainPassword, 10);
+        const user = await this.prisma.user.create({
+            data: {
+                fullName: dto.fullName,
+                email: dto.email,
+                password: hashed,
+                role: dto.role,
+                regional: dto.regional,
+                city: dto.city,
+                phone: dto.phone,
+                document: dto.document,
+            },
+            select: SELECT_SAFE,
+        });
+        void this.notifier
+            .notifyUserCreated({ fullName: dto.fullName, email: dto.email, role: dto.role, password: plainPassword })
+            .catch(() => { });
+        return { ...user, generatedPassword: plainPassword };
+    }
+    async hardRemove(id) {
+        const user = await this.prisma.user.findUnique({ where: { id } });
+        if (!user)
+            throw new common_1.NotFoundException('Usuario no encontrado');
+        if (user.role === 'ADMIN')
+            throw new common_1.ForbiddenException('No se puede eliminar una cuenta administrador');
+        await this.prisma.$transaction(async (tx) => {
+            await tx.incidencia.updateMany({ where: { createdById: id }, data: { createdById: null } });
+            await tx.incidencia.updateMany({ where: { updatedById: id }, data: { updatedById: null } });
+            await tx.cotizacion.updateMany({ where: { createdById: id }, data: { createdById: null } });
+            await tx.solicitud.updateMany({ where: { createdById: id }, data: { createdById: null } });
+            await tx.report.updateMany({ where: { createdById: id }, data: { createdById: null } });
+            await tx.actividad.updateMany({ where: { userId: id }, data: { userId: null } });
+            await tx.user.delete({ where: { id } });
+        });
+        return { deleted: true, id };
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        notifications_service_1.ReportNotificationsService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

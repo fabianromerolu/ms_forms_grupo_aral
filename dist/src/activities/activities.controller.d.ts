@@ -22,6 +22,7 @@ export declare class ActivitiesController {
             id: string;
             createdAt: Date;
             action: string;
+            userId: string | null;
             userName: string | null;
             userRole: string | null;
             entity: string | null;
@@ -29,7 +30,6 @@ export declare class ActivitiesController {
             detail: string | null;
             metadata: import("@prisma/client/runtime/library").JsonValue | null;
             ip: string | null;
-            userId: string | null;
         })[];
     }>;
 }

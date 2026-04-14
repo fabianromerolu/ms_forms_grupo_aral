@@ -18,6 +18,7 @@ export declare class ActivitiesService {
         id: string;
         createdAt: Date;
         action: string;
+        userId: string | null;
         userName: string | null;
         userRole: string | null;
         entity: string | null;
@@ -25,7 +26,6 @@ export declare class ActivitiesService {
         detail: string | null;
         metadata: Prisma.JsonValue | null;
         ip: string | null;
-        userId: string | null;
     }>;
     findAll(page?: number, limit?: number, userId?: string, entity?: string, action?: string, from?: string, to?: string): Promise<{
         meta: {
@@ -47,6 +47,7 @@ export declare class ActivitiesService {
             id: string;
             createdAt: Date;
             action: string;
+            userId: string | null;
             userName: string | null;
             userRole: string | null;
             entity: string | null;
@@ -54,7 +55,6 @@ export declare class ActivitiesService {
             detail: string | null;
             metadata: Prisma.JsonValue | null;
             ip: string | null;
-            userId: string | null;
         })[];
     }>;
 }

@@ -38,6 +38,7 @@ export declare class ReportsController {
         clientCreatedAt: Date | null;
         estado: import("@prisma/client").$Enums.ReportEstado;
         searchText: string;
+        createdById: string | null;
     }>>;
     findAll(q: ListReportsQueryDto): Promise<import("../utils/reports.utils").FindAllResponse>;
     getSummary(q: ListReportsQueryDto): Promise<{
@@ -75,6 +76,7 @@ export declare class ReportsController {
         clientCreatedAt: Date | null;
         estado: import("@prisma/client").$Enums.ReportEstado;
         searchText: string;
+        createdById: string | null;
     }> | null>;
     remove(id: string): Promise<{
         id: string;
@@ -105,5 +107,6 @@ export declare class ReportsController {
         clientCreatedAt: Date | null;
         estado: import("@prisma/client").$Enums.ReportEstado;
         searchText: string;
+        createdById: string | null;
     }>;
 }

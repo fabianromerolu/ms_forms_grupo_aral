@@ -46,6 +46,14 @@ let MetricsController = class MetricsController {
     getTimeSeries(days) {
         return this.service.getTimeSeries(Number(days) || 30);
     }
+    getStoreMetrics(storeCode, year, month) {
+        const now = new Date();
+        return this.service.getStoreMetrics(storeCode, Number(year) || now.getFullYear(), Number(month) || now.getMonth() + 1);
+    }
+    getRegionalMetrics(regional, year, month) {
+        const now = new Date();
+        return this.service.getRegionalMetrics(regional, Number(year) || now.getFullYear(), Number(month) || now.getMonth() + 1);
+    }
 };
 exports.MetricsController = MetricsController;
 __decorate([
@@ -96,6 +104,30 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getTimeSeries", null);
+__decorate([
+    (0, common_1.Get)('store'),
+    (0, swagger_1.ApiQuery)({ name: 'storeCode', required: true, description: 'Código de tienda' }),
+    (0, swagger_1.ApiQuery)({ name: 'year', required: false, description: 'Año (default año actual)' }),
+    (0, swagger_1.ApiQuery)({ name: 'month', required: false, description: 'Mes 1-12 (default mes actual)' }),
+    __param(0, (0, common_1.Query)('storeCode')),
+    __param(1, (0, common_1.Query)('year')),
+    __param(2, (0, common_1.Query)('month')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:returntype", void 0)
+], MetricsController.prototype, "getStoreMetrics", null);
+__decorate([
+    (0, common_1.Get)('regional'),
+    (0, swagger_1.ApiQuery)({ name: 'regional', required: true, description: 'Nombre de la regional' }),
+    (0, swagger_1.ApiQuery)({ name: 'year', required: false, description: 'Año (default año actual)' }),
+    (0, swagger_1.ApiQuery)({ name: 'month', required: false, description: 'Mes 1-12 (default mes actual)' }),
+    __param(0, (0, common_1.Query)('regional')),
+    __param(1, (0, common_1.Query)('year')),
+    __param(2, (0, common_1.Query)('month')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:returntype", void 0)
+], MetricsController.prototype, "getRegionalMetrics", null);
 exports.MetricsController = MetricsController = __decorate([
     (0, swagger_1.ApiTags)('metrics'),
     (0, swagger_1.ApiBearerAuth)(),

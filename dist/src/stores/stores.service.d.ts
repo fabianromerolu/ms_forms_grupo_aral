@@ -15,6 +15,7 @@ export declare class StoresService {
         id: string;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         createdAt: Date;
         updatedAt: Date;
         isActive: boolean;
@@ -23,7 +24,6 @@ export declare class StoresService {
         address: string | null;
         department: string | null;
         neighborhood: string | null;
-        regional: string | null;
         typology: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;
@@ -48,6 +48,7 @@ export declare class StoresService {
             id: string;
             phone: string | null;
             city: string | null;
+            regional: string | null;
             createdAt: Date;
             updatedAt: Date;
             isActive: boolean;
@@ -56,7 +57,6 @@ export declare class StoresService {
             address: string | null;
             department: string | null;
             neighborhood: string | null;
-            regional: string | null;
             typology: string | null;
             responsibleName: string | null;
             responsiblePhone: string | null;
@@ -74,13 +74,14 @@ export declare class StoresService {
             createdAt: Date;
             data: Prisma.JsonValue | null;
             tiendaId: string;
-            by: string | null;
             action: string;
+            by: string | null;
         }[];
     } & {
         id: string;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         createdAt: Date;
         updatedAt: Date;
         isActive: boolean;
@@ -89,7 +90,6 @@ export declare class StoresService {
         address: string | null;
         department: string | null;
         neighborhood: string | null;
-        regional: string | null;
         typology: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;
@@ -105,6 +105,7 @@ export declare class StoresService {
         id: string;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         createdAt: Date;
         updatedAt: Date;
         isActive: boolean;
@@ -113,7 +114,6 @@ export declare class StoresService {
         address: string | null;
         department: string | null;
         neighborhood: string | null;
-        regional: string | null;
         typology: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;
@@ -129,6 +129,7 @@ export declare class StoresService {
         id: string;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         createdAt: Date;
         updatedAt: Date;
         isActive: boolean;
@@ -137,7 +138,6 @@ export declare class StoresService {
         address: string | null;
         department: string | null;
         neighborhood: string | null;
-        regional: string | null;
         typology: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;
@@ -147,6 +147,7 @@ export declare class StoresService {
         id: string;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         createdAt: Date;
         updatedAt: Date;
         isActive: boolean;
@@ -155,7 +156,6 @@ export declare class StoresService {
         address: string | null;
         department: string | null;
         neighborhood: string | null;
-        regional: string | null;
         typology: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;

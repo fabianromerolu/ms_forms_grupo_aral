@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RequestsService = void 0;
 const common_1 = require("@nestjs/common");
+const client_1 = require("@prisma/client");
 const prisma_service_1 = require("../prisma/prisma.service");
 const generate_number_util_1 = require("../utils/generate-number.util");
 const search_text_util_1 = require("../utils/search-text.util");
@@ -44,7 +45,7 @@ let RequestsService = class RequestsService {
             },
         });
     }
-    async findAll(page = 1, limit_ = 20, q, status, priority) {
+    async findAll(page = 1, limit_ = 20, q, status, priority, regional) {
         const limit = Math.min(limit_, 100);
         const skip = (page - 1) * limit;
         const where = { isActive: true };
@@ -55,6 +56,14 @@ let RequestsService = class RequestsService {
             and.push({ priority: priority });
         if (q)
             and.push({ searchText: { contains: q.toLowerCase() } });
+        if (regional) {
+            const tiendas = await this.prisma.tienda.findMany({
+                where: { regional: { contains: regional, mode: client_1.Prisma.QueryMode.insensitive } },
+                select: { storeCode: true },
+            });
+            const codes = tiendas.map((t) => t.storeCode);
+            and.push({ storeCode: codes.length > 0 ? { in: codes } : { equals: '__NO_MATCH__' } });
+        }
         if (and.length > 0)
             where.AND = and;
         const [total, items] = await Promise.all([

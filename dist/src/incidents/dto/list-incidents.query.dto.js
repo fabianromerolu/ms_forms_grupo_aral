@@ -22,6 +22,7 @@ class ListIncidentsQueryDto {
     priority;
     storeName;
     city;
+    regional;
     from;
     to;
     order;
@@ -75,6 +76,12 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], ListIncidentsQueryDto.prototype, "city", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ListIncidentsQueryDto.prototype, "regional", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)(),
     (0, class_validator_1.IsOptional)(),

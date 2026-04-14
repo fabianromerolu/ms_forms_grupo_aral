@@ -26,6 +26,7 @@ export declare class ReportsService {
         id: string;
         role: string;
     } | null): Promise<SerializedReport<Report>>;
+    private autoAdvanceIncidenciasToInformada;
     findAll(q: ListReportsQueryDto): Promise<FindAllResponse>;
     getSummary(q: ListReportsQueryDto): Promise<{
         total: number;
@@ -63,5 +64,6 @@ export declare class ReportsService {
         clientCreatedAt: Date | null;
         estado: import("@prisma/client").$Enums.ReportEstado;
         searchText: string;
+        createdById: string | null;
     }>;
 }

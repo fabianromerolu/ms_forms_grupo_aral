@@ -14,7 +14,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '@prisma/client';
-import { UsersService } from './users.service';
+import { UsersService, CreatePrivilegedUserDto } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -29,6 +29,12 @@ export class UsersController {
   @Post()
   create(@Body() dto: CreateUserDto) {
     return this.service.create(dto);
+  }
+
+  /** Crea un usuario COORDINADOR o SUPERVISOR con contraseña auto-generada y envía credenciales por correo. */
+  @Post('privileged')
+  createPrivileged(@Body() dto: CreatePrivilegedUserDto) {
+    return this.service.createPrivileged(dto);
   }
 
   @Get()
@@ -48,8 +54,15 @@ export class UsersController {
     return this.service.update(id, dto);
   }
 
+  /** Deshabilita el usuario (soft delete). */
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.service.remove(id);
+  }
+
+  /** Elimina el usuario permanentemente del sistema (solo no-admins). */
+  @Delete(':id/permanent')
+  hardRemove(@Param('id') id: string) {
+    return this.service.hardRemove(id);
   }
 }

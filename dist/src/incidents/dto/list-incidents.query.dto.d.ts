@@ -8,6 +8,7 @@ export declare class ListIncidentsQueryDto {
     priority?: IncidenciaPriority;
     storeName?: string;
     city?: string;
+    regional?: string;
     from?: string;
     to?: string;
     order?: 'asc' | 'desc';

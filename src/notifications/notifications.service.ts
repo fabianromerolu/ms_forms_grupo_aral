@@ -141,6 +141,123 @@ export class ReportNotificationsService {
     );
   }
 
+  async notifyUserCreated(user: {
+    fullName: string;
+    email: string;
+    role: string;
+    password: string;
+  }): Promise<void> {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      this.logger.warn('RESEND_API_KEY no definido, no se enviará correo de bienvenida.');
+      return;
+    }
+
+    const from = process.env.MAIL_FROM || 'Grupo Aral <onboarding@resend.dev>';
+    const roleLabel = user.role === 'COORDINADOR' ? 'Coordinador' : 'Supervisor';
+    const platformUrl = process.env.PLATFORM_URL || 'https://plataforma.grupoaral.com';
+
+    const html = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="margin:0;padding:0;background:#f4f6f8;font-family:'Segoe UI',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f8;padding:40px 0;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:24px;overflow:hidden;box-shadow:0 8px 32px rgba(27,38,52,0.12);">
+
+          <!-- Header -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#1B2634 0%,#0781BE 100%);padding:40px 40px 32px;text-align:center;">
+              <p style="margin:0 0 8px;color:#F2AD15;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">Grupo Aral</p>
+              <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:800;line-height:1.3;">¡Bienvenido a la plataforma!</h1>
+              <p style="margin:12px 0 0;color:rgba(255,255,255,0.75);font-size:15px;">Has sido registrado como <strong style="color:#F2AD15;">${roleLabel}</strong>.</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:36px 40px;">
+              <p style="margin:0 0 20px;color:#1B2634;font-size:16px;line-height:1.7;">
+                Hola <strong>${user.fullName}</strong>,
+              </p>
+              <p style="margin:0 0 28px;color:#4a5568;font-size:15px;line-height:1.7;">
+                Te han registrado en la plataforma de gestión del <strong>Grupo Aral</strong> con el rol de <strong>${roleLabel}</strong>. A continuación encontrarás tus credenciales de acceso:
+              </p>
+
+              <!-- Credentials box -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f9fc;border:1.5px solid #e2e8f0;border-radius:16px;overflow:hidden;margin-bottom:28px;">
+                <tr>
+                  <td style="padding:24px 28px;">
+                    <p style="margin:0 0 16px;color:#1B2634;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Credenciales de acceso</p>
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
+                          <span style="color:#718096;font-size:13px;font-weight:600;">Usuario (correo)</span><br/>
+                          <span style="color:#1B2634;font-size:16px;font-weight:700;font-family:monospace;">${user.email}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:10px 0 0;">
+                          <span style="color:#718096;font-size:13px;font-weight:600;">Contraseña</span><br/>
+                          <span style="color:#0781BE;font-size:16px;font-weight:700;font-family:monospace;background:#EBF8FF;padding:4px 10px;border-radius:8px;display:inline-block;margin-top:4px;">${user.password}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+                <tr>
+                  <td align="center">
+                    <a href="${platformUrl}/auth/login" style="display:inline-block;background:linear-gradient(135deg,#1B2634,#0781BE);color:#ffffff;text-decoration:none;font-size:15px;font-weight:700;padding:14px 36px;border-radius:50px;box-shadow:0 8px 20px rgba(7,129,190,0.28);">
+                      Ingresar a la plataforma →
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 8px;color:#718096;font-size:13px;line-height:1.7;background:#fffbeb;border:1px solid #f6d860;border-radius:12px;padding:14px 18px;">
+                <strong style="color:#92400e;">⚠ Importante:</strong> Por seguridad, te recomendamos cambiar tu contraseña después de tu primer inicio de sesión. Guarda estas credenciales en un lugar seguro.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#f7f9fc;border-top:1px solid #e2e8f0;padding:24px 40px;text-align:center;">
+              <p style="margin:0;color:#a0aec0;font-size:12px;">Este correo fue generado automáticamente por la plataforma de gestión de <strong>Grupo Aral</strong>. Por favor no respondas este mensaje.</p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+    const { data: resendData, error } = await this.resend.emails.send({
+      from,
+      to: [user.email],
+      subject: `Bienvenido a Grupo Aral · Tus credenciales de acceso`,
+      html,
+    });
+
+    if (error) {
+      this.logger.error(`Error enviando credenciales: ${JSON.stringify(error)}`);
+      return;
+    }
+
+    this.logger.log(`Credenciales enviadas a ${user.email} id=${resendData?.id ?? '—'}`);
+  }
+
   async notifyIncidentCreated(incidencia: Incidencia): Promise<void> {
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) return;

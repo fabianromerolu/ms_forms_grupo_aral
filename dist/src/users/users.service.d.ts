@@ -1,9 +1,20 @@
 import { PrismaService } from '../prisma/prisma.service';
+import { ReportNotificationsService } from '../notifications/notifications.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+export declare class CreatePrivilegedUserDto {
+    fullName: string;
+    email: string;
+    role: 'COORDINADOR' | 'SUPERVISOR';
+    regional?: string;
+    city?: string;
+    phone?: string;
+    document?: string;
+}
 export declare class UsersService {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private readonly notifier;
+    constructor(prisma: PrismaService, notifier: ReportNotificationsService);
     create(dto: CreateUserDto): Promise<{
         id: string;
         email: string;
@@ -68,5 +79,23 @@ export declare class UsersService {
         avatarUrl: string | null;
         createdAt: Date;
         updatedAt: Date;
+    }>;
+    createPrivileged(dto: CreatePrivilegedUserDto): Promise<{
+        generatedPassword: string;
+        id: string;
+        email: string;
+        fullName: string;
+        role: import("@prisma/client").$Enums.UserRole;
+        document: string | null;
+        phone: string | null;
+        city: string | null;
+        status: import("@prisma/client").$Enums.UserStatus;
+        avatarUrl: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
+    hardRemove(id: string): Promise<{
+        deleted: boolean;
+        id: string;
     }>;
 }

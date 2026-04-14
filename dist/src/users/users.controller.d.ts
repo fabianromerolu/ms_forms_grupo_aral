@@ -1,10 +1,24 @@
-import { UsersService } from './users.service';
+import { UsersService, CreatePrivilegedUserDto } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 export declare class UsersController {
     private readonly service;
     constructor(service: UsersService);
     create(dto: CreateUserDto): Promise<{
+        id: string;
+        email: string;
+        fullName: string;
+        role: import("@prisma/client").$Enums.UserRole;
+        document: string | null;
+        phone: string | null;
+        city: string | null;
+        status: import("@prisma/client").$Enums.UserStatus;
+        avatarUrl: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
+    createPrivileged(dto: CreatePrivilegedUserDto): Promise<{
+        generatedPassword: string;
         id: string;
         email: string;
         fullName: string;
@@ -68,5 +82,9 @@ export declare class UsersController {
         avatarUrl: string | null;
         createdAt: Date;
         updatedAt: Date;
+    }>;
+    hardRemove(id: string): Promise<{
+        deleted: boolean;
+        id: string;
     }>;
 }

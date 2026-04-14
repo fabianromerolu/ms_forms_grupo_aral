@@ -18,6 +18,7 @@ export declare class QuotesService {
                 storeName: string;
                 department: string | null;
                 searchText: string;
+                createdById: string | null;
                 incidentNumber: string;
                 tiendaId: string | null;
                 maintenanceType: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
@@ -38,7 +39,6 @@ export declare class QuotesService {
                 consolidatedDocumentName: string | null;
                 closedAt: Date | null;
                 isDisabled: boolean;
-                createdById: string | null;
                 updatedById: string | null;
             };
         } & {
@@ -70,10 +70,10 @@ export declare class QuotesService {
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;
-        maintenanceType: string | null;
         createdById: string | null;
-        format: import("@prisma/client").$Enums.QuoteFormat;
+        maintenanceType: string | null;
         note: string | null;
+        format: import("@prisma/client").$Enums.QuoteFormat;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
@@ -120,10 +120,10 @@ export declare class QuotesService {
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;
-        maintenanceType: string | null;
         createdById: string | null;
-        format: import("@prisma/client").$Enums.QuoteFormat;
+        maintenanceType: string | null;
         note: string | null;
+        format: import("@prisma/client").$Enums.QuoteFormat;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
@@ -147,6 +147,7 @@ export declare class QuotesService {
                 storeName: string;
                 department: string | null;
                 searchText: string;
+                createdById: string | null;
                 incidentNumber: string;
                 tiendaId: string | null;
                 maintenanceType: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
@@ -167,7 +168,6 @@ export declare class QuotesService {
                 consolidatedDocumentName: string | null;
                 closedAt: Date | null;
                 isDisabled: boolean;
-                createdById: string | null;
                 updatedById: string | null;
             };
         } & {
@@ -199,10 +199,10 @@ export declare class QuotesService {
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;
-        maintenanceType: string | null;
         createdById: string | null;
-        format: import("@prisma/client").$Enums.QuoteFormat;
+        maintenanceType: string | null;
         note: string | null;
+        format: import("@prisma/client").$Enums.QuoteFormat;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
@@ -226,6 +226,7 @@ export declare class QuotesService {
                 storeName: string;
                 department: string | null;
                 searchText: string;
+                createdById: string | null;
                 incidentNumber: string;
                 tiendaId: string | null;
                 maintenanceType: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
@@ -246,7 +247,6 @@ export declare class QuotesService {
                 consolidatedDocumentName: string | null;
                 closedAt: Date | null;
                 isDisabled: boolean;
-                createdById: string | null;
                 updatedById: string | null;
             };
         } & {
@@ -278,10 +278,10 @@ export declare class QuotesService {
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;
-        maintenanceType: string | null;
         createdById: string | null;
-        format: import("@prisma/client").$Enums.QuoteFormat;
+        maintenanceType: string | null;
         note: string | null;
+        format: import("@prisma/client").$Enums.QuoteFormat;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
@@ -302,10 +302,10 @@ export declare class QuotesService {
         storeCode: string | null;
         storeName: string | null;
         typology: string | null;
-        maintenanceType: string | null;
         createdById: string | null;
-        format: import("@prisma/client").$Enums.QuoteFormat;
+        maintenanceType: string | null;
         note: string | null;
+        format: import("@prisma/client").$Enums.QuoteFormat;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;

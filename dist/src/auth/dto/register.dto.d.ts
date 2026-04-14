@@ -7,4 +7,5 @@ export declare class RegisterDto {
     document?: string;
     phone?: string;
     city?: string;
+    regional?: string;
 }

@@ -30,12 +30,14 @@ export class AuthService {
 
     const hashed = await bcrypt.hash(dto.password, 10);
 
+    // El registro público solo permite crear cuentas OPERARIO.
+    // COORDINADOR y SUPERVISOR se crean desde el módulo de usuarios del admin.
     const user = await this.prisma.user.create({
       data: {
         fullName: dto.fullName,
         email: dto.email,
         password: hashed,
-        role: dto.role ?? 'OPERARIO',
+        role: 'OPERARIO',
         document: dto.document,
         phone: dto.phone,
         city: dto.city,

@@ -30,8 +30,8 @@ let RequestsController = class RequestsController {
     create(dto, req) {
         return this.service.create(dto, req.user?.id);
     }
-    findAll(page, limit, q, status, priority) {
-        return this.service.findAll(Number(page) || 1, Number(limit) || 20, q, status, priority);
+    findAll(page, limit, q, status, priority, regional) {
+        return this.service.findAll(Number(page) || 1, Number(limit) || 20, q, status, priority, regional);
     }
     findOne(id) {
         return this.service.findOne(id);
@@ -60,13 +60,15 @@ __decorate([
     (0, swagger_1.ApiQuery)({ name: 'q', required: false }),
     (0, swagger_1.ApiQuery)({ name: 'status', required: false }),
     (0, swagger_1.ApiQuery)({ name: 'priority', required: false }),
+    (0, swagger_1.ApiQuery)({ name: 'regional', required: false }),
     __param(0, (0, common_1.Query)('page')),
     __param(1, (0, common_1.Query)('limit')),
     __param(2, (0, common_1.Query)('q')),
     __param(3, (0, common_1.Query)('status')),
     __param(4, (0, common_1.Query)('priority')),
+    __param(5, (0, common_1.Query)('regional')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String, String]),
+    __metadata("design:paramtypes", [String, String, String, String, String, String]),
     __metadata("design:returntype", void 0)
 ], RequestsController.prototype, "findAll", null);
 __decorate([
