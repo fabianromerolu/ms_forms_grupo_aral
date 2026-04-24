@@ -8,9 +8,10 @@ export class MetricsService {
   // All methods run queries SEQUENTIALLY to stay within a pool of 2 connections.
   // Running 7 parallel queries per request was causing P2037 (too many PG clients).
 
-  async getOverview() {
+  async getOverview(from?: string) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const fromDate = from ? new Date(from) : undefined;
 
     const incidenciasActivas = await this.prisma.incidencia.count({
       where: { status: { notIn: ['CERRADA'] }, isDisabled: false },
@@ -22,7 +23,10 @@ export class MetricsService {
       },
     });
     const reportesRecibidos = await this.prisma.report.count({
-      where: { isActive: true },
+      where: {
+        isActive: true,
+        ...(fromDate ? { createdAt: { gte: fromDate } } : {}),
+      },
     });
     const cotizaciones = await this.prisma.cotizacion.count({
       where: { isActive: true },
@@ -78,11 +82,15 @@ export class MetricsService {
     return rows.map((r) => ({ status: r.status, count: r._count.id }));
   }
 
-  async getReportsByType() {
+  async getReportsByType(from?: string) {
+    const fromDate = from ? new Date(from) : undefined;
     const rows = await this.prisma.report.groupBy({
       by: ['tipo'],
       _count: { id: true },
-      where: { isActive: true },
+      where: {
+        isActive: true,
+        ...(fromDate ? { createdAt: { gte: fromDate } } : {}),
+      },
     });
 
     return rows.map((r) => ({ tipo: r.tipo, count: r._count.id }));
@@ -328,13 +336,15 @@ export class MetricsService {
     };
   }
 
-  async getTimeSeries(days = 30) {
+  async getTimeSeries(days = 30, fromFloor?: string) {
     const from = new Date();
     from.setDate(from.getDate() - days);
+    const floor = fromFloor ? new Date(fromFloor) : undefined;
+    const reportFrom = floor && floor > from ? floor : from;
 
     // Sequential to stay within the 2-connection pool
     const reports = await this.prisma.report.findMany({
-      where: { createdAt: { gte: from }, isActive: true },
+      where: { createdAt: { gte: reportFrom }, isActive: true },
       select: { createdAt: true },
       orderBy: { createdAt: 'asc' },
     });

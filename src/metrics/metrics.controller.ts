@@ -20,8 +20,9 @@ export class MetricsController {
   constructor(private readonly service: MetricsService) {}
 
   @Get('overview')
-  getOverview() {
-    return this.service.getOverview();
+  @ApiQuery({ name: 'from', required: false, description: 'Filtrar reportes desde esta fecha ISO (opcional)' })
+  getOverview(@Query('from') from?: string) {
+    return this.service.getOverview(from);
   }
 
   @Get('incidencias/by-status')
@@ -40,8 +41,9 @@ export class MetricsController {
   }
 
   @Get('reports/by-type')
-  getReportsByType() {
-    return this.service.getReportsByType();
+  @ApiQuery({ name: 'from', required: false, description: 'Filtrar desde esta fecha ISO (opcional)' })
+  getReportsByType(@Query('from') from?: string) {
+    return this.service.getReportsByType(from);
   }
 
   @Get('incidencias/by-regional')
@@ -50,13 +52,10 @@ export class MetricsController {
   }
 
   @Get('time-series')
-  @ApiQuery({
-    name: 'days',
-    required: false,
-    description: 'Últimos N días (default 30)',
-  })
-  getTimeSeries(@Query('days') days?: string) {
-    return this.service.getTimeSeries(Number(days) || 30);
+  @ApiQuery({ name: 'days', required: false, description: 'Últimos N días (default 30)' })
+  @ApiQuery({ name: 'from', required: false, description: 'Piso mínimo de fecha ISO para reportes (opcional)' })
+  getTimeSeries(@Query('days') days?: string, @Query('from') from?: string) {
+    return this.service.getTimeSeries(Number(days) || 30, from);
   }
 
   @Get('store')
