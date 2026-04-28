@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Param, Patch, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserRole } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 import { CatalogActivitiesService } from './catalog-activities.service';
+import { CreateCatalogActivityDto } from './dto/create-catalog-activity.dto';
 import { ListCatalogActivitiesQueryDto } from './dto/list-catalog-activities.query.dto';
 import { UpdateCatalogActivityDto } from './dto/update-catalog-activity.dto';
 
@@ -14,6 +15,13 @@ import { UpdateCatalogActivityDto } from './dto/update-catalog-activity.dto';
 @Controller('catalog-activities')
 export class CatalogActivitiesController {
   constructor(private readonly service: CatalogActivitiesService) {}
+
+  @Post()
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.COORDINADOR, UserRole.SUPERVISOR)
+  create(@Body() dto: CreateCatalogActivityDto) {
+    return this.service.create(dto);
+  }
 
   @Get()
   findAll(@Query() q: ListCatalogActivitiesQueryDto) {

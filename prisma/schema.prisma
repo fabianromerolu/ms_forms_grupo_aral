@@ -308,6 +308,7 @@ model IncidenciaHistoryEvent {
 model Cotizacion {
   id               String               @id @default(uuid()) @db.Uuid
   number           String               @unique
+  sequentialId     Int?
   format           QuoteFormat          @default(COTIZACION)
   specialty        String?
   storeCode        String?

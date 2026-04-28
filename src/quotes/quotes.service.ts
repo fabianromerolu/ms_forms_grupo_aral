@@ -22,6 +22,9 @@ export class QuotesService {
   async create(dto: CreateQuoteDto, userId?: string) {
     const number = generateUniqueNumber('COT');
     const items = dto.items ?? [];
+
+    const maxSeq = await this.prisma.cotizacion.aggregate({ _max: { sequentialId: true } });
+    const sequentialId = (maxSeq._max.sequentialId ?? 2999) + 1;
     const totalAmount = this.calcTotal(
       items.map((i) => ({
         quantity: i.quantity,
@@ -33,6 +36,7 @@ export class QuotesService {
     return this.prisma.cotizacion.create({
       data: {
         number,
+        sequentialId,
         format: dto.format ?? 'COTIZACION',
         specialty: dto.specialty,
         storeCode: dto.storeCode,

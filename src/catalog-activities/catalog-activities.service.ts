@@ -1,11 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { paginateResponse } from '../utils/pagination.util';
+import { CreateCatalogActivityDto } from './dto/create-catalog-activity.dto';
 import { UpdateCatalogActivityDto } from './dto/update-catalog-activity.dto';
 
 @Injectable()
 export class CatalogActivitiesService {
   constructor(private readonly prisma: PrismaService) {}
+
+  async create(dto: CreateCatalogActivityDto) {
+    const exists = await this.prisma.catalogActivity.findUnique({ where: { code: dto.code } });
+    if (exists) throw new ConflictException(`Ya existe una actividad con el código "${dto.code}"`);
+    return this.prisma.catalogActivity.create({ data: { ...dto, isActive: true } });
+  }
 
   async findAll(page = 1, limit_ = 50, q?: string, specialty?: string, chapter?: string) {
     const limit = Math.min(limit_, 200);
