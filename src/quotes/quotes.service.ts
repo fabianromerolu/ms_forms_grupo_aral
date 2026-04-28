@@ -3,7 +3,6 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateQuoteDto } from './dto/create-quote.dto';
 import { UpdateQuoteDto } from './dto/update-quote.dto';
-import { generateUniqueNumber } from '../utils/generate-number.util';
 import { paginateResponse } from '../utils/pagination.util';
 
 @Injectable()
@@ -20,11 +19,14 @@ export class QuotesService {
   }
 
   async create(dto: CreateQuoteDto, userId?: string) {
-    const number = generateUniqueNumber('COT');
     const items = dto.items ?? [];
 
     const maxSeq = await this.prisma.cotizacion.aggregate({ _max: { sequentialId: true } });
     const sequentialId = (maxSeq._max.sequentialId ?? 2999) + 1;
+    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const numIncidencias = dto.incidenciaIds?.length ?? 0;
+    const number = `COT-${sequentialId}-${dateStr}-${numIncidencias}`;
+
     const totalAmount = this.calcTotal(
       items.map((i) => ({
         quantity: i.quantity,
