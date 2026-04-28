@@ -13,12 +13,41 @@ exports.QuotesService = void 0;
 const common_1 = require("@nestjs/common");
 const client_1 = require("@prisma/client");
 const prisma_service_1 = require("../prisma/prisma.service");
-const generate_number_util_1 = require("../utils/generate-number.util");
 const pagination_util_1 = require("../utils/pagination.util");
 let QuotesService = class QuotesService {
     prisma;
     constructor(prisma) {
         this.prisma = prisma;
+    }
+    documentDataFields = [
+        'format',
+        'specialty',
+        'storeCode',
+        'storeName',
+        'storeCity',
+        'typology',
+        'maintenanceType',
+        'note',
+        'invoiceMode',
+        'aiuAdministration',
+        'aiuUnexpected',
+        'aiuUtility',
+        'aiuIva',
+        'items',
+        'incidenciaIds',
+    ];
+    withDocumentNumber(quote) {
+        return {
+            ...quote,
+            documentNumber: quote.number,
+            quoteNumber: quote.number,
+        };
+    }
+    withDocumentNumbers(quotes) {
+        return quotes.map((quote) => this.withDocumentNumber(quote));
+    }
+    hasDocumentDataChange(dto) {
+        return this.documentDataFields.some((field) => dto[field] !== undefined);
     }
     calcTotal(items) {
         return items.reduce((acc, item) => {
@@ -27,16 +56,23 @@ let QuotesService = class QuotesService {
         }, 0);
     }
     async create(dto, userId) {
-        const number = (0, generate_number_util_1.generateUniqueNumber)('COT');
         const items = dto.items ?? [];
+        const maxSeq = await this.prisma.cotizacion.aggregate({
+            _max: { sequentialId: true },
+        });
+        const sequentialId = (maxSeq._max.sequentialId ?? 2999) + 1;
+        const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        const numIncidencias = dto.incidenciaIds?.length ?? 0;
+        const number = `COT-${sequentialId}-${dateStr}-${numIncidencias}`;
         const totalAmount = this.calcTotal(items.map((i) => ({
             quantity: i.quantity,
             unitPrice: i.unitPrice,
             hasIva: i.hasIva ?? false,
         })));
-        return this.prisma.cotizacion.create({
+        const quote = await this.prisma.cotizacion.create({
             data: {
                 number,
+                sequentialId,
                 format: dto.format ?? 'COTIZACION',
                 specialty: dto.specialty,
                 storeCode: dto.storeCode,
@@ -81,6 +117,7 @@ let QuotesService = class QuotesService {
                 incidencias: { include: { incidencia: true } },
             },
         });
+        return this.withDocumentNumber(quote);
     }
     async findAll(page = 1, limit_ = 20, q, format) {
         const limit = Math.min(limit_, 100);
@@ -114,7 +151,7 @@ let QuotesService = class QuotesService {
                 },
             }),
         ]);
-        return (0, pagination_util_1.paginateResponse)(items, total, page, limit);
+        return (0, pagination_util_1.paginateResponse)(this.withDocumentNumbers(items), total, page, limit);
     }
     async findOne(id) {
         const item = await this.prisma.cotizacion.findUnique({
@@ -126,19 +163,22 @@ let QuotesService = class QuotesService {
         });
         if (!item)
             throw new common_1.NotFoundException('Cotización no encontrada');
-        return item;
+        return this.withDocumentNumber(item);
     }
     async update(id, dto, userId) {
         await this.findOne(id);
         const items = dto.items ?? [];
         const totalAmount = items.length > 0
             ? this.calcTotal(items.map((i) => ({
-                quantity: i.quantity ?? 0,
+                quantity: i.quantity ?? 1,
                 unitPrice: i.unitPrice ?? 0,
                 hasIva: i.hasIva ?? false,
             })))
             : undefined;
-        return this.prisma.$transaction(async (tx) => {
+        const shouldInvalidateDocument = this.hasDocumentDataChange(dto) &&
+            dto.quoteDocumentUrl === undefined &&
+            dto.quoteDocumentName === undefined;
+        const quote = await this.prisma.$transaction(async (tx) => {
             if (dto.items !== undefined) {
                 await tx.cotizacionItem.deleteMany({ where: { cotizacionId: id } });
             }
@@ -177,6 +217,10 @@ let QuotesService = class QuotesService {
                     ...(dto.quoteDocumentName !== undefined && {
                         quoteDocumentName: dto.quoteDocumentName,
                     }),
+                    ...(shouldInvalidateDocument && {
+                        quoteDocumentUrl: null,
+                        quoteDocumentName: null,
+                    }),
                     ...(totalAmount !== undefined && { totalAmount }),
                     ...(dto.items !== undefined && {
                         items: {
@@ -208,6 +252,7 @@ let QuotesService = class QuotesService {
                 },
             });
         });
+        return this.withDocumentNumber(quote);
     }
     async remove(id) {
         await this.findOne(id);

@@ -18,6 +18,12 @@ let CatalogActivitiesService = class CatalogActivitiesService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async create(dto) {
+        const exists = await this.prisma.catalogActivity.findUnique({ where: { code: dto.code } });
+        if (exists)
+            throw new common_1.ConflictException(`Ya existe una actividad con el código "${dto.code}"`);
+        return this.prisma.catalogActivity.create({ data: { ...dto, isActive: true } });
+    }
     async findAll(page = 1, limit_ = 50, q, specialty, chapter) {
         const limit = Math.min(limit_, 200);
         const skip = (page - 1) * limit;

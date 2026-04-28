@@ -1,9 +1,23 @@
 import { CatalogActivitiesService } from './catalog-activities.service';
+import { CreateCatalogActivityDto } from './dto/create-catalog-activity.dto';
 import { ListCatalogActivitiesQueryDto } from './dto/list-catalog-activities.query.dto';
 import { UpdateCatalogActivityDto } from './dto/update-catalog-activity.dto';
 export declare class CatalogActivitiesController {
     private readonly service;
     constructor(service: CatalogActivitiesService);
+    create(dto: CreateCatalogActivityDto): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        code: string;
+        specialty: string;
+        chapter: string;
+        unit: string | null;
+        brandRef: string | null;
+        basePrice: number | null;
+        isActive: boolean;
+    }>;
     findAll(q: ListCatalogActivitiesQueryDto): Promise<import("../utils/pagination.util").PaginatedResponse<{
         id: string;
         createdAt: Date;

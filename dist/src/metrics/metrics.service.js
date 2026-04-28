@@ -17,9 +17,10 @@ let MetricsService = class MetricsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async getOverview() {
+    async getOverview(from) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
+        const fromDate = from ? new Date(from) : undefined;
         const incidenciasActivas = await this.prisma.incidencia.count({
             where: { status: { notIn: ['CERRADA'] }, isDisabled: false },
         });
@@ -30,7 +31,10 @@ let MetricsService = class MetricsService {
             },
         });
         const reportesRecibidos = await this.prisma.report.count({
-            where: { isActive: true },
+            where: {
+                isActive: true,
+                ...(fromDate ? { createdAt: { gte: fromDate } } : {}),
+            },
         });
         const cotizaciones = await this.prisma.cotizacion.count({
             where: { isActive: true },
@@ -78,11 +82,15 @@ let MetricsService = class MetricsService {
         });
         return rows.map((r) => ({ status: r.status, count: r._count.id }));
     }
-    async getReportsByType() {
+    async getReportsByType(from) {
+        const fromDate = from ? new Date(from) : undefined;
         const rows = await this.prisma.report.groupBy({
             by: ['tipo'],
             _count: { id: true },
-            where: { isActive: true },
+            where: {
+                isActive: true,
+                ...(fromDate ? { createdAt: { gte: fromDate } } : {}),
+            },
         });
         return rows.map((r) => ({ tipo: r.tipo, count: r._count.id }));
     }
@@ -272,11 +280,13 @@ let MetricsService = class MetricsService {
             cumplimientoPreventivo,
         };
     }
-    async getTimeSeries(days = 30) {
+    async getTimeSeries(days = 30, fromFloor) {
         const from = new Date();
         from.setDate(from.getDate() - days);
+        const floor = fromFloor ? new Date(fromFloor) : undefined;
+        const reportFrom = floor && floor > from ? floor : from;
         const reports = await this.prisma.report.findMany({
-            where: { createdAt: { gte: from }, isActive: true },
+            where: { createdAt: { gte: reportFrom }, isActive: true },
             select: { createdAt: true },
             orderBy: { createdAt: 'asc' },
         });

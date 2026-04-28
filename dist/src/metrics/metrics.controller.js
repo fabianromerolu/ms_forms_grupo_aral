@@ -25,8 +25,8 @@ let MetricsController = class MetricsController {
     constructor(service) {
         this.service = service;
     }
-    getOverview() {
-        return this.service.getOverview();
+    getOverview(from) {
+        return this.service.getOverview(from);
     }
     getIncidenciasByStatus() {
         return this.service.getIncidenciasByStatus();
@@ -37,14 +37,14 @@ let MetricsController = class MetricsController {
     getSolicitudesByStatus() {
         return this.service.getSolicitudesByStatus();
     }
-    getReportsByType() {
-        return this.service.getReportsByType();
+    getReportsByType(from) {
+        return this.service.getReportsByType(from);
     }
     getIncidenciasByRegional() {
         return this.service.getIncidenciasByRegional();
     }
-    getTimeSeries(days) {
-        return this.service.getTimeSeries(Number(days) || 30);
+    getTimeSeries(days, from) {
+        return this.service.getTimeSeries(Number(days) || 30, from);
     }
     getStoreMetrics(storeCode, year, month) {
         const now = new Date();
@@ -58,8 +58,10 @@ let MetricsController = class MetricsController {
 exports.MetricsController = MetricsController;
 __decorate([
     (0, common_1.Get)('overview'),
+    (0, swagger_1.ApiQuery)({ name: 'from', required: false, description: 'Filtrar reportes desde esta fecha ISO (opcional)' }),
+    __param(0, (0, common_1.Query)('from')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getOverview", null);
 __decorate([
@@ -82,8 +84,10 @@ __decorate([
 ], MetricsController.prototype, "getSolicitudesByStatus", null);
 __decorate([
     (0, common_1.Get)('reports/by-type'),
+    (0, swagger_1.ApiQuery)({ name: 'from', required: false, description: 'Filtrar desde esta fecha ISO (opcional)' }),
+    __param(0, (0, common_1.Query)('from')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getReportsByType", null);
 __decorate([
@@ -94,14 +98,12 @@ __decorate([
 ], MetricsController.prototype, "getIncidenciasByRegional", null);
 __decorate([
     (0, common_1.Get)('time-series'),
-    (0, swagger_1.ApiQuery)({
-        name: 'days',
-        required: false,
-        description: 'Últimos N días (default 30)',
-    }),
+    (0, swagger_1.ApiQuery)({ name: 'days', required: false, description: 'Últimos N días (default 30)' }),
+    (0, swagger_1.ApiQuery)({ name: 'from', required: false, description: 'Piso mínimo de fecha ISO para reportes (opcional)' }),
     __param(0, (0, common_1.Query)('days')),
+    __param(1, (0, common_1.Query)('from')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getTimeSeries", null);
 __decorate([

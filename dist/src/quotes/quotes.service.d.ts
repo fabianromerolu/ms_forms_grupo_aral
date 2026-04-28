@@ -4,6 +4,10 @@ import { UpdateQuoteDto } from './dto/update-quote.dto';
 export declare class QuotesService {
     private readonly prisma;
     constructor(prisma: PrismaService);
+    private readonly documentDataFields;
+    private withDocumentNumber;
+    private withDocumentNumbers;
+    private hasDocumentDataChange;
     private calcTotal;
     create(dto: CreateQuoteDto, userId?: string): Promise<{
         incidencias: ({
@@ -74,6 +78,7 @@ export declare class QuotesService {
         maintenanceType: string | null;
         note: string | null;
         format: import("@prisma/client").$Enums.QuoteFormat;
+        sequentialId: number | null;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
@@ -83,6 +88,9 @@ export declare class QuotesService {
         quoteDocumentUrl: string | null;
         quoteDocumentName: string | null;
         totalAmount: number;
+    } & {
+        documentNumber: string;
+        quoteNumber: string;
     }>;
     findAll(page?: number, limit_?: number, q?: string, format?: string): Promise<import("../utils/pagination.util").PaginatedResponse<{
         incidencias: ({
@@ -124,6 +132,7 @@ export declare class QuotesService {
         maintenanceType: string | null;
         note: string | null;
         format: import("@prisma/client").$Enums.QuoteFormat;
+        sequentialId: number | null;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
@@ -133,6 +142,9 @@ export declare class QuotesService {
         quoteDocumentUrl: string | null;
         quoteDocumentName: string | null;
         totalAmount: number;
+    } & {
+        documentNumber: string;
+        quoteNumber: string;
     }>>;
     findOne(id: string): Promise<{
         incidencias: ({
@@ -203,6 +215,7 @@ export declare class QuotesService {
         maintenanceType: string | null;
         note: string | null;
         format: import("@prisma/client").$Enums.QuoteFormat;
+        sequentialId: number | null;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
@@ -212,6 +225,9 @@ export declare class QuotesService {
         quoteDocumentUrl: string | null;
         quoteDocumentName: string | null;
         totalAmount: number;
+    } & {
+        documentNumber: string;
+        quoteNumber: string;
     }>;
     update(id: string, dto: UpdateQuoteDto, userId?: string): Promise<{
         incidencias: ({
@@ -282,6 +298,7 @@ export declare class QuotesService {
         maintenanceType: string | null;
         note: string | null;
         format: import("@prisma/client").$Enums.QuoteFormat;
+        sequentialId: number | null;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
@@ -291,6 +308,9 @@ export declare class QuotesService {
         quoteDocumentUrl: string | null;
         quoteDocumentName: string | null;
         totalAmount: number;
+    } & {
+        documentNumber: string;
+        quoteNumber: string;
     }>;
     remove(id: string): Promise<{
         number: string;
@@ -306,6 +326,7 @@ export declare class QuotesService {
         maintenanceType: string | null;
         note: string | null;
         format: import("@prisma/client").$Enums.QuoteFormat;
+        sequentialId: number | null;
         storeCity: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;

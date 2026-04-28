@@ -20,12 +20,16 @@ const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const roles_decorator_1 = require("../auth/roles.decorator");
 const roles_guard_1 = require("../auth/roles.guard");
 const catalog_activities_service_1 = require("./catalog-activities.service");
+const create_catalog_activity_dto_1 = require("./dto/create-catalog-activity.dto");
 const list_catalog_activities_query_dto_1 = require("./dto/list-catalog-activities.query.dto");
 const update_catalog_activity_dto_1 = require("./dto/update-catalog-activity.dto");
 let CatalogActivitiesController = class CatalogActivitiesController {
     service;
     constructor(service) {
         this.service = service;
+    }
+    create(dto) {
+        return this.service.create(dto);
     }
     findAll(q) {
         return this.service.findAll(q.page ? Number(q.page) : 1, q.limit ? Number(q.limit) : 50, q.q, q.specialty, q.chapter);
@@ -44,6 +48,15 @@ let CatalogActivitiesController = class CatalogActivitiesController {
     }
 };
 exports.CatalogActivitiesController = CatalogActivitiesController;
+__decorate([
+    (0, common_1.Post)(),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
+    (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.SUPERVISOR),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_catalog_activity_dto_1.CreateCatalogActivityDto]),
+    __metadata("design:returntype", void 0)
+], CatalogActivitiesController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __param(0, (0, common_1.Query)()),

@@ -2,7 +2,7 @@ import { MetricsService } from './metrics.service';
 export declare class MetricsController {
     private readonly service;
     constructor(service: MetricsService);
-    getOverview(): Promise<{
+    getOverview(from?: string): Promise<{
         incidenciasActivas: number;
         solicitudesAbiertas: number;
         reportesRecibidos: number;
@@ -23,7 +23,7 @@ export declare class MetricsController {
         status: import("@prisma/client").$Enums.SolicitudStatus;
         count: number;
     }[]>;
-    getReportsByType(): Promise<{
+    getReportsByType(from?: string): Promise<{
         tipo: import("@prisma/client").$Enums.MaintenanceTipo;
         count: number;
     }[]>;
@@ -31,7 +31,7 @@ export declare class MetricsController {
         regional: string;
         count: number;
     }[]>;
-    getTimeSeries(days?: string): Promise<{
+    getTimeSeries(days?: string, from?: string): Promise<{
         date: string;
         reports: number;
         incidencias: number;

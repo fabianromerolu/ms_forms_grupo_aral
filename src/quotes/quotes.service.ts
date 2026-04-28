@@ -9,6 +9,44 @@ import { paginateResponse } from '../utils/pagination.util';
 export class QuotesService {
   constructor(private readonly prisma: PrismaService) {}
 
+  private readonly documentDataFields: (keyof UpdateQuoteDto)[] = [
+    'format',
+    'specialty',
+    'storeCode',
+    'storeName',
+    'storeCity',
+    'typology',
+    'maintenanceType',
+    'note',
+    'invoiceMode',
+    'aiuAdministration',
+    'aiuUnexpected',
+    'aiuUtility',
+    'aiuIva',
+    'items',
+    'incidenciaIds',
+  ];
+
+  private withDocumentNumber<T extends { number: string }>(
+    quote: T,
+  ): T & { documentNumber: string; quoteNumber: string } {
+    return {
+      ...quote,
+      documentNumber: quote.number,
+      quoteNumber: quote.number,
+    };
+  }
+
+  private withDocumentNumbers<T extends { number: string }>(
+    quotes: T[],
+  ): (T & { documentNumber: string; quoteNumber: string })[] {
+    return quotes.map((quote) => this.withDocumentNumber(quote));
+  }
+
+  private hasDocumentDataChange(dto: UpdateQuoteDto): boolean {
+    return this.documentDataFields.some((field) => dto[field] !== undefined);
+  }
+
   private calcTotal(
     items: { quantity: number; unitPrice: number; hasIva: boolean }[],
   ): number {
@@ -21,7 +59,9 @@ export class QuotesService {
   async create(dto: CreateQuoteDto, userId?: string) {
     const items = dto.items ?? [];
 
-    const maxSeq = await this.prisma.cotizacion.aggregate({ _max: { sequentialId: true } });
+    const maxSeq = await this.prisma.cotizacion.aggregate({
+      _max: { sequentialId: true },
+    });
     const sequentialId = (maxSeq._max.sequentialId ?? 2999) + 1;
     const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     const numIncidencias = dto.incidenciaIds?.length ?? 0;
@@ -35,7 +75,7 @@ export class QuotesService {
       })),
     );
 
-    return this.prisma.cotizacion.create({
+    const quote = await this.prisma.cotizacion.create({
       data: {
         number,
         sequentialId,
@@ -83,6 +123,8 @@ export class QuotesService {
         incidencias: { include: { incidencia: true } },
       },
     });
+
+    return this.withDocumentNumber(quote);
   }
 
   async findAll(page = 1, limit_ = 20, q?: string, format?: string) {
@@ -119,7 +161,7 @@ export class QuotesService {
       }),
     ]);
 
-    return paginateResponse(items, total, page, limit);
+    return paginateResponse(this.withDocumentNumbers(items), total, page, limit);
   }
 
   async findOne(id: string) {
@@ -131,7 +173,7 @@ export class QuotesService {
       },
     });
     if (!item) throw new NotFoundException('Cotización no encontrada');
-    return item;
+    return this.withDocumentNumber(item);
   }
 
   async update(id: string, dto: UpdateQuoteDto, userId?: string) {
@@ -142,14 +184,18 @@ export class QuotesService {
       items.length > 0
         ? this.calcTotal(
             items.map((i) => ({
-              quantity: i.quantity ?? 0,
+              quantity: i.quantity ?? 1,
               unitPrice: i.unitPrice ?? 0,
               hasIva: i.hasIva ?? false,
             })),
           )
         : undefined;
+    const shouldInvalidateDocument =
+      this.hasDocumentDataChange(dto) &&
+      dto.quoteDocumentUrl === undefined &&
+      dto.quoteDocumentName === undefined;
 
-    return this.prisma.$transaction(async (tx) => {
+    const quote = await this.prisma.$transaction(async (tx) => {
       if (dto.items !== undefined) {
         await tx.cotizacionItem.deleteMany({ where: { cotizacionId: id } });
       }
@@ -190,6 +236,10 @@ export class QuotesService {
           ...(dto.quoteDocumentName !== undefined && {
             quoteDocumentName: dto.quoteDocumentName,
           }),
+          ...(shouldInvalidateDocument && {
+            quoteDocumentUrl: null,
+            quoteDocumentName: null,
+          }),
           ...(totalAmount !== undefined && { totalAmount }),
           ...(dto.items !== undefined && {
             items: {
@@ -221,6 +271,8 @@ export class QuotesService {
         },
       });
     });
+
+    return this.withDocumentNumber(quote);
   }
 
   async remove(id: string) {
