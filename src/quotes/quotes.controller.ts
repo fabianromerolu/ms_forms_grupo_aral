@@ -30,7 +30,7 @@ export class QuotesController {
 
   @Post()
   create(@Body() dto: CreateQuoteDto, @Request() req: AuthRequest) {
-    return this.service.create(dto, req.user?.id);
+    return this.service.create(dto, req.user ?? null);
   }
 
   @Get()
@@ -53,12 +53,14 @@ export class QuotesController {
     @Query('limit') limit?: string,
     @Query('q') q?: string,
     @Query('format') format?: string,
+    @Request() req?: AuthRequest,
   ) {
     return this.service.findAll(
       Number(page) || 1,
       Number(limit) || 20,
       q,
       format,
+      req?.user ?? null,
     );
   }
 
@@ -69,8 +71,8 @@ export class QuotesController {
     UserRole.OPERARIO,
     UserRole.SUPERVISOR,
   )
-  findOne(@Param('id') id: string) {
-    return this.service.findOne(id);
+  findOne(@Param('id') id: string, @Request() req: AuthRequest) {
+    return this.service.findOne(id, req.user ?? null);
   }
 
   @Patch(':id')
@@ -79,7 +81,7 @@ export class QuotesController {
     @Body() dto: UpdateQuoteDto,
     @Request() req: AuthRequest,
   ) {
-    return this.service.update(id, dto, req.user?.id);
+    return this.service.update(id, dto, req.user ?? null);
   }
 
   @Delete(':id')

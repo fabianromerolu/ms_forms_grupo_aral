@@ -25,7 +25,7 @@ export declare class RequestsController {
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>;
-    findAll(page?: string, limit?: string, q?: string, status?: string, priority?: string, regional?: string): Promise<import("../utils/pagination.util").PaginatedResponse<{
+    findAll(page?: string, limit?: string, q?: string, status?: string, priority?: string, regional?: string, req?: AuthRequest): Promise<import("../utils/pagination.util").PaginatedResponse<{
         createdBy: {
             id: string;
             email: string;
@@ -51,7 +51,7 @@ export declare class RequestsController {
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>>;
-    findOne(id: string): Promise<{
+    findOne(id: string, req: AuthRequest): Promise<{
         createdBy: {
             id: string;
             email: string;
@@ -77,7 +77,7 @@ export declare class RequestsController {
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>;
-    update(id: string, dto: UpdateRequestDto): Promise<{
+    update(id: string, dto: UpdateRequestDto, req: AuthRequest): Promise<{
         number: string;
         id: string;
         city: string | null;

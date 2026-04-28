@@ -88,7 +88,7 @@ export declare class QuotesController {
         documentNumber: string;
         quoteNumber: string;
     }>;
-    findAll(page?: string, limit?: string, q?: string, format?: string): Promise<import("../utils/pagination.util").PaginatedResponse<{
+    findAll(page?: string, limit?: string, q?: string, format?: string, req?: AuthRequest): Promise<import("../utils/pagination.util").PaginatedResponse<{
         incidencias: ({
             incidencia: {
                 id: string;
@@ -142,7 +142,7 @@ export declare class QuotesController {
         documentNumber: string;
         quoteNumber: string;
     }>>;
-    findOne(id: string): Promise<{
+    findOne(id: string, req: AuthRequest): Promise<{
         incidencias: ({
             incidencia: {
                 id: string;

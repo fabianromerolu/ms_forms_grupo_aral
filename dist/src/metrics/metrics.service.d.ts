@@ -1,8 +1,12 @@
 import { PrismaService } from '../prisma/prisma.service';
+import { type AccessActor } from '../auth/access-scope.util';
 export declare class MetricsService {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    getOverview(from?: string): Promise<{
+    private andWhere;
+    private monthRange;
+    private resolveRegional;
+    getOverview(from?: string, actor?: AccessActor | null): Promise<{
         incidenciasActivas: number;
         solicitudesAbiertas: number;
         reportesRecibidos: number;
@@ -11,27 +15,27 @@ export declare class MetricsService {
         usuariosActivos: number;
         actividadesHoy: number;
     }>;
-    getIncidenciasByStatus(): Promise<{
+    getIncidenciasByStatus(actor?: AccessActor | null): Promise<{
         status: import("@prisma/client").$Enums.IncidenciaStatus;
         count: number;
     }[]>;
-    getIncidenciasByType(): Promise<{
+    getIncidenciasByType(actor?: AccessActor | null): Promise<{
         type: import("@prisma/client").$Enums.IncidenciaMaintenanceType;
         count: number;
     }[]>;
-    getSolicitudesByStatus(): Promise<{
+    getSolicitudesByStatus(actor?: AccessActor | null): Promise<{
         status: import("@prisma/client").$Enums.SolicitudStatus;
         count: number;
     }[]>;
-    getReportsByType(from?: string): Promise<{
+    getReportsByType(from?: string, actor?: AccessActor | null): Promise<{
         tipo: import("@prisma/client").$Enums.MaintenanceTipo;
         count: number;
     }[]>;
-    getIncidenciasByRegional(): Promise<{
+    getIncidenciasByRegional(actor?: AccessActor | null): Promise<{
         regional: string;
         count: number;
     }[]>;
-    getStoreMetrics(storeCode: string, year: number, month: number): Promise<{
+    getStoreMetrics(storeCode: string, year: number, month: number, actor?: AccessActor | null): Promise<{
         storeCode: string;
         year: number;
         month: number;
@@ -45,7 +49,7 @@ export declare class MetricsService {
         cumplimientoCorrectivo: number;
         cumplimientoPreventivo: number;
     }>;
-    getRegionalMetrics(regional: string, year: number, month: number): Promise<{
+    getRegionalMetrics(regional: string, year: number, month: number, actor?: AccessActor | null): Promise<{
         regional: string;
         year: number;
         month: number;
@@ -60,7 +64,7 @@ export declare class MetricsService {
         cumplimientoCorrectivo: number;
         cumplimientoPreventivo: number;
     }>;
-    getTimeSeries(days?: number, fromFloor?: string): Promise<{
+    getTimeSeries(days?: number, fromFloor?: string, actor?: AccessActor | null): Promise<{
         date: string;
         reports: number;
         incidencias: number;

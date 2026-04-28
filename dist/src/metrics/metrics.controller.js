@@ -25,34 +25,34 @@ let MetricsController = class MetricsController {
     constructor(service) {
         this.service = service;
     }
-    getOverview(from) {
-        return this.service.getOverview(from);
+    getOverview(from, req) {
+        return this.service.getOverview(from, req?.user ?? null);
     }
-    getIncidenciasByStatus() {
-        return this.service.getIncidenciasByStatus();
+    getIncidenciasByStatus(req) {
+        return this.service.getIncidenciasByStatus(req?.user ?? null);
     }
-    getIncidenciasByType() {
-        return this.service.getIncidenciasByType();
+    getIncidenciasByType(req) {
+        return this.service.getIncidenciasByType(req?.user ?? null);
     }
-    getSolicitudesByStatus() {
-        return this.service.getSolicitudesByStatus();
+    getSolicitudesByStatus(req) {
+        return this.service.getSolicitudesByStatus(req?.user ?? null);
     }
-    getReportsByType(from) {
-        return this.service.getReportsByType(from);
+    getReportsByType(from, req) {
+        return this.service.getReportsByType(from, req?.user ?? null);
     }
-    getIncidenciasByRegional() {
-        return this.service.getIncidenciasByRegional();
+    getIncidenciasByRegional(req) {
+        return this.service.getIncidenciasByRegional(req?.user ?? null);
     }
-    getTimeSeries(days, from) {
-        return this.service.getTimeSeries(Number(days) || 30, from);
+    getTimeSeries(days, from, req) {
+        return this.service.getTimeSeries(Number(days) || 30, from, req?.user ?? null);
     }
-    getStoreMetrics(storeCode, year, month) {
+    getStoreMetrics(storeCode, year, month, req) {
         const now = new Date();
-        return this.service.getStoreMetrics(storeCode, Number(year) || now.getFullYear(), Number(month) || now.getMonth() + 1);
+        return this.service.getStoreMetrics(storeCode, Number(year) || now.getFullYear(), Number(month) || now.getMonth() + 1, req?.user ?? null);
     }
-    getRegionalMetrics(regional, year, month) {
+    getRegionalMetrics(regional, year, month, req) {
         const now = new Date();
-        return this.service.getRegionalMetrics(regional, Number(year) || now.getFullYear(), Number(month) || now.getMonth() + 1);
+        return this.service.getRegionalMetrics(regional, Number(year) || now.getFullYear(), Number(month) || now.getMonth() + 1, req?.user ?? null);
     }
 };
 exports.MetricsController = MetricsController;
@@ -60,40 +60,46 @@ __decorate([
     (0, common_1.Get)('overview'),
     (0, swagger_1.ApiQuery)({ name: 'from', required: false, description: 'Filtrar reportes desde esta fecha ISO (opcional)' }),
     __param(0, (0, common_1.Query)('from')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getOverview", null);
 __decorate([
     (0, common_1.Get)('incidencias/by-status'),
+    __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getIncidenciasByStatus", null);
 __decorate([
     (0, common_1.Get)('incidencias/by-type'),
+    __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getIncidenciasByType", null);
 __decorate([
     (0, common_1.Get)('solicitudes/by-status'),
+    __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getSolicitudesByStatus", null);
 __decorate([
     (0, common_1.Get)('reports/by-type'),
     (0, swagger_1.ApiQuery)({ name: 'from', required: false, description: 'Filtrar desde esta fecha ISO (opcional)' }),
     __param(0, (0, common_1.Query)('from')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getReportsByType", null);
 __decorate([
     (0, common_1.Get)('incidencias/by-regional'),
+    __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getIncidenciasByRegional", null);
 __decorate([
@@ -102,8 +108,9 @@ __decorate([
     (0, swagger_1.ApiQuery)({ name: 'from', required: false, description: 'Piso mínimo de fecha ISO para reportes (opcional)' }),
     __param(0, (0, common_1.Query)('days')),
     __param(1, (0, common_1.Query)('from')),
+    __param(2, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getTimeSeries", null);
 __decorate([
@@ -114,8 +121,9 @@ __decorate([
     __param(0, (0, common_1.Query)('storeCode')),
     __param(1, (0, common_1.Query)('year')),
     __param(2, (0, common_1.Query)('month')),
+    __param(3, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:paramtypes", [String, String, String, Object]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getStoreMetrics", null);
 __decorate([
@@ -126,8 +134,9 @@ __decorate([
     __param(0, (0, common_1.Query)('regional')),
     __param(1, (0, common_1.Query)('year')),
     __param(2, (0, common_1.Query)('month')),
+    __param(3, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String]),
+    __metadata("design:paramtypes", [String, String, String, Object]),
     __metadata("design:returntype", void 0)
 ], MetricsController.prototype, "getRegionalMetrics", null);
 exports.MetricsController = MetricsController = __decorate([

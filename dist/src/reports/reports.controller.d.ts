@@ -1,15 +1,11 @@
 import { ReportsService } from './reports.service';
 import { CreateReportDto } from './dto/create-report.dto';
 import { ListReportsQueryDto } from './dto/list-reports.query.dto';
+import type { AuthRequest } from '../types/auth-request.type';
 export declare class ReportsController {
     private readonly service;
     constructor(service: ReportsService);
-    create(dto: CreateReportDto, req: {
-        user?: {
-            id: string;
-            role: string;
-        };
-    }): Promise<import("../utils/reports.utils").SerializedReport<{
+    create(dto: CreateReportDto, req: AuthRequest): Promise<import("../utils/reports.utils").SerializedReport<{
         id: string;
         createdAt: Date;
         updatedAt: Date;
@@ -40,14 +36,14 @@ export declare class ReportsController {
         searchText: string;
         createdById: string | null;
     }>>;
-    findAll(q: ListReportsQueryDto): Promise<import("../utils/reports.utils").FindAllResponse>;
-    getSummary(q: ListReportsQueryDto): Promise<{
+    findAll(q: ListReportsQueryDto, req: AuthRequest): Promise<import("../utils/reports.utils").FindAllResponse>;
+    getSummary(q: ListReportsQueryDto, req: AuthRequest): Promise<{
         total: number;
         preventivos: number;
         correctivos: number;
         conPdf: number;
     }>;
-    findOne(id: string): Promise<import("../utils/reports.utils").SerializedReport<{
+    findOne(id: string, req: AuthRequest): Promise<import("../utils/reports.utils").SerializedReport<{
         id: string;
         createdAt: Date;
         updatedAt: Date;

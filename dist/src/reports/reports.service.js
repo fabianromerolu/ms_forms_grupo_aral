@@ -17,6 +17,7 @@ const notifications_service_1 = require("../notifications/notifications.service"
 const prisma_service_1 = require("../prisma/prisma.service");
 const create_report_dto_1 = require("./dto/create-report.dto");
 const pagination_util_1 = require("../utils/pagination.util");
+const access_scope_util_1 = require("../auth/access-scope.util");
 const reports_utils_1 = require("../utils/reports.utils");
 let ReportsService = ReportsService_1 = class ReportsService {
     prisma;
@@ -276,12 +277,35 @@ let ReportsService = ReportsService_1 = class ReportsService {
         }
         return andFilters.length > 0 ? { AND: andFilters } : {};
     }
+    async buildScopedReportWhere(q, actor) {
+        const where = this.buildReportWhere(q);
+        const scope = await (0, access_scope_util_1.scopedReportWhere)(this.prisma, actor);
+        return scope ? { AND: [where, scope] } : where;
+    }
+    async assertReportIncidenciasAllowed(incidencias, actor) {
+        if (!(0, access_scope_util_1.isRegionalScopedActor)(actor))
+            return;
+        const scope = await (0, access_scope_util_1.scopedIncidentWhere)(this.prisma, actor, {
+            coordinatorOwnOnly: true,
+        });
+        const total = await this.prisma.incidencia.count({
+            where: {
+                isDisabled: false,
+                incidentNumber: { in: incidencias },
+                ...(scope ? { AND: [scope] } : {}),
+            },
+        });
+        if (total !== incidencias.length) {
+            throw new common_1.ForbiddenException('No puedes crear reportes para incidencias de otra regional');
+        }
+    }
     async create(dto, actor) {
         const clientCreatedAt = dto.createdAt ? (0, reports_utils_1.safeDate)(dto.createdAt) : undefined;
         const incidencias = this.normalizeIncidencias(dto.data);
         if (incidencias.length === 0) {
             throw new common_1.BadRequestException('Debes enviar al menos una incidencia');
         }
+        await this.assertReportIncidenciasAllowed(incidencias, actor);
         const subTipos = this.normalizeSubTipos(dto.data);
         this.assertTipoSubtipos(dto.data.tipo, subTipos);
         const incidenciaPrincipal = incidencias[0];
@@ -392,11 +416,11 @@ let ReportsService = ReportsService_1 = class ReportsService {
             this.logger.log(`Incidencia ${numero} → INFORMADA (reporte del operario)`);
         }
     }
-    async findAll(q) {
+    async findAll(q, actor) {
         const page = q.page ?? 1;
         const limit = Math.min(q.limit ?? 20, 100);
         const skip = (page - 1) * limit;
-        const where = this.buildReportWhere(q);
+        const where = await this.buildScopedReportWhere(q, actor);
         const [total, items] = await Promise.all([
             this.prisma.report.count({ where }),
             this.prisma.report.findMany({
@@ -408,7 +432,7 @@ let ReportsService = ReportsService_1 = class ReportsService {
         ]);
         return (0, pagination_util_1.paginateResponse)(items.map((item) => this.serializeReport(item)), total, page, limit);
     }
-    async getSummary(q) {
+    async getSummary(q, actor) {
         const summaryFilters = {
             q: q.q,
             from: q.from,
@@ -422,16 +446,15 @@ let ReportsService = ReportsService_1 = class ReportsService {
             extraEquals: q.extraEquals,
             extraContains: q.extraContains,
         };
-        const total = await this.prisma.report.count({
-            where: this.buildReportWhere(summaryFilters),
-        });
+        const baseWhere = await this.buildScopedReportWhere(summaryFilters, actor);
+        const total = await this.prisma.report.count({ where: baseWhere });
         const rows = await this.prisma.report.groupBy({
             by: ['tipo'],
             _count: { id: true },
-            where: this.buildReportWhere(summaryFilters),
+            where: baseWhere,
         });
         const conPdf = await this.prisma.report.count({
-            where: this.buildReportWhere({ ...summaryFilters, hasPdf: true }),
+            where: await this.buildScopedReportWhere({ ...summaryFilters, hasPdf: true }, actor),
         });
         const byType = new Map(rows.map((row) => [row.tipo, row._count.id]));
         return {
@@ -441,9 +464,14 @@ let ReportsService = ReportsService_1 = class ReportsService {
             conPdf,
         };
     }
-    async findOne(id) {
+    async findOne(id, actor) {
+        const scope = await (0, access_scope_util_1.scopedReportWhere)(this.prisma, actor);
         const item = await this.prisma.report.findFirst({
-            where: { id, isActive: true },
+            where: {
+                id,
+                isActive: true,
+                ...(scope ? { AND: [scope] } : {}),
+            },
         });
         return this.serializeReport(item);
     }

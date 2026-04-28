@@ -119,6 +119,7 @@ const SELECT_SAFE = {
     document: true,
     phone: true,
     city: true,
+    regional: true,
     avatarUrl: true,
     createdAt: true,
     updatedAt: true,

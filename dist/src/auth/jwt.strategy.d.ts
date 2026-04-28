@@ -12,6 +12,7 @@ type CachedUser = {
     fullName: string;
     role: string;
     status: string;
+    regional: string | null;
 };
 declare const JwtStrategy_base: new (...args: [opt: import("passport-jwt").StrategyOptionsWithRequest] | [opt: import("passport-jwt").StrategyOptionsWithoutRequest]) => Strategy & {
     validate(...args: any[]): unknown;

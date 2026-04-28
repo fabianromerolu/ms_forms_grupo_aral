@@ -30,7 +30,7 @@ export class StoresController {
 
   @Post()
   create(@Body() dto: CreateStoreDto, @Request() req: AuthRequest) {
-    return this.service.create(dto, req.user?.id);
+    return this.service.create(dto, req.user ?? null);
   }
 
   @Get()
@@ -51,6 +51,7 @@ export class StoresController {
     @Query('q') q?: string,
     @Query('regional') regional?: string,
     @Query('city') city?: string,
+    @Request() req?: AuthRequest,
   ) {
     return this.service.findAll(
       Number(page) || 1,
@@ -58,6 +59,7 @@ export class StoresController {
       q,
       regional,
       city,
+      req?.user ?? null,
     );
   }
 
@@ -68,8 +70,8 @@ export class StoresController {
     UserRole.OPERARIO,
     UserRole.SUPERVISOR,
   )
-  findByCode(@Param('code') code: string) {
-    return this.service.findByCode(code);
+  findByCode(@Param('code') code: string, @Request() req: AuthRequest) {
+    return this.service.findByCode(code, req.user ?? null);
   }
 
   @Get(':id')
@@ -79,8 +81,8 @@ export class StoresController {
     UserRole.OPERARIO,
     UserRole.SUPERVISOR,
   )
-  findOne(@Param('id') id: string) {
-    return this.service.findOne(id);
+  findOne(@Param('id') id: string, @Request() req: AuthRequest) {
+    return this.service.findOne(id, req.user ?? null);
   }
 
   @Patch(':id')
@@ -89,7 +91,7 @@ export class StoresController {
     @Body() dto: UpdateStoreDto,
     @Request() req: AuthRequest,
   ) {
-    return this.service.update(id, dto, req.user?.id);
+    return this.service.update(id, dto, req.user ?? null);
   }
 
   @Delete(':id')

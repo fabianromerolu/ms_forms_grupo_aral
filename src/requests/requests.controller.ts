@@ -30,7 +30,7 @@ export class RequestsController {
 
   @Post()
   create(@Body() dto: CreateRequestDto, @Request() req: AuthRequest) {
-    return this.service.create(dto, req.user?.id);
+    return this.service.create(dto, req.user ?? null);
   }
 
   @Get()
@@ -53,6 +53,7 @@ export class RequestsController {
     @Query('status') status?: string,
     @Query('priority') priority?: string,
     @Query('regional') regional?: string,
+    @Request() req?: AuthRequest,
   ) {
     return this.service.findAll(
       Number(page) || 1,
@@ -61,6 +62,7 @@ export class RequestsController {
       status,
       priority,
       regional,
+      req?.user ?? null,
     );
   }
 
@@ -71,13 +73,17 @@ export class RequestsController {
     UserRole.OPERARIO,
     UserRole.SUPERVISOR,
   )
-  findOne(@Param('id') id: string) {
-    return this.service.findOne(id);
+  findOne(@Param('id') id: string, @Request() req: AuthRequest) {
+    return this.service.findOne(id, req.user ?? null);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: UpdateRequestDto) {
-    return this.service.update(id, dto);
+  update(
+    @Param('id') id: string,
+    @Body() dto: UpdateRequestDto,
+    @Request() req: AuthRequest,
+  ) {
+    return this.service.update(id, dto, req.user ?? null);
   }
 
   @Delete(':id')

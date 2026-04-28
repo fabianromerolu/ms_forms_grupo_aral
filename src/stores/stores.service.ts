@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -7,12 +8,23 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import {
+  type AccessActor,
+  isRegionalScopedActor,
+  regionalMatches,
+  scopedStoreWhere,
+} from '../auth/access-scope.util';
 
 @Injectable()
 export class StoresService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateStoreDto, createdBy?: string) {
+  async create(dto: CreateStoreDto, actor?: AccessActor | null) {
+    const createdBy = actor?.id;
+    if (isRegionalScopedActor(actor) && !regionalMatches(dto.regional, actor)) {
+      throw new ForbiddenException('No puedes crear tiendas en otra regional');
+    }
+
     const exists = await this.prisma.tienda.findUnique({
       where: { storeCode: dto.storeCode },
     });
@@ -56,6 +68,7 @@ export class StoresService {
     q?: string,
     regional?: string,
     city?: string,
+    actor?: AccessActor | null,
   ) {
     const skip = (page - 1) * limit;
     const where: Prisma.TiendaWhereInput = { isActive: true };
@@ -79,6 +92,9 @@ export class StoresService {
         ],
       });
     }
+
+    const scope = scopedStoreWhere(actor);
+    if (scope) and.push(scope);
 
     if (and.length > 0) where.AND = and;
 
@@ -107,9 +123,13 @@ export class StoresService {
     };
   }
 
-  async findOne(id: string) {
-    const item = await this.prisma.tienda.findUnique({
-      where: { id },
+  async findOne(id: string, actor?: AccessActor | null) {
+    const scope = scopedStoreWhere(actor);
+    const item = await this.prisma.tienda.findFirst({
+      where: {
+        id,
+        ...(scope ? { AND: [scope] } : {}),
+      },
       include: {
         labels: true,
         history: { orderBy: { createdAt: 'desc' }, take: 20 },
@@ -119,17 +139,30 @@ export class StoresService {
     return item;
   }
 
-  async findByCode(code: string) {
-    const item = await this.prisma.tienda.findUnique({
-      where: { storeCode: code },
+  async findByCode(code: string, actor?: AccessActor | null) {
+    const scope = scopedStoreWhere(actor);
+    const item = await this.prisma.tienda.findFirst({
+      where: {
+        storeCode: code,
+        ...(scope ? { AND: [scope] } : {}),
+      },
       include: { labels: true },
     });
     if (!item) throw new NotFoundException('Tienda no encontrada');
     return item;
   }
 
-  async update(id: string, dto: UpdateStoreDto, updatedBy?: string) {
-    await this.findOne(id);
+  async update(id: string, dto: UpdateStoreDto, actor?: AccessActor | null) {
+    const updatedBy = actor?.id;
+    await this.findOne(id, actor);
+
+    if (
+      dto.regional !== undefined &&
+      isRegionalScopedActor(actor) &&
+      !regionalMatches(dto.regional, actor)
+    ) {
+      throw new ForbiddenException('No puedes mover tiendas a otra regional');
+    }
 
     return this.prisma.$transaction(async (tx) => {
       if (dto.labels !== undefined) {

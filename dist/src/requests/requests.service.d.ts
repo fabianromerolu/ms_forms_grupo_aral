@@ -1,10 +1,11 @@
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateRequestDto } from './dto/create-request.dto';
 import { UpdateRequestDto } from './dto/update-request.dto';
+import { type AccessActor } from '../auth/access-scope.util';
 export declare class RequestsService {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    create(dto: CreateRequestDto, userId?: string): Promise<{
+    create(dto: CreateRequestDto, actor?: AccessActor | null): Promise<{
         number: string;
         id: string;
         city: string | null;
@@ -24,7 +25,7 @@ export declare class RequestsService {
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>;
-    findAll(page?: number, limit_?: number, q?: string, status?: string, priority?: string, regional?: string): Promise<import("../utils/pagination.util").PaginatedResponse<{
+    findAll(page?: number, limit_?: number, q?: string, status?: string, priority?: string, regional?: string, actor?: AccessActor | null): Promise<import("../utils/pagination.util").PaginatedResponse<{
         createdBy: {
             id: string;
             email: string;
@@ -50,7 +51,7 @@ export declare class RequestsService {
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>>;
-    findOne(id: string): Promise<{
+    findOne(id: string, actor?: AccessActor | null): Promise<{
         createdBy: {
             id: string;
             email: string;
@@ -76,7 +77,7 @@ export declare class RequestsService {
         assignedTo: string | null;
         resolvedAt: Date | null;
     }>;
-    update(id: string, dto: UpdateRequestDto): Promise<{
+    update(id: string, dto: UpdateRequestDto, actor?: AccessActor | null): Promise<{
         number: string;
         id: string;
         city: string | null;

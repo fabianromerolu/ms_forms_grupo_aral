@@ -2,10 +2,11 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import { type AccessActor } from '../auth/access-scope.util';
 export declare class StoresService {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    create(dto: CreateStoreDto, createdBy?: string): Promise<{
+    create(dto: CreateStoreDto, actor?: AccessActor | null): Promise<{
         labels: {
             id: string;
             tiendaId: string;
@@ -29,7 +30,7 @@ export declare class StoresService {
         responsiblePhone: string | null;
         responsibleEmail: string | null;
     }>;
-    findAll(page?: number, limit?: number, q?: string, regional?: string, city?: string): Promise<{
+    findAll(page?: number, limit?: number, q?: string, regional?: string, city?: string, actor?: AccessActor | null): Promise<{
         meta: {
             page: number;
             limit: number;
@@ -63,7 +64,7 @@ export declare class StoresService {
             responsibleEmail: string | null;
         })[];
     }>;
-    findOne(id: string): Promise<{
+    findOne(id: string, actor?: AccessActor | null): Promise<{
         labels: {
             id: string;
             tiendaId: string;
@@ -95,7 +96,7 @@ export declare class StoresService {
         responsiblePhone: string | null;
         responsibleEmail: string | null;
     }>;
-    findByCode(code: string): Promise<{
+    findByCode(code: string, actor?: AccessActor | null): Promise<{
         labels: {
             id: string;
             tiendaId: string;
@@ -119,7 +120,7 @@ export declare class StoresService {
         responsiblePhone: string | null;
         responsibleEmail: string | null;
     }>;
-    update(id: string, dto: UpdateStoreDto, updatedBy?: string): Promise<{
+    update(id: string, dto: UpdateStoreDto, actor?: AccessActor | null): Promise<{
         labels: {
             id: string;
             tiendaId: string;

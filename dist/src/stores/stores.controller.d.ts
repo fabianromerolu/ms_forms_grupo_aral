@@ -29,7 +29,7 @@ export declare class StoresController {
         responsiblePhone: string | null;
         responsibleEmail: string | null;
     }>;
-    findAll(page?: string, limit?: string, q?: string, regional?: string, city?: string): Promise<{
+    findAll(page?: string, limit?: string, q?: string, regional?: string, city?: string, req?: AuthRequest): Promise<{
         meta: {
             page: number;
             limit: number;
@@ -63,7 +63,7 @@ export declare class StoresController {
             responsibleEmail: string | null;
         })[];
     }>;
-    findByCode(code: string): Promise<{
+    findByCode(code: string, req: AuthRequest): Promise<{
         labels: {
             id: string;
             tiendaId: string;
@@ -87,7 +87,7 @@ export declare class StoresController {
         responsiblePhone: string | null;
         responsibleEmail: string | null;
     }>;
-    findOne(id: string): Promise<{
+    findOne(id: string, req: AuthRequest): Promise<{
         labels: {
             id: string;
             tiendaId: string;

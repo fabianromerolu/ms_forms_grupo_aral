@@ -13,6 +13,11 @@ import { ListIncidentsQueryDto } from './dto/list-incidents.query.dto';
 import { buildSearchText } from '../utils/search-text.util';
 import { paginateResponse } from '../utils/pagination.util';
 import { computeIncidentPriority } from '../utils/incident-priority.util';
+import {
+  assertStoreAllowed,
+  type AccessActor,
+  scopedIncidentWhere,
+} from '../auth/access-scope.util';
 
 @Injectable()
 export class IncidentsService {
@@ -23,7 +28,8 @@ export class IncidentsService {
     private readonly notifier: ReportNotificationsService,
   ) {}
 
-  async create(dto: CreateIncidentDto, userId?: string) {
+  async create(dto: CreateIncidentDto, actor?: AccessActor | null) {
+    const userId = actor?.id;
     const incidentNumber = dto.incidentNumber.trim();
     if (!incidentNumber) {
       throw new ConflictException(
@@ -39,6 +45,11 @@ export class IncidentsService {
     if (existingIncident) {
       throw new ConflictException('El número de incidencia ya existe');
     }
+
+    await assertStoreAllowed(this.prisma, actor, {
+      storeCode: dto.storeCode,
+      tiendaId: dto.tiendaId,
+    });
 
     const searchText = buildSearchText([
       incidentNumber,
@@ -99,7 +110,7 @@ export class IncidentsService {
     return { ...incidencia, priority: computeIncidentPriority(incidencia.expirationAt) };
   }
 
-  async findAll(q: ListIncidentsQueryDto) {
+  async findAll(q: ListIncidentsQueryDto, actor?: AccessActor | null) {
     const page = Number(q.page) || 1;
     const limit = Math.min(Number(q.limit) || 20, 100);
     const skip = (page - 1) * limit;
@@ -145,6 +156,9 @@ export class IncidentsService {
       and.push({ searchText: { contains: q.q.toLowerCase() } });
     }
 
+    const scope = await scopedIncidentWhere(this.prisma, actor);
+    if (scope) and.push(scope);
+
     if (and.length > 0) where.AND = and;
 
     const [total, items] = await Promise.all([
@@ -166,26 +180,42 @@ export class IncidentsService {
     return paginateResponse(enriched, total, page, limit);
   }
 
-  async findOne(id: string) {
-    const item = await this.prisma.incidencia.findUnique({
-      where: { id },
+  async findOne(id: string, actor?: AccessActor | null) {
+    const scope = await scopedIncidentWhere(this.prisma, actor);
+    const item = await this.prisma.incidencia.findFirst({
+      where: {
+        id,
+        ...(scope ? { AND: [scope] } : {}),
+      },
       include: { history: { orderBy: { createdAt: 'asc' } } },
     });
     if (!item) throw new NotFoundException('Incidencia no encontrada');
     return { ...item, priority: computeIncidentPriority(item.expirationAt) };
   }
 
-  async findByNumber(numero: string) {
-    const item = await this.prisma.incidencia.findUnique({
-      where: { incidentNumber: numero },
+  async findByNumber(numero: string, actor?: AccessActor | null) {
+    const scope = await scopedIncidentWhere(this.prisma, actor);
+    const item = await this.prisma.incidencia.findFirst({
+      where: {
+        incidentNumber: numero,
+        ...(scope ? { AND: [scope] } : {}),
+      },
       include: { history: { orderBy: { createdAt: 'asc' } } },
     });
     if (!item) throw new NotFoundException('Incidencia no encontrada');
     return { ...item, priority: computeIncidentPriority(item.expirationAt) };
   }
 
-  async update(id: string, dto: UpdateIncidentDto, userId?: string) {
-    const current = await this.findOne(id);
+  async update(id: string, dto: UpdateIncidentDto, actor?: AccessActor | null) {
+    const userId = actor?.id;
+    const current = await this.findOne(id, actor);
+
+    if (dto.storeCode !== undefined || dto.tiendaId !== undefined) {
+      await assertStoreAllowed(this.prisma, actor, {
+        storeCode: dto.storeCode ?? current.storeCode,
+        tiendaId: dto.tiendaId ?? current.tiendaId,
+      });
+    }
 
     if (
       dto.incidentNumber !== undefined &&
@@ -311,8 +341,8 @@ export class IncidentsService {
     });
   }
 
-  async getHistory(id: string) {
-    await this.findOne(id);
+  async getHistory(id: string, actor?: AccessActor | null) {
+    await this.findOne(id, actor);
     return this.prisma.incidenciaHistoryEvent.findMany({
       where: { incidenciaId: id },
       orderBy: { createdAt: 'asc' },

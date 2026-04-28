@@ -28,19 +28,19 @@ let StoresController = class StoresController {
         this.service = service;
     }
     create(dto, req) {
-        return this.service.create(dto, req.user?.id);
+        return this.service.create(dto, req.user ?? null);
     }
-    findAll(page, limit, q, regional, city) {
-        return this.service.findAll(Number(page) || 1, Number(limit) || 20, q, regional, city);
+    findAll(page, limit, q, regional, city, req) {
+        return this.service.findAll(Number(page) || 1, Number(limit) || 20, q, regional, city, req?.user ?? null);
     }
-    findByCode(code) {
-        return this.service.findByCode(code);
+    findByCode(code, req) {
+        return this.service.findByCode(code, req.user ?? null);
     }
-    findOne(id) {
-        return this.service.findOne(id);
+    findOne(id, req) {
+        return this.service.findOne(id, req.user ?? null);
     }
     update(id, dto, req) {
-        return this.service.update(id, dto, req.user?.id);
+        return this.service.update(id, dto, req.user ?? null);
     }
     remove(id) {
         return this.service.remove(id);
@@ -68,24 +68,27 @@ __decorate([
     __param(2, (0, common_1.Query)('q')),
     __param(3, (0, common_1.Query)('regional')),
     __param(4, (0, common_1.Query)('city')),
+    __param(5, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String, String]),
+    __metadata("design:paramtypes", [String, String, String, String, String, Object]),
     __metadata("design:returntype", void 0)
 ], StoresController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)('codigo/:code'),
     (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     __param(0, (0, common_1.Param)('code')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], StoresController.prototype, "findByCode", null);
 __decorate([
     (0, common_1.Get)(':id'),
     (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], StoresController.prototype, "findOne", null);
 __decorate([

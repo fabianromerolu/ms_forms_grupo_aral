@@ -6,12 +6,20 @@ import { UpdateRequestDto } from './dto/update-request.dto';
 import { generateUniqueNumber } from '../utils/generate-number.util';
 import { buildSearchText } from '../utils/search-text.util';
 import { paginateResponse } from '../utils/pagination.util';
+import {
+  assertStoreAllowed,
+  type AccessActor,
+  scopedRequestWhere,
+} from '../auth/access-scope.util';
 
 @Injectable()
 export class RequestsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateRequestDto, userId?: string) {
+  async create(dto: CreateRequestDto, actor?: AccessActor | null) {
+    const userId = actor?.id;
+    await assertStoreAllowed(this.prisma, actor, { storeCode: dto.storeCode });
+
     const number = generateUniqueNumber('SOL');
     const searchText = buildSearchText([
       dto.title,
@@ -44,6 +52,7 @@ export class RequestsService {
     status?: string,
     priority?: string,
     regional?: string,
+    actor?: AccessActor | null,
   ) {
     const limit = Math.min(limit_, 100);
     const skip = (page - 1) * limit;
@@ -63,6 +72,9 @@ export class RequestsService {
       and.push({ storeCode: codes.length > 0 ? { in: codes } : { equals: '__NO_MATCH__' } });
     }
 
+    const scope = await scopedRequestWhere(this.prisma, actor);
+    if (scope) and.push(scope);
+
     if (and.length > 0) where.AND = and;
 
     const [total, items] = await Promise.all([
@@ -81,9 +93,13 @@ export class RequestsService {
     return paginateResponse(items, total, page, limit);
   }
 
-  async findOne(id: string) {
-    const item = await this.prisma.solicitud.findUnique({
-      where: { id },
+  async findOne(id: string, actor?: AccessActor | null) {
+    const scope = await scopedRequestWhere(this.prisma, actor);
+    const item = await this.prisma.solicitud.findFirst({
+      where: {
+        id,
+        ...(scope ? { AND: [scope] } : {}),
+      },
       include: {
         createdBy: { select: { id: true, fullName: true, email: true } },
       },
@@ -92,8 +108,12 @@ export class RequestsService {
     return item;
   }
 
-  async update(id: string, dto: UpdateRequestDto) {
-    const current = await this.findOne(id);
+  async update(id: string, dto: UpdateRequestDto, actor?: AccessActor | null) {
+    const current = await this.findOne(id, actor);
+
+    if (dto.storeCode !== undefined) {
+      await assertStoreAllowed(this.prisma, actor, { storeCode: dto.storeCode });
+    }
 
     const searchText = buildSearchText([
       dto.title ?? current.title,

@@ -13,12 +13,17 @@ exports.StoresService = void 0;
 const common_1 = require("@nestjs/common");
 const client_1 = require("@prisma/client");
 const prisma_service_1 = require("../prisma/prisma.service");
+const access_scope_util_1 = require("../auth/access-scope.util");
 let StoresService = class StoresService {
     prisma;
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(dto, createdBy) {
+    async create(dto, actor) {
+        const createdBy = actor?.id;
+        if ((0, access_scope_util_1.isRegionalScopedActor)(actor) && !(0, access_scope_util_1.regionalMatches)(dto.regional, actor)) {
+            throw new common_1.ForbiddenException('No puedes crear tiendas en otra regional');
+        }
         const exists = await this.prisma.tienda.findUnique({
             where: { storeCode: dto.storeCode },
         });
@@ -53,7 +58,7 @@ let StoresService = class StoresService {
         });
         return tienda;
     }
-    async findAll(page = 1, limit = 20, q, regional, city) {
+    async findAll(page = 1, limit = 20, q, regional, city, actor) {
         const skip = (page - 1) * limit;
         const where = { isActive: true };
         const and = [];
@@ -74,6 +79,9 @@ let StoresService = class StoresService {
                 ],
             });
         }
+        const scope = (0, access_scope_util_1.scopedStoreWhere)(actor);
+        if (scope)
+            and.push(scope);
         if (and.length > 0)
             where.AND = and;
         const [total, items] = await Promise.all([
@@ -99,9 +107,13 @@ let StoresService = class StoresService {
             items,
         };
     }
-    async findOne(id) {
-        const item = await this.prisma.tienda.findUnique({
-            where: { id },
+    async findOne(id, actor) {
+        const scope = (0, access_scope_util_1.scopedStoreWhere)(actor);
+        const item = await this.prisma.tienda.findFirst({
+            where: {
+                id,
+                ...(scope ? { AND: [scope] } : {}),
+            },
             include: {
                 labels: true,
                 history: { orderBy: { createdAt: 'desc' }, take: 20 },
@@ -111,17 +123,27 @@ let StoresService = class StoresService {
             throw new common_1.NotFoundException('Tienda no encontrada');
         return item;
     }
-    async findByCode(code) {
-        const item = await this.prisma.tienda.findUnique({
-            where: { storeCode: code },
+    async findByCode(code, actor) {
+        const scope = (0, access_scope_util_1.scopedStoreWhere)(actor);
+        const item = await this.prisma.tienda.findFirst({
+            where: {
+                storeCode: code,
+                ...(scope ? { AND: [scope] } : {}),
+            },
             include: { labels: true },
         });
         if (!item)
             throw new common_1.NotFoundException('Tienda no encontrada');
         return item;
     }
-    async update(id, dto, updatedBy) {
-        await this.findOne(id);
+    async update(id, dto, actor) {
+        const updatedBy = actor?.id;
+        await this.findOne(id, actor);
+        if (dto.regional !== undefined &&
+            (0, access_scope_util_1.isRegionalScopedActor)(actor) &&
+            !(0, access_scope_util_1.regionalMatches)(dto.regional, actor)) {
+            throw new common_1.ForbiddenException('No puedes mover tiendas a otra regional');
+        }
         return this.prisma.$transaction(async (tx) => {
             if (dto.labels !== undefined) {
                 await tx.tiendaLabel.deleteMany({ where: { tiendaId: id } });

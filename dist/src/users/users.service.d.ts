@@ -23,6 +23,7 @@ export declare class UsersService {
         document: string | null;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         status: import("@prisma/client").$Enums.UserStatus;
         avatarUrl: string | null;
         createdAt: Date;
@@ -36,6 +37,7 @@ export declare class UsersService {
         document: string | null;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         status: import("@prisma/client").$Enums.UserStatus;
         avatarUrl: string | null;
         createdAt: Date;
@@ -49,6 +51,7 @@ export declare class UsersService {
         document: string | null;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         status: import("@prisma/client").$Enums.UserStatus;
         avatarUrl: string | null;
         createdAt: Date;
@@ -62,6 +65,7 @@ export declare class UsersService {
         document: string | null;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         status: import("@prisma/client").$Enums.UserStatus;
         avatarUrl: string | null;
         createdAt: Date;
@@ -75,6 +79,7 @@ export declare class UsersService {
         document: string | null;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         status: import("@prisma/client").$Enums.UserStatus;
         avatarUrl: string | null;
         createdAt: Date;
@@ -89,6 +94,7 @@ export declare class UsersService {
         document: string | null;
         phone: string | null;
         city: string | null;
+        regional: string | null;
         status: import("@prisma/client").$Enums.UserStatus;
         avatarUrl: string | null;
         createdAt: Date;

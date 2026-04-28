@@ -14,6 +14,7 @@ const common_1 = require("@nestjs/common");
 const client_1 = require("@prisma/client");
 const prisma_service_1 = require("../prisma/prisma.service");
 const pagination_util_1 = require("../utils/pagination.util");
+const access_scope_util_1 = require("../auth/access-scope.util");
 let QuotesService = class QuotesService {
     prisma;
     constructor(prisma) {
@@ -55,7 +56,9 @@ let QuotesService = class QuotesService {
             return acc + (item.hasIva ? subtotal * 1.19 : subtotal);
         }, 0);
     }
-    async create(dto, userId) {
+    async create(dto, actor) {
+        const userId = actor?.id;
+        await (0, access_scope_util_1.assertStoreAllowed)(this.prisma, actor, { storeCode: dto.storeCode });
         const items = dto.items ?? [];
         const maxSeq = await this.prisma.cotizacion.aggregate({
             _max: { sequentialId: true },
@@ -119,7 +122,7 @@ let QuotesService = class QuotesService {
         });
         return this.withDocumentNumber(quote);
     }
-    async findAll(page = 1, limit_ = 20, q, format) {
+    async findAll(page = 1, limit_ = 20, q, format, actor) {
         const limit = Math.min(limit_, 100);
         const skip = (page - 1) * limit;
         const where = { isActive: true };
@@ -132,6 +135,9 @@ let QuotesService = class QuotesService {
                 { specialty: { contains: q, mode: client_1.Prisma.QueryMode.insensitive } },
             ];
         }
+        const scope = await (0, access_scope_util_1.scopedQuoteWhere)(this.prisma, actor);
+        if (scope)
+            where.AND = [scope];
         const [total, items] = await Promise.all([
             this.prisma.cotizacion.count({ where }),
             this.prisma.cotizacion.findMany({
@@ -153,9 +159,13 @@ let QuotesService = class QuotesService {
         ]);
         return (0, pagination_util_1.paginateResponse)(this.withDocumentNumbers(items), total, page, limit);
     }
-    async findOne(id) {
-        const item = await this.prisma.cotizacion.findUnique({
-            where: { id },
+    async findOne(id, actor) {
+        const scope = await (0, access_scope_util_1.scopedQuoteWhere)(this.prisma, actor);
+        const item = await this.prisma.cotizacion.findFirst({
+            where: {
+                id,
+                ...(scope ? { AND: [scope] } : {}),
+            },
             include: {
                 items: { orderBy: { order: 'asc' } },
                 incidencias: { include: { incidencia: true } },
@@ -165,8 +175,11 @@ let QuotesService = class QuotesService {
             throw new common_1.NotFoundException('Cotización no encontrada');
         return this.withDocumentNumber(item);
     }
-    async update(id, dto, userId) {
-        await this.findOne(id);
+    async update(id, dto, actor) {
+        await this.findOne(id, actor);
+        if (dto.storeCode !== undefined) {
+            await (0, access_scope_util_1.assertStoreAllowed)(this.prisma, actor, { storeCode: dto.storeCode });
+        }
         const items = dto.items ?? [];
         const totalAmount = items.length > 0
             ? this.calcTotal(items.map((i) => ({

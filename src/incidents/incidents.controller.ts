@@ -31,7 +31,7 @@ export class IncidentsController {
 
   @Post()
   create(@Body() dto: CreateIncidentDto, @Request() req: AuthRequest) {
-    return this.service.create(dto, req.user?.id);
+    return this.service.create(dto, req.user ?? null);
   }
 
   @Get()
@@ -41,8 +41,8 @@ export class IncidentsController {
     UserRole.OPERARIO,
     UserRole.SUPERVISOR,
   )
-  findAll(@Query() q: ListIncidentsQueryDto) {
-    return this.service.findAll(q);
+  findAll(@Query() q: ListIncidentsQueryDto, @Request() req: AuthRequest) {
+    return this.service.findAll(q, req.user ?? null);
   }
 
   @Get('numero/:numero')
@@ -52,8 +52,8 @@ export class IncidentsController {
     UserRole.OPERARIO,
     UserRole.SUPERVISOR,
   )
-  findByNumber(@Param('numero') numero: string) {
-    return this.service.findByNumber(numero);
+  findByNumber(@Param('numero') numero: string, @Request() req: AuthRequest) {
+    return this.service.findByNumber(numero, req.user ?? null);
   }
 
   @Get(':id')
@@ -63,8 +63,8 @@ export class IncidentsController {
     UserRole.OPERARIO,
     UserRole.SUPERVISOR,
   )
-  findOne(@Param('id') id: string) {
-    return this.service.findOne(id);
+  findOne(@Param('id') id: string, @Request() req: AuthRequest) {
+    return this.service.findOne(id, req.user ?? null);
   }
 
 
@@ -74,7 +74,7 @@ export class IncidentsController {
     @Body() dto: UpdateIncidentDto,
     @Request() req: AuthRequest,
   ) {
-    return this.service.update(id, dto, req.user?.id);
+    return this.service.update(id, dto, req.user ?? null);
   }
 
   @Delete(':id')
@@ -90,7 +90,7 @@ export class IncidentsController {
     UserRole.OPERARIO,
     UserRole.SUPERVISOR,
   )
-  getHistory(@Param('id') id: string) {
-    return this.service.getHistory(id);
+  getHistory(@Param('id') id: string, @Request() req: AuthRequest) {
+    return this.service.getHistory(id, req.user ?? null);
   }
 }

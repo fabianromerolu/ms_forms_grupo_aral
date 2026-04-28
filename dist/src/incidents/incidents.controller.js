@@ -29,25 +29,25 @@ let IncidentsController = class IncidentsController {
         this.service = service;
     }
     create(dto, req) {
-        return this.service.create(dto, req.user?.id);
+        return this.service.create(dto, req.user ?? null);
     }
-    findAll(q) {
-        return this.service.findAll(q);
+    findAll(q, req) {
+        return this.service.findAll(q, req.user ?? null);
     }
-    findByNumber(numero) {
-        return this.service.findByNumber(numero);
+    findByNumber(numero, req) {
+        return this.service.findByNumber(numero, req.user ?? null);
     }
-    findOne(id) {
-        return this.service.findOne(id);
+    findOne(id, req) {
+        return this.service.findOne(id, req.user ?? null);
     }
     update(id, dto, req) {
-        return this.service.update(id, dto, req.user?.id);
+        return this.service.update(id, dto, req.user ?? null);
     }
     remove(id) {
         return this.service.remove(id);
     }
-    getHistory(id) {
-        return this.service.getHistory(id);
+    getHistory(id, req) {
+        return this.service.getHistory(id, req.user ?? null);
     }
 };
 exports.IncidentsController = IncidentsController;
@@ -63,24 +63,27 @@ __decorate([
     (0, common_1.Get)(),
     (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     __param(0, (0, common_1.Query)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [list_incidents_query_dto_1.ListIncidentsQueryDto]),
+    __metadata("design:paramtypes", [list_incidents_query_dto_1.ListIncidentsQueryDto, Object]),
     __metadata("design:returntype", void 0)
 ], IncidentsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)('numero/:numero'),
     (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     __param(0, (0, common_1.Param)('numero')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], IncidentsController.prototype, "findByNumber", null);
 __decorate([
     (0, common_1.Get)(':id'),
     (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], IncidentsController.prototype, "findOne", null);
 __decorate([
@@ -104,8 +107,9 @@ __decorate([
     (0, common_1.Get)(':id/history'),
     (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], IncidentsController.prototype, "getHistory", null);
 exports.IncidentsController = IncidentsController = __decorate([

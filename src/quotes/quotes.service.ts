@@ -4,6 +4,11 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateQuoteDto } from './dto/create-quote.dto';
 import { UpdateQuoteDto } from './dto/update-quote.dto';
 import { paginateResponse } from '../utils/pagination.util';
+import {
+  assertStoreAllowed,
+  type AccessActor,
+  scopedQuoteWhere,
+} from '../auth/access-scope.util';
 
 @Injectable()
 export class QuotesService {
@@ -56,7 +61,10 @@ export class QuotesService {
     }, 0);
   }
 
-  async create(dto: CreateQuoteDto, userId?: string) {
+  async create(dto: CreateQuoteDto, actor?: AccessActor | null) {
+    const userId = actor?.id;
+    await assertStoreAllowed(this.prisma, actor, { storeCode: dto.storeCode });
+
     const items = dto.items ?? [];
 
     const maxSeq = await this.prisma.cotizacion.aggregate({
@@ -127,7 +135,13 @@ export class QuotesService {
     return this.withDocumentNumber(quote);
   }
 
-  async findAll(page = 1, limit_ = 20, q?: string, format?: string) {
+  async findAll(
+    page = 1,
+    limit_ = 20,
+    q?: string,
+    format?: string,
+    actor?: AccessActor | null,
+  ) {
     const limit = Math.min(limit_, 100);
     const skip = (page - 1) * limit;
     const where: Prisma.CotizacionWhereInput = { isActive: true };
@@ -140,6 +154,9 @@ export class QuotesService {
         { specialty: { contains: q, mode: Prisma.QueryMode.insensitive } },
       ];
     }
+
+    const scope = await scopedQuoteWhere(this.prisma, actor);
+    if (scope) where.AND = [scope];
 
     const [total, items] = await Promise.all([
       this.prisma.cotizacion.count({ where }),
@@ -164,9 +181,13 @@ export class QuotesService {
     return paginateResponse(this.withDocumentNumbers(items), total, page, limit);
   }
 
-  async findOne(id: string) {
-    const item = await this.prisma.cotizacion.findUnique({
-      where: { id },
+  async findOne(id: string, actor?: AccessActor | null) {
+    const scope = await scopedQuoteWhere(this.prisma, actor);
+    const item = await this.prisma.cotizacion.findFirst({
+      where: {
+        id,
+        ...(scope ? { AND: [scope] } : {}),
+      },
       include: {
         items: { orderBy: { order: 'asc' } },
         incidencias: { include: { incidencia: true } },
@@ -176,8 +197,12 @@ export class QuotesService {
     return this.withDocumentNumber(item);
   }
 
-  async update(id: string, dto: UpdateQuoteDto, userId?: string) {
-    await this.findOne(id);
+  async update(id: string, dto: UpdateQuoteDto, actor?: AccessActor | null) {
+    await this.findOne(id, actor);
+
+    if (dto.storeCode !== undefined) {
+      await assertStoreAllowed(this.prisma, actor, { storeCode: dto.storeCode });
+    }
 
     const items = dto.items ?? [];
     const totalAmount =

@@ -3,6 +3,7 @@ import { ReportNotificationsService } from '../notifications/notifications.servi
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateReportDto } from './dto/create-report.dto';
 import { ListReportsQueryDto } from './dto/list-reports.query.dto';
+import { type AccessActor } from '../auth/access-scope.util';
 import { FindAllResponse, SerializedReport } from '../utils/reports.utils';
 export declare class ReportsService {
     private readonly prisma;
@@ -22,19 +23,18 @@ export declare class ReportsService {
     private serializeReport;
     private getErrorMessage;
     private buildReportWhere;
-    create(dto: CreateReportDto, actor?: {
-        id: string;
-        role: string;
-    } | null): Promise<SerializedReport<Report>>;
+    private buildScopedReportWhere;
+    private assertReportIncidenciasAllowed;
+    create(dto: CreateReportDto, actor?: AccessActor | null): Promise<SerializedReport<Report>>;
     private autoAdvanceIncidenciasToInformada;
-    findAll(q: ListReportsQueryDto): Promise<FindAllResponse>;
-    getSummary(q: ListReportsQueryDto): Promise<{
+    findAll(q: ListReportsQueryDto, actor?: AccessActor | null): Promise<FindAllResponse>;
+    getSummary(q: ListReportsQueryDto, actor?: AccessActor | null): Promise<{
         total: number;
         preventivos: number;
         correctivos: number;
         conPdf: number;
     }>;
-    findOne(id: string): Promise<SerializedReport<Report> | null>;
+    findOne(id: string, actor?: AccessActor | null): Promise<SerializedReport<Report> | null>;
     remove(id: string): Promise<{
         id: string;
         createdAt: Date;

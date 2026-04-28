@@ -1,44 +1,114 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import {
+  assertStoreAllowed,
+  type AccessActor,
+  getActorRegional,
+  isRegionalScopedActor,
+  regionalContains,
+  regionalMatches,
+  scopedIncidentWhere,
+  scopedQuoteWhere,
+  scopedReportWhere,
+  scopedRequestWhere,
+  scopedStoreWhere,
+} from '../auth/access-scope.util';
 
 @Injectable()
 export class MetricsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // All methods run queries SEQUENTIALLY to stay within a pool of 2 connections.
-  // Running 7 parallel queries per request was causing P2037 (too many PG clients).
+  private andWhere<T>(base: T, scope?: T | null): T {
+    return scope ? ({ AND: [base, scope] } as T) : base;
+  }
 
-  async getOverview(from?: string) {
+  private monthRange(year: number, month: number) {
+    return {
+      from: new Date(year, month - 1, 1),
+      to: new Date(year, month, 0, 23, 59, 59, 999),
+    };
+  }
+
+  private resolveRegional(regional: string, actor?: AccessActor | null): string {
+    if (!isRegionalScopedActor(actor)) return regional;
+
+    const actorRegional = getActorRegional(actor);
+    if (!actorRegional) {
+      throw new ForbiddenException('Tu usuario no tiene una regional asignada');
+    }
+
+    if (!regionalMatches(regional, actor)) {
+      throw new ForbiddenException('No puedes consultar metricas de otra regional');
+    }
+
+    return actorRegional;
+  }
+
+  // All methods run queries SEQUENTIALLY to stay within a pool of 2 connections.
+  // Running many parallel queries per request caused P2037 in production.
+  async getOverview(from?: string, actor?: AccessActor | null) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const fromDate = from ? new Date(from) : undefined;
 
+    const incidentScope = await scopedIncidentWhere(this.prisma, actor);
+    const requestScope = await scopedRequestWhere(this.prisma, actor);
+    const reportScope = await scopedReportWhere(this.prisma, actor);
+    const quoteScope = await scopedQuoteWhere(this.prisma, actor);
+    const storeScope = scopedStoreWhere(actor);
+    const actorRegional = getActorRegional(actor);
+
     const incidenciasActivas = await this.prisma.incidencia.count({
-      where: { status: { notIn: ['CERRADA'] }, isDisabled: false },
+      where: this.andWhere<Prisma.IncidenciaWhereInput>(
+        { status: { notIn: ['CERRADA'] }, isDisabled: false },
+        incidentScope,
+      ),
     });
     const solicitudesAbiertas = await this.prisma.solicitud.count({
-      where: {
-        status: { notIn: ['APROBADA', 'RECHAZADA'] },
-        isActive: true,
-      },
+      where: this.andWhere<Prisma.SolicitudWhereInput>(
+        {
+          status: { notIn: ['APROBADA', 'RECHAZADA'] },
+          isActive: true,
+        },
+        requestScope,
+      ),
     });
     const reportesRecibidos = await this.prisma.report.count({
-      where: {
-        isActive: true,
-        ...(fromDate ? { createdAt: { gte: fromDate } } : {}),
-      },
+      where: this.andWhere<Prisma.ReportWhereInput>(
+        {
+          isActive: true,
+          ...(fromDate ? { createdAt: { gte: fromDate } } : {}),
+        },
+        reportScope,
+      ),
     });
     const cotizaciones = await this.prisma.cotizacion.count({
-      where: { isActive: true },
+      where: this.andWhere<Prisma.CotizacionWhereInput>(
+        { isActive: true },
+        quoteScope,
+      ),
     });
     const tiendasCubiertas = await this.prisma.tienda.count({
-      where: { isActive: true },
+      where: this.andWhere<Prisma.TiendaWhereInput>(
+        { isActive: true },
+        storeScope,
+      ),
     });
     const usuariosActivos = await this.prisma.user.count({
-      where: { status: 'ACTIVE' },
+      where:
+        actorRegional && isRegionalScopedActor(actor)
+          ? { status: 'ACTIVE', regional: regionalContains(actorRegional) }
+          : { status: 'ACTIVE' },
     });
     const actividadesHoy = await this.prisma.actividad.count({
-      where: { createdAt: { gte: today } },
+      where:
+        actorRegional && isRegionalScopedActor(actor)
+          ? {
+              createdAt: { gte: today },
+              user: { regional: regionalContains(actorRegional) },
+            }
+          : { createdAt: { gte: today } },
     });
 
     return {
@@ -52,62 +122,90 @@ export class MetricsService {
     };
   }
 
-  async getIncidenciasByStatus() {
+  async getIncidenciasByStatus(actor?: AccessActor | null) {
+    const scope = await scopedIncidentWhere(this.prisma, actor);
     const rows = await this.prisma.incidencia.groupBy({
       by: ['status'],
       _count: { id: true },
-      where: { isDisabled: false },
+      where: this.andWhere<Prisma.IncidenciaWhereInput>(
+        { isDisabled: false },
+        scope,
+      ),
     });
 
     return rows.map((r) => ({ status: r.status, count: r._count.id }));
   }
 
-  async getIncidenciasByType() {
+  async getIncidenciasByType(actor?: AccessActor | null) {
+    const scope = await scopedIncidentWhere(this.prisma, actor);
     const rows = await this.prisma.incidencia.groupBy({
       by: ['maintenanceType'],
       _count: { id: true },
-      where: { isDisabled: false },
+      where: this.andWhere<Prisma.IncidenciaWhereInput>(
+        { isDisabled: false },
+        scope,
+      ),
     });
 
     return rows.map((r) => ({ type: r.maintenanceType, count: r._count.id }));
   }
 
-  async getSolicitudesByStatus() {
+  async getSolicitudesByStatus(actor?: AccessActor | null) {
+    const scope = await scopedRequestWhere(this.prisma, actor);
     const rows = await this.prisma.solicitud.groupBy({
       by: ['status'],
       _count: { id: true },
-      where: { isActive: true },
+      where: this.andWhere<Prisma.SolicitudWhereInput>(
+        { isActive: true },
+        scope,
+      ),
     });
 
     return rows.map((r) => ({ status: r.status, count: r._count.id }));
   }
 
-  async getReportsByType(from?: string) {
+  async getReportsByType(from?: string, actor?: AccessActor | null) {
     const fromDate = from ? new Date(from) : undefined;
+    const scope = await scopedReportWhere(this.prisma, actor);
     const rows = await this.prisma.report.groupBy({
       by: ['tipo'],
       _count: { id: true },
-      where: {
-        isActive: true,
-        ...(fromDate ? { createdAt: { gte: fromDate } } : {}),
-      },
+      where: this.andWhere<Prisma.ReportWhereInput>(
+        {
+          isActive: true,
+          ...(fromDate ? { createdAt: { gte: fromDate } } : {}),
+        },
+        scope,
+      ),
     });
 
     return rows.map((r) => ({ tipo: r.tipo, count: r._count.id }));
   }
 
-  async getIncidenciasByRegional() {
-    // Previously: one prisma.incidencia.count() PER store → N connections in parallel.
-    // Now: two sequential queries + in-memory join → max 1 connection at a time.
+  async getIncidenciasByRegional(actor?: AccessActor | null) {
+    const storeScope = scopedStoreWhere(actor);
     const tiendas = await this.prisma.tienda.findMany({
-      where: { isActive: true },
+      where: this.andWhere<Prisma.TiendaWhereInput>(
+        { isActive: true },
+        storeScope,
+      ),
       select: { storeCode: true, regional: true },
     });
 
+    const storeCodes = tiendas.map((t) => t.storeCode).filter(Boolean);
+    if (storeCodes.length === 0) return [];
+
+    const incidentScope = await scopedIncidentWhere(this.prisma, actor);
     const storeGroups = await this.prisma.incidencia.groupBy({
       by: ['storeCode'],
       _count: { id: true },
-      where: { isDisabled: false, storeCode: { not: null } },
+      where: this.andWhere<Prisma.IncidenciaWhereInput>(
+        {
+          isDisabled: false,
+          storeCode: { in: storeCodes },
+        },
+        incidentScope,
+      ),
     });
 
     const regionalOf = new Map(
@@ -129,12 +227,17 @@ export class MetricsService {
     }));
   }
 
-  async getStoreMetrics(storeCode: string, year: number, month: number) {
-    // Rango del mes seleccionado
-    const from = new Date(year, month - 1, 1);
-    const to = new Date(year, month, 0, 23, 59, 59, 999);
+  async getStoreMetrics(
+    storeCode: string,
+    year: number,
+    month: number,
+    actor?: AccessActor | null,
+  ) {
+    await assertStoreAllowed(this.prisma, actor, { storeCode });
 
-    // Incidencias del mes en esa tienda
+    const { from, to } = this.monthRange(year, month);
+    const reportScope = await scopedReportWhere(this.prisma, actor);
+
     const incidenciasMes = await this.prisma.incidencia.findMany({
       where: {
         storeCode,
@@ -156,19 +259,20 @@ export class MetricsService {
       (i) => i.maintenanceType === 'PREVENTIVO',
     ).length;
 
-    // Atendidas = tienen al menos un reporte asociado (independiente de si tiene PDF)
     const incidenciasConReporte = await this.prisma.report.groupBy({
       by: ['incidenciaPrincipal'],
-      where: {
-        tienda: storeCode,
-        isActive: true,
-        createdAt: { gte: from, lte: to },
-      },
+      where: this.andWhere<Prisma.ReportWhereInput>(
+        {
+          tienda: storeCode,
+          isActive: true,
+          createdAt: { gte: from, lte: to },
+        },
+        reportScope,
+      ),
       _count: { id: true },
     });
     const atendidas = incidenciasConReporte.length;
 
-    // Con cotización
     const cotizacionesCount = await this.prisma.cotizacion.count({
       where: {
         storeCode,
@@ -177,20 +281,21 @@ export class MetricsService {
       },
     });
 
-    // Con reporte PDF
     const conReporteCount = await this.prisma.report.count({
-      where: {
-        tienda: storeCode,
-        isActive: true,
-        createdAt: { gte: from, lte: to },
-        AND: [
-          { responsablePdfUrl: { not: null } },
-          { responsablePdfUrl: { not: '' } },
-        ],
-      },
+      where: this.andWhere<Prisma.ReportWhereInput>(
+        {
+          tienda: storeCode,
+          isActive: true,
+          createdAt: { gte: from, lte: to },
+          AND: [
+            { responsablePdfUrl: { not: null } },
+            { responsablePdfUrl: { not: '' } },
+          ],
+        },
+        reportScope,
+      ),
     });
 
-    // Con soporte = tienen pdf de responsable
     const cumplimientoTotal =
       totalMes > 0 ? Math.round((atendidas / totalMes) * 100) : 0;
     const cumplimientoCorrectivo =
@@ -230,20 +335,30 @@ export class MetricsService {
     };
   }
 
-  async getRegionalMetrics(regional: string, year: number, month: number) {
-    const from = new Date(year, month - 1, 1);
-    const to = new Date(year, month, 0, 23, 59, 59, 999);
+  async getRegionalMetrics(
+    regional: string,
+    year: number,
+    month: number,
+    actor?: AccessActor | null,
+  ) {
+    const effectiveRegional = this.resolveRegional(regional, actor);
+    const { from, to } = this.monthRange(year, month);
+    const reportScope = await scopedReportWhere(this.prisma, actor);
 
-    // Tiendas de esa regional
     const tiendas = await this.prisma.tienda.findMany({
-      where: { regional: { contains: regional, mode: 'insensitive' } },
+      where: {
+        isActive: true,
+        regional: regionalContains(effectiveRegional),
+      },
       select: { storeCode: true },
     });
-    const storeCodes = tiendas.map((t) => t.storeCode).filter(Boolean) as string[];
+    const storeCodes = tiendas
+      .map((t) => t.storeCode)
+      .filter(Boolean) as string[];
 
     if (storeCodes.length === 0) {
       return {
-        regional,
+        regional: effectiveRegional,
         year,
         month,
         tiendas: 0,
@@ -269,16 +384,23 @@ export class MetricsService {
     });
 
     const totalMes = incidenciasMes.length;
-    const correctivosMes = incidenciasMes.filter((i) => i.maintenanceType === 'CORRECTIVO').length;
-    const preventivosMes = incidenciasMes.filter((i) => i.maintenanceType === 'PREVENTIVO').length;
+    const correctivosMes = incidenciasMes.filter(
+      (i) => i.maintenanceType === 'CORRECTIVO',
+    ).length;
+    const preventivosMes = incidenciasMes.filter(
+      (i) => i.maintenanceType === 'PREVENTIVO',
+    ).length;
 
     const incidenciasConReporte = await this.prisma.report.groupBy({
       by: ['incidenciaPrincipal'],
-      where: {
-        tienda: { in: storeCodes },
-        isActive: true,
-        createdAt: { gte: from, lte: to },
-      },
+      where: this.andWhere<Prisma.ReportWhereInput>(
+        {
+          tienda: { in: storeCodes },
+          isActive: true,
+          createdAt: { gte: from, lte: to },
+        },
+        reportScope,
+      ),
       _count: { id: true },
     });
     const atendidas = incidenciasConReporte.length;
@@ -292,35 +414,45 @@ export class MetricsService {
     });
 
     const conReporteCount = await this.prisma.report.count({
-      where: {
-        tienda: { in: storeCodes },
-        isActive: true,
-        createdAt: { gte: from, lte: to },
-        AND: [
-          { responsablePdfUrl: { not: null } },
-          { responsablePdfUrl: { not: '' } },
-        ],
-      },
+      where: this.andWhere<Prisma.ReportWhereInput>(
+        {
+          tienda: { in: storeCodes },
+          isActive: true,
+          createdAt: { gte: from, lte: to },
+          AND: [
+            { responsablePdfUrl: { not: null } },
+            { responsablePdfUrl: { not: '' } },
+          ],
+        },
+        reportScope,
+      ),
     });
 
-    const cumplimientoTotal = totalMes > 0 ? Math.round((atendidas / totalMes) * 100) : 0;
+    const cumplimientoTotal =
+      totalMes > 0 ? Math.round((atendidas / totalMes) * 100) : 0;
     const cumplimientoCorrectivo =
       correctivosMes > 0
         ? Math.round(
-            (incidenciasMes.filter((i) => i.maintenanceType === 'CORRECTIVO' && i.status !== 'CREADA').length /
-              correctivosMes) * 100,
+            (incidenciasMes.filter(
+              (i) => i.maintenanceType === 'CORRECTIVO' && i.status !== 'CREADA',
+            ).length /
+              correctivosMes) *
+              100,
           )
         : 0;
     const cumplimientoPreventivo =
       preventivosMes > 0
         ? Math.round(
-            (incidenciasMes.filter((i) => i.maintenanceType === 'PREVENTIVO' && i.status !== 'CREADA').length /
-              preventivosMes) * 100,
+            (incidenciasMes.filter(
+              (i) => i.maintenanceType === 'PREVENTIVO' && i.status !== 'CREADA',
+            ).length /
+              preventivosMes) *
+              100,
           )
         : 0;
 
     return {
-      regional,
+      regional: effectiveRegional,
       year,
       month,
       tiendas: storeCodes.length,
@@ -336,21 +468,32 @@ export class MetricsService {
     };
   }
 
-  async getTimeSeries(days = 30, fromFloor?: string) {
+  async getTimeSeries(
+    days = 30,
+    fromFloor?: string,
+    actor?: AccessActor | null,
+  ) {
     const from = new Date();
     from.setDate(from.getDate() - days);
     const floor = fromFloor ? new Date(fromFloor) : undefined;
     const reportFrom = floor && floor > from ? floor : from;
 
-    // Sequential to stay within the 2-connection pool
+    const reportScope = await scopedReportWhere(this.prisma, actor);
     const reports = await this.prisma.report.findMany({
-      where: { createdAt: { gte: reportFrom }, isActive: true },
+      where: this.andWhere<Prisma.ReportWhereInput>(
+        { createdAt: { gte: reportFrom }, isActive: true },
+        reportScope,
+      ),
       select: { createdAt: true },
       orderBy: { createdAt: 'asc' },
     });
 
+    const incidentScope = await scopedIncidentWhere(this.prisma, actor);
     const incidencias = await this.prisma.incidencia.findMany({
-      where: { createdAt: { gte: from }, isDisabled: false },
+      where: this.andWhere<Prisma.IncidenciaWhereInput>(
+        { createdAt: { gte: from }, isDisabled: false },
+        incidentScope,
+      ),
       select: { createdAt: true },
       orderBy: { createdAt: 'asc' },
     });

@@ -45,6 +45,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
                 fullName: true,
                 role: true,
                 status: true,
+                regional: true,
             },
         });
         if (!user || user.status === 'DISABLED') {

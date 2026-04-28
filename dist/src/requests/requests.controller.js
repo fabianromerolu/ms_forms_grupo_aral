@@ -28,16 +28,16 @@ let RequestsController = class RequestsController {
         this.service = service;
     }
     create(dto, req) {
-        return this.service.create(dto, req.user?.id);
+        return this.service.create(dto, req.user ?? null);
     }
-    findAll(page, limit, q, status, priority, regional) {
-        return this.service.findAll(Number(page) || 1, Number(limit) || 20, q, status, priority, regional);
+    findAll(page, limit, q, status, priority, regional, req) {
+        return this.service.findAll(Number(page) || 1, Number(limit) || 20, q, status, priority, regional, req?.user ?? null);
     }
-    findOne(id) {
-        return this.service.findOne(id);
+    findOne(id, req) {
+        return this.service.findOne(id, req.user ?? null);
     }
-    update(id, dto) {
-        return this.service.update(id, dto);
+    update(id, dto, req) {
+        return this.service.update(id, dto, req.user ?? null);
     }
     remove(id) {
         return this.service.remove(id);
@@ -67,24 +67,27 @@ __decorate([
     __param(3, (0, common_1.Query)('status')),
     __param(4, (0, common_1.Query)('priority')),
     __param(5, (0, common_1.Query)('regional')),
+    __param(6, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String, String, String]),
+    __metadata("design:paramtypes", [String, String, String, String, String, String, Object]),
     __metadata("design:returntype", void 0)
 ], RequestsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     (0, roles_decorator_1.Roles)(client_1.UserRole.ADMIN, client_1.UserRole.COORDINADOR, client_1.UserRole.OPERARIO, client_1.UserRole.SUPERVISOR),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], RequestsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_request_dto_1.UpdateRequestDto]),
+    __metadata("design:paramtypes", [String, update_request_dto_1.UpdateRequestDto, Object]),
     __metadata("design:returntype", void 0)
 ], RequestsController.prototype, "update", null);
 __decorate([

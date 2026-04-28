@@ -4,12 +4,13 @@ import { ReportNotificationsService } from '../notifications/notifications.servi
 import { CreateIncidentDto } from './dto/create-incident.dto';
 import { UpdateIncidentDto } from './dto/update-incident.dto';
 import { ListIncidentsQueryDto } from './dto/list-incidents.query.dto';
+import { type AccessActor } from '../auth/access-scope.util';
 export declare class IncidentsService {
     private readonly prisma;
     private readonly notifier;
     private readonly logger;
     constructor(prisma: PrismaService, notifier: ReportNotificationsService);
-    create(dto: CreateIncidentDto, userId?: string): Promise<{
+    create(dto: CreateIncidentDto, actor?: AccessActor | null): Promise<{
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
@@ -54,7 +55,7 @@ export declare class IncidentsService {
         isDisabled: boolean;
         updatedById: string | null;
     }>;
-    findAll(q: ListIncidentsQueryDto): Promise<import("../utils/pagination.util").PaginatedResponse<{
+    findAll(q: ListIncidentsQueryDto, actor?: AccessActor | null): Promise<import("../utils/pagination.util").PaginatedResponse<{
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
@@ -99,7 +100,7 @@ export declare class IncidentsService {
         isDisabled: boolean;
         updatedById: string | null;
     }>>;
-    findOne(id: string): Promise<{
+    findOne(id: string, actor?: AccessActor | null): Promise<{
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
@@ -144,7 +145,7 @@ export declare class IncidentsService {
         isDisabled: boolean;
         updatedById: string | null;
     }>;
-    findByNumber(numero: string): Promise<{
+    findByNumber(numero: string, actor?: AccessActor | null): Promise<{
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
@@ -189,7 +190,7 @@ export declare class IncidentsService {
         isDisabled: boolean;
         updatedById: string | null;
     }>;
-    update(id: string, dto: UpdateIncidentDto, userId?: string): Promise<{
+    update(id: string, dto: UpdateIncidentDto, actor?: AccessActor | null): Promise<{
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
@@ -268,7 +269,7 @@ export declare class IncidentsService {
         isDisabled: boolean;
         updatedById: string | null;
     }>;
-    getHistory(id: string): Promise<{
+    getHistory(id: string, actor?: AccessActor | null): Promise<{
         id: string;
         createdAt: Date;
         data: Prisma.JsonValue | null;

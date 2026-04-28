@@ -16,6 +16,7 @@ type CachedUser = {
   fullName: string;
   role: string;
   status: string;
+  regional: string | null;
 };
 
 // In-memory TTL cache — avoids one DB round-trip per authenticated request.
@@ -57,6 +58,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         fullName: true,
         role: true,
         status: true,
+        regional: true,
       },
     });
 

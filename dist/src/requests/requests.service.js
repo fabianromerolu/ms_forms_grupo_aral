@@ -16,12 +16,15 @@ const prisma_service_1 = require("../prisma/prisma.service");
 const generate_number_util_1 = require("../utils/generate-number.util");
 const search_text_util_1 = require("../utils/search-text.util");
 const pagination_util_1 = require("../utils/pagination.util");
+const access_scope_util_1 = require("../auth/access-scope.util");
 let RequestsService = class RequestsService {
     prisma;
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(dto, userId) {
+    async create(dto, actor) {
+        const userId = actor?.id;
+        await (0, access_scope_util_1.assertStoreAllowed)(this.prisma, actor, { storeCode: dto.storeCode });
         const number = (0, generate_number_util_1.generateUniqueNumber)('SOL');
         const searchText = (0, search_text_util_1.buildSearchText)([
             dto.title,
@@ -45,7 +48,7 @@ let RequestsService = class RequestsService {
             },
         });
     }
-    async findAll(page = 1, limit_ = 20, q, status, priority, regional) {
+    async findAll(page = 1, limit_ = 20, q, status, priority, regional, actor) {
         const limit = Math.min(limit_, 100);
         const skip = (page - 1) * limit;
         const where = { isActive: true };
@@ -64,6 +67,9 @@ let RequestsService = class RequestsService {
             const codes = tiendas.map((t) => t.storeCode);
             and.push({ storeCode: codes.length > 0 ? { in: codes } : { equals: '__NO_MATCH__' } });
         }
+        const scope = await (0, access_scope_util_1.scopedRequestWhere)(this.prisma, actor);
+        if (scope)
+            and.push(scope);
         if (and.length > 0)
             where.AND = and;
         const [total, items] = await Promise.all([
@@ -80,9 +86,13 @@ let RequestsService = class RequestsService {
         ]);
         return (0, pagination_util_1.paginateResponse)(items, total, page, limit);
     }
-    async findOne(id) {
-        const item = await this.prisma.solicitud.findUnique({
-            where: { id },
+    async findOne(id, actor) {
+        const scope = await (0, access_scope_util_1.scopedRequestWhere)(this.prisma, actor);
+        const item = await this.prisma.solicitud.findFirst({
+            where: {
+                id,
+                ...(scope ? { AND: [scope] } : {}),
+            },
             include: {
                 createdBy: { select: { id: true, fullName: true, email: true } },
             },
@@ -91,8 +101,11 @@ let RequestsService = class RequestsService {
             throw new common_1.NotFoundException('Solicitud no encontrada');
         return item;
     }
-    async update(id, dto) {
-        const current = await this.findOne(id);
+    async update(id, dto, actor) {
+        const current = await this.findOne(id, actor);
+        if (dto.storeCode !== undefined) {
+            await (0, access_scope_util_1.assertStoreAllowed)(this.prisma, actor, { storeCode: dto.storeCode });
+        }
         const searchText = (0, search_text_util_1.buildSearchText)([
             dto.title ?? current.title,
             dto.description ?? current.description,

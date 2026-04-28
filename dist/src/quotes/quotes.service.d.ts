@@ -1,6 +1,7 @@
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateQuoteDto } from './dto/create-quote.dto';
 import { UpdateQuoteDto } from './dto/update-quote.dto';
+import { type AccessActor } from '../auth/access-scope.util';
 export declare class QuotesService {
     private readonly prisma;
     constructor(prisma: PrismaService);
@@ -9,7 +10,7 @@ export declare class QuotesService {
     private withDocumentNumbers;
     private hasDocumentDataChange;
     private calcTotal;
-    create(dto: CreateQuoteDto, userId?: string): Promise<{
+    create(dto: CreateQuoteDto, actor?: AccessActor | null): Promise<{
         incidencias: ({
             incidencia: {
                 id: string;
@@ -92,7 +93,7 @@ export declare class QuotesService {
         documentNumber: string;
         quoteNumber: string;
     }>;
-    findAll(page?: number, limit_?: number, q?: string, format?: string): Promise<import("../utils/pagination.util").PaginatedResponse<{
+    findAll(page?: number, limit_?: number, q?: string, format?: string, actor?: AccessActor | null): Promise<import("../utils/pagination.util").PaginatedResponse<{
         incidencias: ({
             incidencia: {
                 id: string;
@@ -146,7 +147,7 @@ export declare class QuotesService {
         documentNumber: string;
         quoteNumber: string;
     }>>;
-    findOne(id: string): Promise<{
+    findOne(id: string, actor?: AccessActor | null): Promise<{
         incidencias: ({
             incidencia: {
                 id: string;
@@ -229,7 +230,7 @@ export declare class QuotesService {
         documentNumber: string;
         quoteNumber: string;
     }>;
-    update(id: string, dto: UpdateQuoteDto, userId?: string): Promise<{
+    update(id: string, dto: UpdateQuoteDto, actor?: AccessActor | null): Promise<{
         incidencias: ({
             incidencia: {
                 id: string;

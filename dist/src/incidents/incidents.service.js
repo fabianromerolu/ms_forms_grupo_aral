@@ -18,6 +18,7 @@ const notifications_service_1 = require("../notifications/notifications.service"
 const search_text_util_1 = require("../utils/search-text.util");
 const pagination_util_1 = require("../utils/pagination.util");
 const incident_priority_util_1 = require("../utils/incident-priority.util");
+const access_scope_util_1 = require("../auth/access-scope.util");
 let IncidentsService = IncidentsService_1 = class IncidentsService {
     prisma;
     notifier;
@@ -26,7 +27,8 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         this.prisma = prisma;
         this.notifier = notifier;
     }
-    async create(dto, userId) {
+    async create(dto, actor) {
+        const userId = actor?.id;
         const incidentNumber = dto.incidentNumber.trim();
         if (!incidentNumber) {
             throw new common_1.ConflictException('El número o serial de la incidencia es obligatorio');
@@ -38,6 +40,10 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         if (existingIncident) {
             throw new common_1.ConflictException('El número de incidencia ya existe');
         }
+        await (0, access_scope_util_1.assertStoreAllowed)(this.prisma, actor, {
+            storeCode: dto.storeCode,
+            tiendaId: dto.tiendaId,
+        });
         const searchText = (0, search_text_util_1.buildSearchText)([
             incidentNumber,
             dto.storeName,
@@ -90,7 +96,7 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         });
         return { ...incidencia, priority: (0, incident_priority_util_1.computeIncidentPriority)(incidencia.expirationAt) };
     }
-    async findAll(q) {
+    async findAll(q, actor) {
         const page = Number(q.page) || 1;
         const limit = Math.min(Number(q.limit) || 20, 100);
         const skip = (page - 1) * limit;
@@ -133,6 +139,9 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         if (q.q) {
             and.push({ searchText: { contains: q.q.toLowerCase() } });
         }
+        const scope = await (0, access_scope_util_1.scopedIncidentWhere)(this.prisma, actor);
+        if (scope)
+            and.push(scope);
         if (and.length > 0)
             where.AND = and;
         const [total, items] = await Promise.all([
@@ -151,26 +160,41 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         }));
         return (0, pagination_util_1.paginateResponse)(enriched, total, page, limit);
     }
-    async findOne(id) {
-        const item = await this.prisma.incidencia.findUnique({
-            where: { id },
+    async findOne(id, actor) {
+        const scope = await (0, access_scope_util_1.scopedIncidentWhere)(this.prisma, actor);
+        const item = await this.prisma.incidencia.findFirst({
+            where: {
+                id,
+                ...(scope ? { AND: [scope] } : {}),
+            },
             include: { history: { orderBy: { createdAt: 'asc' } } },
         });
         if (!item)
             throw new common_1.NotFoundException('Incidencia no encontrada');
         return { ...item, priority: (0, incident_priority_util_1.computeIncidentPriority)(item.expirationAt) };
     }
-    async findByNumber(numero) {
-        const item = await this.prisma.incidencia.findUnique({
-            where: { incidentNumber: numero },
+    async findByNumber(numero, actor) {
+        const scope = await (0, access_scope_util_1.scopedIncidentWhere)(this.prisma, actor);
+        const item = await this.prisma.incidencia.findFirst({
+            where: {
+                incidentNumber: numero,
+                ...(scope ? { AND: [scope] } : {}),
+            },
             include: { history: { orderBy: { createdAt: 'asc' } } },
         });
         if (!item)
             throw new common_1.NotFoundException('Incidencia no encontrada');
         return { ...item, priority: (0, incident_priority_util_1.computeIncidentPriority)(item.expirationAt) };
     }
-    async update(id, dto, userId) {
-        const current = await this.findOne(id);
+    async update(id, dto, actor) {
+        const userId = actor?.id;
+        const current = await this.findOne(id, actor);
+        if (dto.storeCode !== undefined || dto.tiendaId !== undefined) {
+            await (0, access_scope_util_1.assertStoreAllowed)(this.prisma, actor, {
+                storeCode: dto.storeCode ?? current.storeCode,
+                tiendaId: dto.tiendaId ?? current.tiendaId,
+            });
+        }
         if (dto.incidentNumber !== undefined &&
             dto.incidentNumber.trim() !== current.incidentNumber) {
             const existingIncident = await this.prisma.incidencia.findUnique({
@@ -281,8 +305,8 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
             data: { isDisabled: true },
         });
     }
-    async getHistory(id) {
-        await this.findOne(id);
+    async getHistory(id, actor) {
+        await this.findOne(id, actor);
         return this.prisma.incidenciaHistoryEvent.findMany({
             where: { incidenciaId: id },
             orderBy: { createdAt: 'asc' },

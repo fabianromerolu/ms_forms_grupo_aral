@@ -51,7 +51,7 @@ export declare class IncidentsController {
         isDisabled: boolean;
         updatedById: string | null;
     }>;
-    findAll(q: ListIncidentsQueryDto): Promise<import("../utils/pagination.util").PaginatedResponse<{
+    findAll(q: ListIncidentsQueryDto, req: AuthRequest): Promise<import("../utils/pagination.util").PaginatedResponse<{
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
@@ -96,7 +96,7 @@ export declare class IncidentsController {
         isDisabled: boolean;
         updatedById: string | null;
     }>>;
-    findByNumber(numero: string): Promise<{
+    findByNumber(numero: string, req: AuthRequest): Promise<{
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
@@ -141,7 +141,7 @@ export declare class IncidentsController {
         isDisabled: boolean;
         updatedById: string | null;
     }>;
-    findOne(id: string): Promise<{
+    findOne(id: string, req: AuthRequest): Promise<{
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {
             id: string;
@@ -265,7 +265,7 @@ export declare class IncidentsController {
         isDisabled: boolean;
         updatedById: string | null;
     }>;
-    getHistory(id: string): Promise<{
+    getHistory(id: string, req: AuthRequest): Promise<{
         id: string;
         createdAt: Date;
         data: import("@prisma/client/runtime/library").JsonValue | null;
