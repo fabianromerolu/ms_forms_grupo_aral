@@ -12,7 +12,7 @@ export interface JwtPayload {
 
 type CachedUser = {
   id: string;
-  email: string;
+  email: string | null;
   fullName: string;
   role: string;
   status: string;

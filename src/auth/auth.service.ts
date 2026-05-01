@@ -20,12 +20,13 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto) {
-    const exists = await this.prisma.user.findUnique({
-      where: { email: dto.email },
-    });
-
-    if (exists) {
-      throw new ConflictException('El email ya está registrado');
+    if (dto.email) {
+      const exists = await this.prisma.user.findUnique({
+        where: { email: dto.email },
+      });
+      if (exists) {
+        throw new ConflictException('El email ya está registrado');
+      }
     }
 
     const hashed = await bcrypt.hash(dto.password, 10);
@@ -35,7 +36,7 @@ export class AuthService {
     const user = await this.prisma.user.create({
       data: {
         fullName: dto.fullName,
-        email: dto.email,
+        email: dto.email ?? null,
         password: hashed,
         role: 'OPERARIO',
         document: dto.document,

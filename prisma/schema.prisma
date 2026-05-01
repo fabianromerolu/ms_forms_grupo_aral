@@ -138,7 +138,7 @@ model Report {
 model User {
   id         String     @id @default(uuid()) @db.Uuid
   fullName   String
-  email      String     @unique
+  email      String?    @unique
   password   String
   role       UserRole   @default(OPERARIO)
   document   String?

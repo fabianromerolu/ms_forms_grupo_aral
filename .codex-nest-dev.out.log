@@ -100,3 +100,1963 @@
 [32m[Nest] 3100  - [39m28/04/2026, 4:01:17 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/regional, GET} route[39m[38;5;3m +2ms[39m
 [32m[Nest] 3100  - [39m28/04/2026, 4:01:18 p. m. [32m    LOG[39m [38;5;3m[PrismaService] [39m[32mDatabase connection established (pool_limit=2, sequential queries)[39m
 [32m[Nest] 3100  - [39m28/04/2026, 4:01:18 p. m. [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +39ms[39m
+[2J[3J[H[[90m5:43:00 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:43:02 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:43:03 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:43:06 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:43:07 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:43:10 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:43:10 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:43:12 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:43:12 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:43:15 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:43:16 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:43:17 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:19 p. m. [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +95ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +30ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportNotificationsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +16ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDiscoveryModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mScheduleModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogActivitiesModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mQuotesModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRequestsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mStoresModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypologiesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mActivitiesModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMetricsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mIncidentsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mReportsController {/reports}:[39m[38;5;3m +98ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, POST} route[39m[38;5;3m +5ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/summary, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/register, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/me, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUsersController {/users}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/privileged, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id/permanent, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mIncidentsController {/incidencias}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/numero/:numero, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id/history, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mQuotesController {/cotizaciones}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mRequestsController {/solicitudes}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mStoresController {/tiendas}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/codigo/:code, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTypologiesController {/tipologias}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mActivitiesController {/actividades}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/actividades, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogActivitiesController {/catalog-activities}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/specialties, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/chapters, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mMetricsController {/metrics}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/overview, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-status, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-type, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/solicitudes/by-status, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/reports/by-type, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-regional, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/time-series, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/store, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:20 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/regional, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:22 p. m. [32m    LOG[39m [38;5;3m[PrismaService] [39m[32mDatabase connection established (pool_limit=2, sequential queries)[39m
+[32m[Nest] 23532  - [39m28/04/2026, 5:43:22 p. m. [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +68ms[39m
+[2J[3J[H[[90m5:43:23 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/reports/reports.controller.ts[0m:[93m49[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m49[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m62[0m:[93m39[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m62[0m     return this.service.getSummary(q, req.user ?? null);
+[7m  [0m [91m                                      ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:43:24 p. m.[0m] Found 3 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:43:39 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m34[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m34[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m45[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m45[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m56[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m56[0m     return this.service.findByNumber(numero, req.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m67[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m67[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m77[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m77[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m94[0m:[93m40[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m94[0m     return this.service.getHistory(id, req.user ?? null);
+[7m  [0m [91m                                       ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m49[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m49[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m62[0m:[93m39[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m62[0m     return this.service.getSummary(q, req.user ?? null);
+[7m  [0m [91m                                      ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:43:40 p. m.[0m] Found 9 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:43:48 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m34[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m34[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m45[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m45[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m56[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m56[0m     return this.service.findByNumber(numero, req.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m67[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m67[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m77[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m77[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m94[0m:[93m40[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m94[0m     return this.service.getHistory(id, req.user ?? null);
+[7m  [0m [91m                                       ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m49[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m49[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m62[0m:[93m39[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m62[0m     return this.service.getSummary(q, req.user ?? null);
+[7m  [0m [91m                                      ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-5 arguments, but got 6.
+
+[7m62[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m74[0m:[93m42[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m74[0m     return this.service.findByCode(code, req.user ?? null);
+[7m  [0m [91m                                         ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m85[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m85[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m94[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m94[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:43:48 p. m.[0m] Found 14 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:43:57 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m34[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m34[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m45[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m45[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m56[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m56[0m     return this.service.findByNumber(numero, req.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m67[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m67[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m77[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m77[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m94[0m:[93m40[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m94[0m     return this.service.getHistory(id, req.user ?? null);
+[7m  [0m [91m                                       ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m63[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-4 arguments, but got 5.
+
+[7m63[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m84[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m84[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m49[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m49[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m62[0m:[93m39[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m62[0m     return this.service.getSummary(q, req.user ?? null);
+[7m  [0m [91m                                      ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-5 arguments, but got 6.
+
+[7m62[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m74[0m:[93m42[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m74[0m     return this.service.findByCode(code, req.user ?? null);
+[7m  [0m [91m                                         ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m85[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m85[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m94[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m94[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:43:57 p. m.[0m] Found 18 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:44:11 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m34[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m34[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m45[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m45[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m56[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m56[0m     return this.service.findByNumber(numero, req.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m67[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m67[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m77[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m77[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m94[0m:[93m40[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m94[0m     return this.service.getHistory(id, req.user ?? null);
+[7m  [0m [91m                                       ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m63[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-4 arguments, but got 5.
+
+[7m63[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m84[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m84[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m49[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m49[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m62[0m:[93m39[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m62[0m     return this.service.getSummary(q, req.user ?? null);
+[7m  [0m [91m                                      ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m65[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-6 arguments, but got 7.
+
+[7m65[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m77[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m77[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m86[0m:[93m41[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m86[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-5 arguments, but got 6.
+
+[7m62[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m74[0m:[93m42[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m74[0m     return this.service.findByCode(code, req.user ?? null);
+[7m  [0m [91m                                         ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m85[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m85[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m94[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m94[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:44:11 p. m.[0m] Found 22 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:44:42 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m34[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m34[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m45[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m45[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m56[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m56[0m     return this.service.findByNumber(numero, req.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m67[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m67[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m77[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m77[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m94[0m:[93m40[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m94[0m     return this.service.getHistory(id, req.user ?? null);
+[7m  [0m [91m                                       ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m26[0m:[93m43[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m26[0m     return this.service.getOverview(from, req?.user ?? null);
+[7m  [0m [91m                                          ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m31[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m31[0m     return this.service.getIncidenciasByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m36[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m36[0m     return this.service.getIncidenciasByType(req?.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m41[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m41[0m     return this.service.getSolicitudesByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m47[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m     return this.service.getReportsByType(from, req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m52[0m:[93m50[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m52[0m     return this.service.getIncidenciasByRegional(req?.user ?? null);
+[7m  [0m [91m                                                 ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-2 arguments, but got 3.
+
+[7m66[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m85[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m85[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m104[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m104[0m       req?.user ?? null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m63[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-4 arguments, but got 5.
+
+[7m63[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m84[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m84[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m49[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m49[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m62[0m:[93m39[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m62[0m     return this.service.getSummary(q, req.user ?? null);
+[7m  [0m [91m                                      ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/reports/reports.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m65[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-6 arguments, but got 7.
+
+[7m65[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m77[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m77[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m86[0m:[93m41[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m86[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-5 arguments, but got 6.
+
+[7m62[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m74[0m:[93m42[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m74[0m     return this.service.findByCode(code, req.user ?? null);
+[7m  [0m [91m                                         ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m85[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m85[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m94[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m94[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:44:43 p. m.[0m] Found 31 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:45:04 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m34[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m34[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m45[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m45[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m56[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m56[0m     return this.service.findByNumber(numero, req.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m67[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m67[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m77[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m77[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m94[0m:[93m40[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m94[0m     return this.service.getHistory(id, req.user ?? null);
+[7m  [0m [91m                                       ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m26[0m:[93m43[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m26[0m     return this.service.getOverview(from, req?.user ?? null);
+[7m  [0m [91m                                          ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m31[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m31[0m     return this.service.getIncidenciasByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m36[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m36[0m     return this.service.getIncidenciasByType(req?.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m41[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m41[0m     return this.service.getSolicitudesByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m47[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m     return this.service.getReportsByType(from, req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m52[0m:[93m50[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m52[0m     return this.service.getIncidenciasByRegional(req?.user ?? null);
+[7m  [0m [91m                                                 ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-2 arguments, but got 3.
+
+[7m66[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m85[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m85[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m104[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m104[0m       req?.user ?? null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m63[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-4 arguments, but got 5.
+
+[7m63[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m84[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m84[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m65[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-6 arguments, but got 7.
+
+[7m65[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m77[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m77[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m86[0m:[93m41[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m86[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-5 arguments, but got 6.
+
+[7m62[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m74[0m:[93m42[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m74[0m     return this.service.findByCode(code, req.user ?? null);
+[7m  [0m [91m                                         ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m85[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m85[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m94[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m94[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:45:05 p. m.[0m] Found 28 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:45:39 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m45[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m45[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m56[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m56[0m     return this.service.findByNumber(numero, req.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m67[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m67[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m77[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m77[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m94[0m:[93m40[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m94[0m     return this.service.getHistory(id, req.user ?? null);
+[7m  [0m [91m                                       ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m26[0m:[93m43[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m26[0m     return this.service.getOverview(from, req?.user ?? null);
+[7m  [0m [91m                                          ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m31[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m31[0m     return this.service.getIncidenciasByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m36[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m36[0m     return this.service.getIncidenciasByType(req?.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m41[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m41[0m     return this.service.getSolicitudesByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m47[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m     return this.service.getReportsByType(from, req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m52[0m:[93m50[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m52[0m     return this.service.getIncidenciasByRegional(req?.user ?? null);
+[7m  [0m [91m                                                 ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-2 arguments, but got 3.
+
+[7m66[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m85[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m85[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m104[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m104[0m       req?.user ?? null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m63[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-4 arguments, but got 5.
+
+[7m63[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m84[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m84[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m65[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-6 arguments, but got 7.
+
+[7m65[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m77[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m77[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m86[0m:[93m41[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m86[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-5 arguments, but got 6.
+
+[7m62[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m74[0m:[93m42[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m74[0m     return this.service.findByCode(code, req.user ?? null);
+[7m  [0m [91m                                         ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m85[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m85[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m94[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m94[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:45:40 p. m.[0m] Found 27 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:45:44 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m45[0m:[93m36[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m45[0m     return this.service.findAll(q, req.user ?? null);
+[7m  [0m [91m                                   ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m56[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m56[0m     return this.service.findByNumber(numero, req.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m67[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m67[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m77[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m77[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m94[0m:[93m40[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m94[0m     return this.service.getHistory(id, req.user ?? null);
+[7m  [0m [91m                                       ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m26[0m:[93m43[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m26[0m     return this.service.getOverview(from, req?.user ?? null);
+[7m  [0m [91m                                          ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m31[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m31[0m     return this.service.getIncidenciasByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m36[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m36[0m     return this.service.getIncidenciasByType(req?.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m41[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m41[0m     return this.service.getSolicitudesByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m47[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m     return this.service.getReportsByType(from, req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m52[0m:[93m50[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m52[0m     return this.service.getIncidenciasByRegional(req?.user ?? null);
+[7m  [0m [91m                                                 ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-2 arguments, but got 3.
+
+[7m66[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m85[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m85[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m104[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m104[0m       req?.user ?? null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m63[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-4 arguments, but got 5.
+
+[7m63[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m84[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m84[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m65[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-6 arguments, but got 7.
+
+[7m65[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m77[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m77[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m86[0m:[93m41[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m86[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-5 arguments, but got 6.
+
+[7m62[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m74[0m:[93m42[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m74[0m     return this.service.findByCode(code, req.user ?? null);
+[7m  [0m [91m                                         ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m85[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m85[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m94[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m94[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:45:45 p. m.[0m] Found 27 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:45:50 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m56[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m56[0m     return this.service.findByNumber(numero, req.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m67[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m67[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m77[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m77[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/incidents/incidents.controller.ts[0m:[93m94[0m:[93m40[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m94[0m     return this.service.getHistory(id, req.user ?? null);
+[7m  [0m [91m                                       ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m26[0m:[93m43[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m26[0m     return this.service.getOverview(from, req?.user ?? null);
+[7m  [0m [91m                                          ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m31[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m31[0m     return this.service.getIncidenciasByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m36[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m36[0m     return this.service.getIncidenciasByType(req?.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m41[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m41[0m     return this.service.getSolicitudesByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m47[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m     return this.service.getReportsByType(from, req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m52[0m:[93m50[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m52[0m     return this.service.getIncidenciasByRegional(req?.user ?? null);
+[7m  [0m [91m                                                 ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-2 arguments, but got 3.
+
+[7m66[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m85[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m85[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m104[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m104[0m       req?.user ?? null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m63[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-4 arguments, but got 5.
+
+[7m63[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m84[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m84[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m65[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-6 arguments, but got 7.
+
+[7m65[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m77[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m77[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m86[0m:[93m41[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m86[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-5 arguments, but got 6.
+
+[7m62[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m74[0m:[93m42[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m74[0m     return this.service.findByCode(code, req.user ?? null);
+[7m  [0m [91m                                         ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m85[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m85[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m94[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m94[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:45:51 p. m.[0m] Found 26 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:46:01 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m26[0m:[93m43[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m26[0m     return this.service.getOverview(from, req?.user ?? null);
+[7m  [0m [91m                                          ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m31[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m31[0m     return this.service.getIncidenciasByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m36[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m36[0m     return this.service.getIncidenciasByType(req?.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m41[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m41[0m     return this.service.getSolicitudesByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m47[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m     return this.service.getReportsByType(from, req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m52[0m:[93m50[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m52[0m     return this.service.getIncidenciasByRegional(req?.user ?? null);
+[7m  [0m [91m                                                 ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-2 arguments, but got 3.
+
+[7m66[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m85[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m85[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m104[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m104[0m       req?.user ?? null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m63[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-4 arguments, but got 5.
+
+[7m63[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m84[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m84[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m65[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-6 arguments, but got 7.
+
+[7m65[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m77[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m77[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m86[0m:[93m41[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m86[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m62[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-5 arguments, but got 6.
+
+[7m62[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m74[0m:[93m42[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m74[0m     return this.service.findByCode(code, req.user ?? null);
+[7m  [0m [91m                                         ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m85[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m85[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/stores/stores.controller.ts[0m:[93m94[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m94[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:46:02 p. m.[0m] Found 22 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:46:19 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m26[0m:[93m43[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m26[0m     return this.service.getOverview(from, req?.user ?? null);
+[7m  [0m [91m                                          ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m31[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m31[0m     return this.service.getIncidenciasByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m36[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m36[0m     return this.service.getIncidenciasByType(req?.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m41[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m41[0m     return this.service.getSolicitudesByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m47[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m     return this.service.getReportsByType(from, req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m52[0m:[93m50[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m52[0m     return this.service.getIncidenciasByRegional(req?.user ?? null);
+[7m  [0m [91m                                                 ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-2 arguments, but got 3.
+
+[7m66[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m85[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m85[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m104[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m104[0m       req?.user ?? null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m63[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-4 arguments, but got 5.
+
+[7m63[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m75[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m75[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/quotes/quotes.controller.ts[0m:[93m84[0m:[93m41[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m84[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m65[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-6 arguments, but got 7.
+
+[7m65[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m77[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m77[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m86[0m:[93m41[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m86[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:46:20 p. m.[0m] Found 17 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:46:36 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m26[0m:[93m43[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m26[0m     return this.service.getOverview(from, req?.user ?? null);
+[7m  [0m [91m                                          ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m31[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m31[0m     return this.service.getIncidenciasByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m36[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m36[0m     return this.service.getIncidenciasByType(req?.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m41[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m41[0m     return this.service.getSolicitudesByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m47[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m     return this.service.getReportsByType(from, req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m52[0m:[93m50[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m52[0m     return this.service.getIncidenciasByRegional(req?.user ?? null);
+[7m  [0m [91m                                                 ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-2 arguments, but got 3.
+
+[7m66[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m85[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m85[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m104[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m104[0m       req?.user ?? null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m33[0m:[93m37[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ id: string; role: string; regional?: string | null | undefined; } | null' is not assignable to parameter of type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+
+[7m33[0m     return this.service.create(dto, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m65[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-6 arguments, but got 7.
+
+[7m65[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m77[0m:[93m37[0m - [91merror[0m[90m TS2554: [0mExpected 1 arguments, but got 2.
+
+[7m77[0m     return this.service.findOne(id, req.user ?? null);
+[7m  [0m [91m                                    ~~~~~~~~~~~~~~~~[0m
+
+[96msrc/requests/requests.controller.ts[0m:[93m86[0m:[93m41[0m - [91merror[0m[90m TS2554: [0mExpected 2 arguments, but got 3.
+
+[7m86[0m     return this.service.update(id, dto, req.user ?? null);
+[7m  [0m [91m                                        ~~~~~~~~~~~~~~~~[0m
+
+[[90m5:46:37 p. m.[0m] Found 13 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:46:48 p. m.[0m] File change detected. Starting incremental compilation...
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m26[0m:[93m43[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m26[0m     return this.service.getOverview(from, req?.user ?? null);
+[7m  [0m [91m                                          ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m31[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m31[0m     return this.service.getIncidenciasByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m36[0m:[93m46[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m36[0m     return this.service.getIncidenciasByType(req?.user ?? null);
+[7m  [0m [91m                                             ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m41[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m41[0m     return this.service.getSolicitudesByStatus(req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m47[0m:[93m48[0m - [91merror[0m[90m TS2554: [0mExpected 0-1 arguments, but got 2.
+
+[7m47[0m     return this.service.getReportsByType(from, req?.user ?? null);
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m52[0m:[93m50[0m - [91merror[0m[90m TS2554: [0mExpected 0 arguments, but got 1.
+
+[7m52[0m     return this.service.getIncidenciasByRegional(req?.user ?? null);
+[7m  [0m [91m                                                 ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m66[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 0-2 arguments, but got 3.
+
+[7m66[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m85[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m85[0m       req?.user ?? null,
+[7m  [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/metrics/metrics.controller.ts[0m:[93m104[0m:[93m7[0m - [91merror[0m[90m TS2554: [0mExpected 3 arguments, but got 4.
+
+[7m104[0m       req?.user ?? null,
+[7m   [0m [91m      ~~~~~~~~~~~~~~~~~[0m
+
+[[90m5:46:48 p. m.[0m] Found 9 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:48:10 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:48:11 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +74ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +15ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportNotificationsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +5ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDiscoveryModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mScheduleModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogActivitiesModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mQuotesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRequestsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mStoresModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypologiesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mActivitiesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMetricsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mIncidentsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mReportsController {/reports}:[39m[38;5;3m +44ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, POST} route[39m[38;5;3m +3ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/summary, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/register, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/me, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUsersController {/users}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/privileged, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id/permanent, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mIncidentsController {/incidencias}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/numero/:numero, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id/history, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mQuotesController {/cotizaciones}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mRequestsController {/solicitudes}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mStoresController {/tiendas}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/codigo/:code, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTypologiesController {/tipologias}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mActivitiesController {/actividades}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/actividades, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogActivitiesController {/catalog-activities}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/specialties, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/chapters, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mMetricsController {/metrics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/overview, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-status, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-type, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/solicitudes/by-status, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/reports/by-type, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-regional, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/time-series, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/store, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:14 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/regional, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:15 p. m. [32m    LOG[39m [38;5;3m[PrismaService] [39m[32mDatabase connection established (pool_limit=2, sequential queries)[39m
+[32m[Nest] 8748  - [39m28/04/2026, 5:48:15 p. m. [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +12ms[39m
+[2J[3J[H[[90m5:48:18 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:48:18 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +49ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +13ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportNotificationsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +7ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDiscoveryModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mScheduleModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogActivitiesModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mQuotesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRequestsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mStoresModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypologiesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mActivitiesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMetricsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mIncidentsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mReportsController {/reports}:[39m[38;5;3m +47ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, POST} route[39m[38;5;3m +5ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/summary, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/register, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/me, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUsersController {/users}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/privileged, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id/permanent, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mIncidentsController {/incidencias}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/numero/:numero, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id/history, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mQuotesController {/cotizaciones}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mRequestsController {/solicitudes}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mStoresController {/tiendas}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/codigo/:code, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTypologiesController {/tipologias}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mActivitiesController {/actividades}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/actividades, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogActivitiesController {/catalog-activities}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/specialties, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/chapters, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mMetricsController {/metrics}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/overview, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-status, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-type, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/solicitudes/by-status, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/reports/by-type, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-regional, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/time-series, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/store, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:21 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/regional, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:22 p. m. [32m    LOG[39m [38;5;3m[PrismaService] [39m[32mDatabase connection established (pool_limit=2, sequential queries)[39m
+[32m[Nest] 16600  - [39m28/04/2026, 5:48:22 p. m. [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +14ms[39m
+[2J[3J[H[[90m5:48:36 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:48:39 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[2J[3J[H[[90m5:48:50 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:48:50 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:52 p. m. [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +71ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +17ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportNotificationsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +6ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDiscoveryModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mScheduleModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogActivitiesModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mQuotesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRequestsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mStoresModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypologiesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mActivitiesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMetricsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mIncidentsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mReportsController {/reports}:[39m[38;5;3m +48ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, POST} route[39m[38;5;3m +3ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/summary, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/register, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/me, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUsersController {/users}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/privileged, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id/permanent, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mIncidentsController {/incidencias}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/numero/:numero, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id/history, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mQuotesController {/cotizaciones}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mRequestsController {/solicitudes}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mStoresController {/tiendas}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/codigo/:code, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTypologiesController {/tipologias}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mActivitiesController {/actividades}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/actividades, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogActivitiesController {/catalog-activities}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/specialties, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/chapters, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mMetricsController {/metrics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/overview, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-status, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-type, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/solicitudes/by-status, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/reports/by-type, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-regional, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/time-series, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/store, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/regional, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[PrismaService] [39m[32mDatabase connection established (pool_limit=2, sequential queries)[39m
+[32m[Nest] 16212  - [39m28/04/2026, 5:48:53 p. m. [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +13ms[39m
+[2J[3J[H[[90m5:50:48 p. m.[0m] File change detected. Starting incremental compilation...
+
+[[90m5:50:51 p. m.[0m] Found 0 errors. Watching for file changes.
+
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +68ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +15ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportNotificationsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPassportModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +5ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDiscoveryModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +3ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mScheduleModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJwtModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCatalogActivitiesModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mQuotesModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRequestsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mStoresModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTypologiesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mActivitiesModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMetricsModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUsersModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mIncidentsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mReportsController {/reports}:[39m[38;5;3m +49ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, POST} route[39m[38;5;3m +3ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/summary, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/reports/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/register, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/login, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/auth/me, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUsersController {/users}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/privileged, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/users/:id/permanent, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mIncidentsController {/incidencias}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/numero/:numero, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/incidencias/:id/history, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mQuotesController {/cotizaciones}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/cotizaciones/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mRequestsController {/solicitudes}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/solicitudes/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mStoresController {/tiendas}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/codigo/:code, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tiendas/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTypologiesController {/tipologias}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/tipologias/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mActivitiesController {/actividades}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/actividades, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCatalogActivitiesController {/catalog-activities}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/specialties, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/chapters, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/catalog-activities/:id, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mMetricsController {/metrics}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/overview, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-status, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-type, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/solicitudes/by-status, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/reports/by-type, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/incidencias/by-regional, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/time-series, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/store, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:53 p. m. [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/metrics/regional, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:54 p. m. [32m    LOG[39m [38;5;3m[PrismaService] [39m[32mDatabase connection established (pool_limit=2, sequential queries)[39m
+[32m[Nest] 30336  - [39m28/04/2026, 5:50:54 p. m. [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +15ms[39m
