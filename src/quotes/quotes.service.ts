@@ -57,10 +57,20 @@ export class QuotesService {
   private calcTotal(
     items: { quantity: number; unitPrice: number; hasIva: boolean }[],
   ): number {
-    return items.reduce((acc, item) => {
+    const total = items.reduce((acc, item) => {
       const subtotal = item.quantity * item.unitPrice;
       return acc + (item.hasIva ? subtotal * 1.19 : subtotal);
     }, 0);
+
+    return this.roundMoney(total);
+  }
+
+  private roundMoney(value: number): number {
+    return Math.round(Number.isFinite(value) ? value : 0);
+  }
+
+  private calcSubtotal(quantity: number, unitPrice: number): number {
+    return this.roundMoney(quantity * unitPrice);
   }
 
   async create(dto: CreateQuoteDto, actor?: AccessActor | null) {
@@ -118,7 +128,7 @@ export class QuotesService {
             unitPrice: item.unitPrice,
             hasIva: item.hasIva ?? false,
             reference: item.reference,
-            subtotal: item.quantity * item.unitPrice,
+            subtotal: this.calcSubtotal(item.quantity, item.unitPrice),
             order: item.order ?? idx,
           })),
         },
@@ -283,7 +293,10 @@ export class QuotesService {
                 unitPrice: item.unitPrice ?? 0,
                 hasIva: item.hasIva ?? false,
                 reference: item.reference,
-                subtotal: (item.quantity ?? 1) * (item.unitPrice ?? 0),
+                subtotal: this.calcSubtotal(
+                  item.quantity ?? 1,
+                  item.unitPrice ?? 0,
+                ),
                 order: item.order ?? idx,
               })),
             },

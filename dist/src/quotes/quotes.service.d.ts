@@ -10,6 +10,8 @@ export declare class QuotesService {
     private withDocumentNumbers;
     private hasDocumentDataChange;
     private calcTotal;
+    private roundMoney;
+    private calcSubtotal;
     create(dto: CreateQuoteDto, actor?: AccessActor | null): Promise<{
         incidencias: ({
             incidencia: {
@@ -81,6 +83,8 @@ export declare class QuotesService {
         format: import("@prisma/client").$Enums.QuoteFormat;
         sequentialId: number | null;
         storeCity: string | null;
+        typologyUnitPrice: number | null;
+        typologyUnit: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
         aiuUnexpected: number;
@@ -135,6 +139,8 @@ export declare class QuotesService {
         format: import("@prisma/client").$Enums.QuoteFormat;
         sequentialId: number | null;
         storeCity: string | null;
+        typologyUnitPrice: number | null;
+        typologyUnit: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
         aiuUnexpected: number;
@@ -218,6 +224,8 @@ export declare class QuotesService {
         format: import("@prisma/client").$Enums.QuoteFormat;
         sequentialId: number | null;
         storeCity: string | null;
+        typologyUnitPrice: number | null;
+        typologyUnit: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
         aiuUnexpected: number;
@@ -301,6 +309,8 @@ export declare class QuotesService {
         format: import("@prisma/client").$Enums.QuoteFormat;
         sequentialId: number | null;
         storeCity: string | null;
+        typologyUnitPrice: number | null;
+        typologyUnit: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
         aiuUnexpected: number;
@@ -329,6 +339,8 @@ export declare class QuotesService {
         format: import("@prisma/client").$Enums.QuoteFormat;
         sequentialId: number | null;
         storeCity: string | null;
+        typologyUnitPrice: number | null;
+        typologyUnit: string | null;
         invoiceMode: import("@prisma/client").$Enums.InvoiceMode;
         aiuAdministration: number;
         aiuUnexpected: number;

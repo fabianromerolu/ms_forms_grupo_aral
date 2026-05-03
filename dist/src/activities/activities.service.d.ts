@@ -39,7 +39,7 @@ export declare class ActivitiesService {
         items: ({
             user: {
                 id: string;
-                email: string;
+                email: string | null;
                 fullName: string;
                 role: import("@prisma/client").$Enums.UserRole;
             } | null;

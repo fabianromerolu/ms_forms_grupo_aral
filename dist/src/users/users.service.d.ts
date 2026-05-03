@@ -17,7 +17,7 @@ export declare class UsersService {
     constructor(prisma: PrismaService, notifier: ReportNotificationsService);
     create(dto: CreateUserDto): Promise<{
         id: string;
-        email: string;
+        email: string | null;
         fullName: string;
         role: import("@prisma/client").$Enums.UserRole;
         document: string | null;
@@ -31,7 +31,7 @@ export declare class UsersService {
     }>;
     findAll(page?: number, limit_?: number): Promise<import("../utils/pagination.util").PaginatedResponse<{
         id: string;
-        email: string;
+        email: string | null;
         fullName: string;
         role: import("@prisma/client").$Enums.UserRole;
         document: string | null;
@@ -45,7 +45,7 @@ export declare class UsersService {
     }>>;
     findOne(id: string): Promise<{
         id: string;
-        email: string;
+        email: string | null;
         fullName: string;
         role: import("@prisma/client").$Enums.UserRole;
         document: string | null;
@@ -59,7 +59,7 @@ export declare class UsersService {
     }>;
     update(id: string, dto: UpdateUserDto): Promise<{
         id: string;
-        email: string;
+        email: string | null;
         fullName: string;
         role: import("@prisma/client").$Enums.UserRole;
         document: string | null;
@@ -73,7 +73,7 @@ export declare class UsersService {
     }>;
     remove(id: string): Promise<{
         id: string;
-        email: string;
+        email: string | null;
         fullName: string;
         role: import("@prisma/client").$Enums.UserRole;
         document: string | null;
@@ -88,7 +88,7 @@ export declare class UsersService {
     createPrivileged(dto: CreatePrivilegedUserDto): Promise<{
         generatedPassword: string;
         id: string;
-        email: string;
+        email: string | null;
         fullName: string;
         role: import("@prisma/client").$Enums.UserRole;
         document: string | null;

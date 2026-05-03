@@ -28,7 +28,7 @@ export declare class RequestsService {
     findAll(page?: number, limit_?: number, q?: string, status?: string, priority?: string, regional?: string, actor?: AccessActor | null): Promise<import("../utils/pagination.util").PaginatedResponse<{
         createdBy: {
             id: string;
-            email: string;
+            email: string | null;
             fullName: string;
         } | null;
     } & {
@@ -54,7 +54,7 @@ export declare class RequestsService {
     findOne(id: string, actor?: AccessActor | null): Promise<{
         createdBy: {
             id: string;
-            email: string;
+            email: string | null;
             fullName: string;
         } | null;
     } & {

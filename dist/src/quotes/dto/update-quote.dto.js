@@ -103,6 +103,8 @@ class UpdateQuoteDto {
     aiuUnexpected;
     aiuUtility;
     aiuIva;
+    typologyUnitPrice;
+    typologyUnit;
     quoteDocumentUrl;
     quoteDocumentName;
     items;
@@ -191,6 +193,19 @@ __decorate([
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
 ], UpdateQuoteDto.prototype, "aiuIva", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], UpdateQuoteDto.prototype, "typologyUnitPrice", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateQuoteDto.prototype, "typologyUnit", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)(),
     (0, class_validator_1.IsOptional)(),

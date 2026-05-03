@@ -10,7 +10,7 @@ export declare class AuthService {
     constructor(prisma: PrismaService, jwt: JwtService, config: ConfigService);
     register(dto: RegisterDto): Promise<{
         id: string;
-        email: string;
+        email: string | null;
         fullName: string;
         role: import("@prisma/client").$Enums.UserRole;
         regional: string | null;
@@ -22,7 +22,7 @@ export declare class AuthService {
         user: {
             id: string;
             fullName: string;
-            email: string;
+            email: string | null;
             role: import("@prisma/client").$Enums.UserRole;
             status: "ACTIVE";
             avatarUrl: string | null;
@@ -31,7 +31,7 @@ export declare class AuthService {
     }>;
     me(userId: string): Promise<{
         id: string;
-        email: string;
+        email: string | null;
         fullName: string;
         role: import("@prisma/client").$Enums.UserRole;
         document: string | null;

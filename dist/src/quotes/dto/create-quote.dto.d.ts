@@ -24,6 +24,8 @@ export declare class CreateQuoteDto {
     aiuUnexpected?: number;
     aiuUtility?: number;
     aiuIva?: number;
+    typologyUnitPrice?: number;
+    typologyUnit?: string;
     quoteDocumentUrl?: string;
     quoteDocumentName?: string;
     items?: QuoteItemDto[];

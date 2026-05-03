@@ -27,6 +27,8 @@ let QuotesService = class QuotesService {
         'storeName',
         'storeCity',
         'typology',
+        'typologyUnitPrice',
+        'typologyUnit',
         'maintenanceType',
         'note',
         'invoiceMode',
@@ -51,10 +53,17 @@ let QuotesService = class QuotesService {
         return this.documentDataFields.some((field) => dto[field] !== undefined);
     }
     calcTotal(items) {
-        return items.reduce((acc, item) => {
+        const total = items.reduce((acc, item) => {
             const subtotal = item.quantity * item.unitPrice;
             return acc + (item.hasIva ? subtotal * 1.19 : subtotal);
         }, 0);
+        return this.roundMoney(total);
+    }
+    roundMoney(value) {
+        return Math.round(Number.isFinite(value) ? value : 0);
+    }
+    calcSubtotal(quantity, unitPrice) {
+        return this.roundMoney(quantity * unitPrice);
     }
     async create(dto, actor) {
         const userId = actor?.id;
@@ -82,6 +91,8 @@ let QuotesService = class QuotesService {
                 storeName: dto.storeName,
                 storeCity: dto.storeCity,
                 typology: dto.typology,
+                typologyUnitPrice: dto.typologyUnitPrice ?? null,
+                typologyUnit: dto.typologyUnit ?? null,
                 maintenanceType: dto.maintenanceType,
                 note: dto.note,
                 invoiceMode: dto.invoiceMode ?? 'IVA',
@@ -103,7 +114,7 @@ let QuotesService = class QuotesService {
                         unitPrice: item.unitPrice,
                         hasIva: item.hasIva ?? false,
                         reference: item.reference,
-                        subtotal: item.quantity * item.unitPrice,
+                        subtotal: this.calcSubtotal(item.quantity, item.unitPrice),
                         order: item.order ?? idx,
                     })),
                 },
@@ -209,6 +220,8 @@ let QuotesService = class QuotesService {
                     ...(dto.storeName !== undefined && { storeName: dto.storeName }),
                     ...(dto.storeCity !== undefined && { storeCity: dto.storeCity }),
                     ...(dto.typology !== undefined && { typology: dto.typology }),
+                    ...(dto.typologyUnitPrice !== undefined && { typologyUnitPrice: dto.typologyUnitPrice }),
+                    ...(dto.typologyUnit !== undefined && { typologyUnit: dto.typologyUnit }),
                     ...(dto.maintenanceType !== undefined && {
                         maintenanceType: dto.maintenanceType,
                     }),
@@ -246,7 +259,7 @@ let QuotesService = class QuotesService {
                                 unitPrice: item.unitPrice ?? 0,
                                 hasIva: item.hasIva ?? false,
                                 reference: item.reference,
-                                subtotal: (item.quantity ?? 1) * (item.unitPrice ?? 0),
+                                subtotal: this.calcSubtotal(item.quantity ?? 1, item.unitPrice ?? 0),
                                 order: item.order ?? idx,
                             })),
                         },
