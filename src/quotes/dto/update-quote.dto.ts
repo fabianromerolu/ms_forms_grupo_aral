@@ -139,6 +139,17 @@ export class UpdateQuoteDto {
 
   @ApiPropertyOptional()
   @IsOptional()
+  @IsNumber()
+  @Min(0)
+  typologyUnitPrice?: number;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  typologyUnit?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
   quoteDocumentUrl?: string;
 

@@ -314,7 +314,9 @@ model Cotizacion {
   storeCode        String?
   storeName        String?
   storeCity        String?
-  typology         String?
+  typology              String?
+  typologyUnitPrice     Float?
+  typologyUnit          String?
   maintenanceType  String?
   note             String?
   invoiceMode      InvoiceMode          @default(IVA)
