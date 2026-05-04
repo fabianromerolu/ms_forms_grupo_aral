@@ -52,12 +52,28 @@ let QuotesService = class QuotesService {
     hasDocumentDataChange(dto) {
         return this.documentDataFields.some((field) => dto[field] !== undefined);
     }
-    calcTotal(items) {
-        const total = items.reduce((acc, item) => {
+    calcTotal(items, options = {}) {
+        const typologyUnitPrice = Number(options.typologyUnitPrice ?? 0);
+        const subtotal = items.reduce((acc, item) => {
+            return acc + item.quantity * item.unitPrice;
+        }, 0) + typologyUnitPrice;
+        if ((options.invoiceMode ?? client_1.InvoiceMode.IVA) === client_1.InvoiceMode.AIU) {
+            const administrationValue = subtotal * ((options.aiuAdministration ?? 0) / 100);
+            const unexpectedValue = subtotal * ((options.aiuUnexpected ?? 0) / 100);
+            const utilityValue = subtotal * ((options.aiuUtility ?? 0) / 100);
+            const aiuVatValue = utilityValue * ((options.aiuIva ?? 0) / 100);
+            return this.roundMoney(subtotal +
+                administrationValue +
+                unexpectedValue +
+                utilityValue +
+                aiuVatValue);
+        }
+        const itemsIva = items.reduce((acc, item) => {
             const subtotal = item.quantity * item.unitPrice;
-            return acc + (item.hasIva ? subtotal * 1.19 : subtotal);
+            return acc + (item.hasIva ? subtotal * 0.19 : 0);
         }, 0);
-        return this.roundMoney(total);
+        const transferIva = typologyUnitPrice * 0.19;
+        return this.roundMoney(subtotal + itemsIva + transferIva);
     }
     roundMoney(value) {
         return Math.round(Number.isFinite(value) ? value : 0);
@@ -69,6 +85,11 @@ let QuotesService = class QuotesService {
         const userId = actor?.id;
         await (0, access_scope_util_1.assertStoreAllowed)(this.prisma, actor, { storeCode: dto.storeCode });
         const items = dto.items ?? [];
+        const invoiceMode = dto.invoiceMode ?? client_1.InvoiceMode.IVA;
+        const aiuAdministration = dto.aiuAdministration ?? 0;
+        const aiuUnexpected = dto.aiuUnexpected ?? 0;
+        const aiuUtility = dto.aiuUtility ?? 0;
+        const aiuIva = dto.aiuIva ?? 0;
         const maxSeq = await this.prisma.cotizacion.aggregate({
             _max: { sequentialId: true },
         });
@@ -80,7 +101,14 @@ let QuotesService = class QuotesService {
             quantity: i.quantity,
             unitPrice: i.unitPrice,
             hasIva: i.hasIva ?? false,
-        })));
+        })), {
+            invoiceMode,
+            typologyUnitPrice: dto.typologyUnitPrice ?? null,
+            aiuAdministration,
+            aiuUnexpected,
+            aiuUtility,
+            aiuIva,
+        });
         const quote = await this.prisma.cotizacion.create({
             data: {
                 number,
@@ -95,11 +123,11 @@ let QuotesService = class QuotesService {
                 typologyUnit: dto.typologyUnit ?? null,
                 maintenanceType: dto.maintenanceType,
                 note: dto.note,
-                invoiceMode: dto.invoiceMode ?? 'IVA',
-                aiuAdministration: dto.aiuAdministration ?? 0,
-                aiuUnexpected: dto.aiuUnexpected ?? 0,
-                aiuUtility: dto.aiuUtility ?? 0,
-                aiuIva: dto.aiuIva ?? 0,
+                invoiceMode,
+                aiuAdministration,
+                aiuUnexpected,
+                aiuUtility,
+                aiuIva,
                 quoteDocumentUrl: dto.quoteDocumentUrl,
                 quoteDocumentName: dto.quoteDocumentName,
                 totalAmount,
@@ -187,17 +215,39 @@ let QuotesService = class QuotesService {
         return this.withDocumentNumber(item);
     }
     async update(id, dto, actor) {
-        await this.findOne(id, actor);
+        const currentQuote = await this.findOne(id, actor);
         if (dto.storeCode !== undefined) {
             await (0, access_scope_util_1.assertStoreAllowed)(this.prisma, actor, { storeCode: dto.storeCode });
         }
-        const items = dto.items ?? [];
-        const totalAmount = items.length > 0
-            ? this.calcTotal(items.map((i) => ({
+        const shouldRecalculateTotal = dto.items !== undefined ||
+            dto.typologyUnitPrice !== undefined ||
+            dto.invoiceMode !== undefined ||
+            dto.aiuAdministration !== undefined ||
+            dto.aiuUnexpected !== undefined ||
+            dto.aiuUtility !== undefined ||
+            dto.aiuIva !== undefined;
+        const totalItems = dto.items !== undefined
+            ? dto.items.map((i) => ({
                 quantity: i.quantity ?? 1,
                 unitPrice: i.unitPrice ?? 0,
                 hasIva: i.hasIva ?? false,
-            })))
+            }))
+            : currentQuote.items.map((i) => ({
+                quantity: i.quantity,
+                unitPrice: i.unitPrice,
+                hasIva: i.hasIva,
+            }));
+        const totalAmount = shouldRecalculateTotal
+            ? this.calcTotal(totalItems, {
+                invoiceMode: dto.invoiceMode ?? currentQuote.invoiceMode,
+                typologyUnitPrice: dto.typologyUnitPrice !== undefined
+                    ? dto.typologyUnitPrice
+                    : currentQuote.typologyUnitPrice,
+                aiuAdministration: dto.aiuAdministration ?? currentQuote.aiuAdministration,
+                aiuUnexpected: dto.aiuUnexpected ?? currentQuote.aiuUnexpected,
+                aiuUtility: dto.aiuUtility ?? currentQuote.aiuUtility,
+                aiuIva: dto.aiuIva ?? currentQuote.aiuIva,
+            })
             : undefined;
         const shouldInvalidateDocument = this.hasDocumentDataChange(dto) &&
             dto.quoteDocumentUrl === undefined &&
