@@ -8,11 +8,14 @@ export declare class AuthService {
     private readonly jwt;
     private readonly config;
     constructor(prisma: PrismaService, jwt: JwtService, config: ConfigService);
+    private findUserByPhone;
+    private assertPhoneAvailable;
     register(dto: RegisterDto): Promise<{
         id: string;
         email: string | null;
         fullName: string;
         role: import("@prisma/client").$Enums.UserRole;
+        phone: string | null;
         regional: string | null;
         status: import("@prisma/client").$Enums.UserStatus;
         createdAt: Date;
@@ -23,6 +26,7 @@ export declare class AuthService {
             id: string;
             fullName: string;
             email: string | null;
+            phone: string | null;
             role: import("@prisma/client").$Enums.UserRole;
             status: "ACTIVE";
             avatarUrl: string | null;

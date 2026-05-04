@@ -48,6 +48,16 @@ const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
 const bcrypt = __importStar(require("bcrypt"));
 const prisma_service_1 = require("../prisma/prisma.service");
+function normalizeEmail(value) {
+    const email = value?.trim().toLowerCase();
+    return email || null;
+}
+function normalizePhoneDigits(value) {
+    const digits = String(value ?? '').replace(/\D/g, '');
+    return digits.startsWith('57') && digits.length === 12
+        ? digits.slice(2)
+        : digits;
+}
 let AuthService = class AuthService {
     prisma;
     jwt;
@@ -57,24 +67,56 @@ let AuthService = class AuthService {
         this.jwt = jwt;
         this.config = config;
     }
+    async findUserByPhone(phone) {
+        const phoneDigits = normalizePhoneDigits(phone);
+        if (!phoneDigits)
+            return null;
+        const users = await this.prisma.user.findMany({
+            where: { phone: { not: null } },
+        });
+        const matches = users.filter((user) => normalizePhoneDigits(user.phone) === phoneDigits);
+        if (matches.length > 1) {
+            throw new common_1.UnauthorizedException('Hay más de una cuenta con este teléfono. Contacta al administrador.');
+        }
+        return matches[0] ?? null;
+    }
+    async assertPhoneAvailable(phone) {
+        const phoneDigits = normalizePhoneDigits(phone);
+        if (!phoneDigits)
+            return;
+        const users = await this.prisma.user.findMany({
+            where: { phone: { not: null } },
+            select: { id: true, phone: true },
+        });
+        const exists = users.some((user) => normalizePhoneDigits(user.phone) === phoneDigits);
+        if (exists) {
+            throw new common_1.ConflictException('El teléfono ya está registrado');
+        }
+    }
     async register(dto) {
-        if (dto.email) {
+        const email = normalizeEmail(dto.email);
+        const phone = dto.phone?.trim();
+        if (!email && !phone) {
+            throw new common_1.BadRequestException('Debes registrar un correo o un teléfono para iniciar sesión');
+        }
+        if (email) {
             const exists = await this.prisma.user.findUnique({
-                where: { email: dto.email },
+                where: { email },
             });
             if (exists) {
                 throw new common_1.ConflictException('El email ya está registrado');
             }
         }
+        await this.assertPhoneAvailable(phone);
         const hashed = await bcrypt.hash(dto.password, 10);
         const user = await this.prisma.user.create({
             data: {
                 fullName: dto.fullName,
-                email: dto.email ?? null,
+                email,
                 password: hashed,
                 role: 'OPERARIO',
                 document: dto.document,
-                phone: dto.phone,
+                phone,
                 city: dto.city,
                 regional: dto.regional,
             },
@@ -82,6 +124,7 @@ let AuthService = class AuthService {
                 id: true,
                 fullName: true,
                 email: true,
+                phone: true,
                 role: true,
                 status: true,
                 regional: true,
@@ -91,9 +134,16 @@ let AuthService = class AuthService {
         return user;
     }
     async login(dto) {
-        const user = await this.prisma.user.findUnique({
-            where: { email: dto.email },
-        });
+        const identifier = (dto.identifier ?? dto.email ?? '').trim();
+        if (!identifier) {
+            throw new common_1.UnauthorizedException('Credenciales inválidas');
+        }
+        const email = normalizeEmail(identifier);
+        const user = identifier.includes('@')
+            ? await this.prisma.user.findUnique({
+                where: { email: email ?? '' },
+            })
+            : await this.findUserByPhone(identifier);
         if (!user) {
             throw new common_1.UnauthorizedException('Credenciales inválidas');
         }
@@ -104,7 +154,13 @@ let AuthService = class AuthService {
         if (!valid) {
             throw new common_1.UnauthorizedException('Credenciales inválidas');
         }
-        const payload = { sub: user.id, email: user.email, role: user.role, regional: user.regional };
+        const payload = {
+            sub: user.id,
+            email: user.email,
+            phone: user.phone,
+            role: user.role,
+            regional: user.regional,
+        };
         const secret = this.config.get('JWT_SECRET');
         if (!secret) {
             throw new Error('JWT_SECRET environment variable is not defined');
@@ -120,6 +176,7 @@ let AuthService = class AuthService {
                 id: user.id,
                 fullName: user.fullName,
                 email: user.email,
+                phone: user.phone,
                 role: user.role,
                 status: user.status,
                 avatarUrl: user.avatarUrl,
