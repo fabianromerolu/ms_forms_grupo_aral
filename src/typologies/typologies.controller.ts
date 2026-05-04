@@ -32,6 +32,7 @@ export class TypologiesController {
   }
 
   @Get()
+  @Roles(UserRole.ADMIN, UserRole.COORDINADOR)
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'limit', required: false })
   @ApiQuery({ name: 'q', required: false })
@@ -51,6 +52,7 @@ export class TypologiesController {
   }
 
   @Get(':id')
+  @Roles(UserRole.ADMIN, UserRole.COORDINADOR)
   findOne(@Param('id') id: string) {
     return this.service.findOne(id);
   }
