@@ -25,6 +25,7 @@ export declare class StoresController {
         department: string | null;
         neighborhood: string | null;
         typology: string | null;
+        googleMapsUrl: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;
         responsibleEmail: string | null;
@@ -58,6 +59,7 @@ export declare class StoresController {
             department: string | null;
             neighborhood: string | null;
             typology: string | null;
+            googleMapsUrl: string | null;
             responsibleName: string | null;
             responsiblePhone: string | null;
             responsibleEmail: string | null;
@@ -83,6 +85,7 @@ export declare class StoresController {
         department: string | null;
         neighborhood: string | null;
         typology: string | null;
+        googleMapsUrl: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;
         responsibleEmail: string | null;
@@ -115,6 +118,7 @@ export declare class StoresController {
         department: string | null;
         neighborhood: string | null;
         typology: string | null;
+        googleMapsUrl: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;
         responsibleEmail: string | null;
@@ -139,6 +143,7 @@ export declare class StoresController {
         department: string | null;
         neighborhood: string | null;
         typology: string | null;
+        googleMapsUrl: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;
         responsibleEmail: string | null;
@@ -157,6 +162,7 @@ export declare class StoresController {
         department: string | null;
         neighborhood: string | null;
         typology: string | null;
+        googleMapsUrl: string | null;
         responsibleName: string | null;
         responsiblePhone: string | null;
         responsibleEmail: string | null;

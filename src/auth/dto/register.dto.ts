@@ -4,7 +4,6 @@ import {
   IsEnum,
   IsOptional,
   IsString,
-  MinLength,
 } from 'class-validator';
 import { UserRole } from '@prisma/client';
 
@@ -18,9 +17,8 @@ export class RegisterDto {
   @IsEmail()
   email?: string;
 
-  @ApiProperty({ minLength: 6 })
+  @ApiProperty()
   @IsString()
-  @MinLength(6)
   password: string;
 
   @ApiPropertyOptional({ enum: UserRole })

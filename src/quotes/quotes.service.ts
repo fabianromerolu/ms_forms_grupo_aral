@@ -16,6 +16,7 @@ export class QuotesService {
 
   private readonly documentDataFields: (keyof UpdateQuoteDto)[] = [
     'format',
+    'createdAt',
     'specialty',
     'storeCode',
     'storeName',
@@ -143,6 +144,7 @@ export class QuotesService {
       data: {
         number,
         sequentialId,
+        ...(dto.createdAt && { createdAt: new Date(dto.createdAt) }),
         format: dto.format ?? 'COTIZACION',
         specialty: dto.specialty,
         storeCode: dto.storeCode,
@@ -198,11 +200,14 @@ export class QuotesService {
     limit_ = 20,
     q?: string,
     format?: string,
+    regional?: string,
     actor?: AccessActor | null,
   ) {
     const limit = Math.min(limit_, 100);
     const skip = (page - 1) * limit;
     const where: Prisma.CotizacionWhereInput = { isActive: true };
+
+    const and: Prisma.CotizacionWhereInput[] = [];
 
     if (format) where.format = format as 'COTIZACION' | 'FACTURA';
     if (q) {
@@ -213,8 +218,30 @@ export class QuotesService {
       ];
     }
 
+    if (regional?.trim()) {
+      const stores = await this.prisma.tienda.findMany({
+        where: {
+          isActive: true,
+          regional: {
+            contains: regional.trim(),
+            mode: Prisma.QueryMode.insensitive,
+          },
+        },
+        select: { storeCode: true },
+      });
+      const storeCodes = stores
+        .map((store) => store.storeCode)
+        .filter(Boolean);
+      and.push(
+        storeCodes.length
+          ? { storeCode: { in: storeCodes } }
+          : { id: '00000000-0000-0000-0000-000000000000' },
+      );
+    }
+
     const scope = await scopedQuoteWhere(this.prisma, actor);
-    if (scope) where.AND = [scope];
+    if (scope) and.push(scope);
+    if (and.length) where.AND = and;
 
     const [total, items] = await Promise.all([
       this.prisma.cotizacion.count({ where }),
@@ -320,6 +347,7 @@ export class QuotesService {
         where: { id },
         data: {
           ...(dto.format !== undefined && { format: dto.format }),
+          ...(dto.createdAt !== undefined && { createdAt: new Date(dto.createdAt) }),
           ...(dto.specialty !== undefined && { specialty: dto.specialty }),
           ...(dto.storeCode !== undefined && { storeCode: dto.storeCode }),
           ...(dto.storeName !== undefined && { storeName: dto.storeName }),

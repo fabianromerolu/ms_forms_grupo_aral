@@ -90,6 +90,7 @@ __decorate([
     __metadata("design:type", Number)
 ], UpdateQuoteItemDto.prototype, "order", void 0);
 class UpdateQuoteDto {
+    createdAt;
     format;
     specialty;
     storeCode;
@@ -111,6 +112,12 @@ class UpdateQuoteDto {
     incidenciaIds;
 }
 exports.UpdateQuoteDto = UpdateQuoteDto;
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], UpdateQuoteDto.prototype, "createdAt", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ enum: client_1.QuoteFormat }),
     (0, class_validator_1.IsOptional)(),

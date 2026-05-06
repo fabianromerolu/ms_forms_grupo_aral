@@ -11,6 +11,7 @@ export declare class QuoteItemDto {
     order?: number;
 }
 export declare class CreateQuoteDto {
+    createdAt?: string;
     format?: QuoteFormat;
     specialty?: string;
     storeCode?: string;

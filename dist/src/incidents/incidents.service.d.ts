@@ -10,6 +10,7 @@ export declare class IncidentsService {
     private readonly notifier;
     private readonly logger;
     constructor(prisma: PrismaService, notifier: ReportNotificationsService);
+    private resolveSchedule;
     create(dto: CreateIncidentDto, actor?: AccessActor | null): Promise<{
         priority: import("@prisma/client").$Enums.IncidenciaPriority;
         history: {

@@ -278,9 +278,54 @@ let ReportsService = ReportsService_1 = class ReportsService {
         return andFilters.length > 0 ? { AND: andFilters } : {};
     }
     async buildScopedReportWhere(q, actor) {
-        const where = this.buildReportWhere(q);
+        const filters = [this.buildReportWhere(q)];
+        if (q.regional?.trim()) {
+            const regionalStores = await this.prisma.tienda.findMany({
+                where: {
+                    isActive: true,
+                    regional: {
+                        contains: q.regional.trim(),
+                        mode: client_1.Prisma.QueryMode.insensitive,
+                    },
+                },
+                select: { storeCode: true, storeName: true },
+            });
+            const storeCodes = regionalStores
+                .map((store) => (0, reports_utils_1.safeText)(store.storeCode))
+                .filter(Boolean);
+            const storeNames = regionalStores
+                .map((store) => (0, reports_utils_1.safeText)(store.storeName))
+                .filter(Boolean);
+            const incidents = storeCodes.length
+                ? await this.prisma.incidencia.findMany({
+                    where: {
+                        isDisabled: false,
+                        storeCode: { in: storeCodes },
+                    },
+                    select: { incidentNumber: true },
+                })
+                : [];
+            const incidentNumbers = incidents
+                .map((incident) => (0, reports_utils_1.safeText)(incident.incidentNumber))
+                .filter(Boolean);
+            const regionalReportFilters = [
+                ...(incidentNumbers.length
+                    ? [
+                        { incidenciaPrincipal: { in: incidentNumbers } },
+                        { incidencias: { hasSome: incidentNumbers } },
+                    ]
+                    : []),
+                ...(storeNames.length ? [{ tienda: { in: storeNames } }] : []),
+                ...(storeCodes.length ? [{ tienda: { in: storeCodes } }] : []),
+            ];
+            filters.push(regionalReportFilters.length
+                ? { OR: regionalReportFilters }
+                : { id: '00000000-0000-0000-0000-000000000000' });
+        }
         const scope = await (0, access_scope_util_1.scopedReportWhere)(this.prisma, actor);
-        return scope ? { AND: [where, scope] } : where;
+        if (scope)
+            filters.push(scope);
+        return filters.length > 1 ? { AND: filters } : filters[0];
     }
     async assertReportIncidenciasAllowed(incidencias, actor) {
         if (!(0, access_scope_util_1.isRegionalScopedActor)(actor))
@@ -442,6 +487,7 @@ let ReportsService = ReportsService_1 = class ReportsService {
             tienda: q.tienda,
             departamentoTienda: q.departamentoTienda,
             ciudadTienda: q.ciudadTienda,
+            regional: q.regional,
             extraPath: q.extraPath,
             extraEquals: q.extraEquals,
             extraContains: q.extraContains,

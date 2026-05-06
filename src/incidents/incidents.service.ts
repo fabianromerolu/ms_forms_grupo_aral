@@ -28,6 +28,27 @@ export class IncidentsService {
     private readonly notifier: ReportNotificationsService,
   ) {}
 
+  private resolveSchedule(input: {
+    maintenanceType?: string | null;
+    expirationAt?: string | null;
+    priority?: 'ALTA' | 'MEDIA' | 'BAJA' | 'VENCIDA' | null;
+  }) {
+    if (input.maintenanceType === 'OBRA') {
+      return { expirationAt: null, priority: 'BAJA' as const };
+    }
+
+    if (input.maintenanceType === 'PREVENTIVO') {
+      const expirationAt = new Date();
+      expirationAt.setDate(expirationAt.getDate() + 30);
+      return { expirationAt, priority: 'BAJA' as const };
+    }
+
+    return {
+      expirationAt: input.expirationAt ? new Date(input.expirationAt) : undefined,
+      priority: input.priority ?? 'MEDIA',
+    };
+  }
+
   async create(dto: CreateIncidentDto, actor?: AccessActor | null) {
     const userId = actor?.id;
     const incidentNumber = dto.incidentNumber.trim();
@@ -61,6 +82,12 @@ export class IncidentsService {
       dto.storeCode,
     ]);
 
+    const schedule = this.resolveSchedule({
+      maintenanceType: dto.maintenanceType,
+      expirationAt: dto.expirationAt,
+      priority: dto.priority,
+    });
+
     const incidencia = await this.prisma.incidencia.create({
       data: {
         incidentNumber,
@@ -73,8 +100,8 @@ export class IncidentsService {
         customMaintenanceType: dto.customMaintenanceType,
         specialty: dto.specialty,
         description: dto.description,
-        expirationAt: dto.expirationAt ? new Date(dto.expirationAt) : undefined,
-        priority: dto.priority ?? 'MEDIA',
+        expirationAt: schedule.expirationAt,
+        priority: schedule.priority,
         quotedAmount: dto.quotedAmount,
         saleCost: dto.saleCost,
         purchaseOrderNumber: dto.purchaseOrderNumber,
@@ -243,6 +270,15 @@ export class IncidentsService {
 
     const statusChanged =
       dto.status !== undefined && dto.status !== current.status;
+    const nextMaintenanceType = dto.maintenanceType ?? current.maintenanceType;
+    const schedule =
+      dto.maintenanceType !== undefined || dto.expirationAt !== undefined || dto.priority !== undefined
+        ? this.resolveSchedule({
+            maintenanceType: nextMaintenanceType,
+            expirationAt: dto.expirationAt ?? current.expirationAt?.toISOString(),
+            priority: dto.priority,
+          })
+        : null;
 
     const updateData: Prisma.IncidenciaUpdateInput = {
       ...(dto.tiendaId !== undefined && {
@@ -263,10 +299,8 @@ export class IncidentsService {
       }),
       ...(dto.specialty !== undefined && { specialty: dto.specialty }),
       ...(dto.description !== undefined && { description: dto.description }),
-      ...(dto.expirationAt !== undefined && {
-        expirationAt: new Date(dto.expirationAt),
-      }),
-      ...(dto.priority !== undefined && { priority: dto.priority }),
+      ...(schedule && { expirationAt: schedule.expirationAt }),
+      ...(schedule && { priority: schedule.priority }),
       ...(dto.status !== undefined && { status: dto.status }),
       ...(dto.quotedAmount !== undefined && { quotedAmount: dto.quotedAmount }),
       ...(dto.saleCost !== undefined && { saleCost: dto.saleCost }),

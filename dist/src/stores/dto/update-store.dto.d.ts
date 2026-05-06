@@ -7,6 +7,7 @@ export declare class UpdateStoreDto {
     phone?: string;
     regional?: string;
     typology?: string;
+    googleMapsUrl?: string;
     responsibleName?: string;
     responsiblePhone?: string;
     responsibleEmail?: string;

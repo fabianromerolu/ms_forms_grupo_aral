@@ -48,6 +48,11 @@ export class CreateStoreDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
+  googleMapsUrl?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
   responsibleName?: string;
 
   @ApiPropertyOptional()

@@ -12,6 +12,7 @@ export declare class UpdateQuoteItemDto {
     order?: number;
 }
 export declare class UpdateQuoteDto {
+    createdAt?: string;
     format?: QuoteFormat;
     specialty?: string;
     storeCode?: string;

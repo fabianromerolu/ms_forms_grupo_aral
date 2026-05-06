@@ -80,6 +80,7 @@ __decorate([
     __metadata("design:type", Number)
 ], QuoteItemDto.prototype, "order", void 0);
 class CreateQuoteDto {
+    createdAt;
     format;
     specialty;
     storeCode;
@@ -101,6 +102,12 @@ class CreateQuoteDto {
     incidenciaIds;
 }
 exports.CreateQuoteDto = CreateQuoteDto;
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], CreateQuoteDto.prototype, "createdAt", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ enum: client_1.QuoteFormat }),
     (0, class_validator_1.IsOptional)(),
