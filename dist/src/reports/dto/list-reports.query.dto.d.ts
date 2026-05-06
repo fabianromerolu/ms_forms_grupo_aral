@@ -12,6 +12,7 @@ export declare class ListReportsQueryDto {
     tienda?: string;
     departamentoTienda?: string;
     ciudadTienda?: string;
+    regional?: string;
     extraPath?: string;
     extraEquals?: string;
     extraContains?: string;

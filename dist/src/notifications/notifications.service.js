@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var ReportNotificationsService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportNotificationsService = void 0;
@@ -12,6 +15,7 @@ const common_1 = require("@nestjs/common");
 const resend_1 = require("resend");
 const notifications_utils_1 = require("../utils/notifications.utils");
 const reports_utils_1 = require("../utils/reports.utils");
+const prisma_service_1 = require("../prisma/prisma.service");
 function sanitizeFilenamePart(value) {
     return (0, reports_utils_1.safeText)(value)
         .normalize('NFD')
@@ -46,15 +50,60 @@ function buildReportPdfFilename(report) {
     return `Reporte-Asociado-A-${incidenciasPart}-${tiendaPart}-${fechaPart}.pdf`;
 }
 let ReportNotificationsService = ReportNotificationsService_1 = class ReportNotificationsService {
+    prisma;
     logger = new common_1.Logger(ReportNotificationsService_1.name);
     resend = new resend_1.Resend(process.env.RESEND_API_KEY ?? '');
+    constructor(prisma) {
+        this.prisma = prisma;
+    }
+    async getStoreResponsibleEmails(report) {
+        const incidencias = (0, notifications_utils_1.normalizeIncidencias)(report);
+        const data = (0, notifications_utils_1.getNestedObject)(report, 'data');
+        const tiendaText = (0, reports_utils_1.safeText)(report['tienda'] || data['tienda']).trim();
+        const orFilters = [
+            ...(incidencias.length
+                ? [
+                    {
+                        incidencias: {
+                            some: { incidentNumber: { in: incidencias } },
+                        },
+                    },
+                ]
+                : []),
+            ...(tiendaText
+                ? [
+                    { storeCode: { equals: tiendaText } },
+                    {
+                        storeName: {
+                            contains: tiendaText,
+                            mode: 'insensitive',
+                        },
+                    },
+                ]
+                : []),
+        ];
+        if (!orFilters.length)
+            return [];
+        const stores = await this.prisma.tienda.findMany({
+            where: {
+                isActive: true,
+                OR: orFilters,
+            },
+            select: { responsibleEmail: true },
+        });
+        return stores.flatMap((store) => (0, notifications_utils_1.splitEmails)(store.responsibleEmail ?? undefined));
+    }
     async notifyReportCreated(report) {
         const apiKey = process.env.RESEND_API_KEY;
         if (!apiKey) {
             this.logger.warn('RESEND_API_KEY no está definido, no se enviará correo.');
             return;
         }
-        const to = (0, notifications_utils_1.splitEmails)(process.env.REPORT_NOTIFY_TO);
+        const storeResponsibleEmails = await this.getStoreResponsibleEmails(report);
+        const to = Array.from(new Set([
+            ...(0, notifications_utils_1.splitEmails)(process.env.REPORT_NOTIFY_TO),
+            ...storeResponsibleEmails,
+        ]));
         if (to.length === 0) {
             this.logger.warn('REPORT_NOTIFY_TO no está definido, no se enviará correo.');
             return;
@@ -109,7 +158,7 @@ let ReportNotificationsService = ReportNotificationsService_1 = class ReportNoti
         }
         const from = process.env.MAIL_FROM || 'Grupo Aral <onboarding@resend.dev>';
         const roleLabel = user.role === 'COORDINADOR' ? 'Coordinador' : 'Supervisor';
-        const platformUrl = process.env.PLATFORM_URL || 'https://plataforma.grupoaral.com';
+        const platformUrl = 'https://front-grupo-aral.vercel.app';
         const html = `
 <!DOCTYPE html>
 <html lang="es">
@@ -279,6 +328,7 @@ let ReportNotificationsService = ReportNotificationsService_1 = class ReportNoti
 };
 exports.ReportNotificationsService = ReportNotificationsService;
 exports.ReportNotificationsService = ReportNotificationsService = ReportNotificationsService_1 = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], ReportNotificationsService);
 //# sourceMappingURL=notifications.service.js.map

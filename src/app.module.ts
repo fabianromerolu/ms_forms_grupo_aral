@@ -13,6 +13,7 @@ import { TypologiesModule } from './typologies/typologies.module';
 import { ActivitiesModule } from './activities/activities.module';
 import { CatalogActivitiesModule } from './catalog-activities/catalog-activities.module';
 import { MetricsModule } from './metrics/metrics.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { MetricsModule } from './metrics/metrics.module';
     ActivitiesModule,
     CatalogActivitiesModule,
     MetricsModule,
+    InventoryModule,
   ],
 })
 export class AppModule {}

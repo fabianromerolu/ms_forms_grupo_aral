@@ -22,6 +22,7 @@ const typologies_module_1 = require("./typologies/typologies.module");
 const activities_module_1 = require("./activities/activities.module");
 const catalog_activities_module_1 = require("./catalog-activities/catalog-activities.module");
 const metrics_module_1 = require("./metrics/metrics.module");
+const inventory_module_1 = require("./inventory/inventory.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -42,6 +43,7 @@ exports.AppModule = AppModule = __decorate([
             activities_module_1.ActivitiesModule,
             catalog_activities_module_1.CatalogActivitiesModule,
             metrics_module_1.MetricsModule,
+            inventory_module_1.InventoryModule,
         ],
     })
 ], AppModule);

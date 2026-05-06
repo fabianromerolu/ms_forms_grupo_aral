@@ -156,6 +156,8 @@ model User {
   solicitudesCreadas    Solicitud[]          @relation("SolicitudCreatedBy")
   reportesCreados       Report[]             @relation("ReportCreatedBy")
   actividades           Actividad[]
+  inventariosCreados    InventoryItem[]      @relation("InventoryCreatedBy")
+  inventariosActualizados InventoryItem[]    @relation("InventoryUpdatedBy")
 
   @@index([email])
   @@index([role])
@@ -175,6 +177,7 @@ model Tienda {
   phone             String?
   regional          String?
   typology          String?
+  googleMapsUrl     String?
   responsibleName   String?
   responsiblePhone  String?
   responsibleEmail  String?
@@ -190,6 +193,29 @@ model Tienda {
   @@index([regional])
   @@index([city])
   @@index([department])
+}
+
+model InventoryItem {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String
+  regional     String?
+  brand        String?
+  value        Float?
+  purchaseDate DateTime?
+  photoUrl     String?
+  description  String?
+  isActive     Boolean  @default(true)
+  createdById  String?  @db.Uuid
+  updatedById  String?  @db.Uuid
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  createdBy    User?    @relation("InventoryCreatedBy", fields: [createdById], references: [id])
+  updatedBy    User?    @relation("InventoryUpdatedBy", fields: [updatedById], references: [id])
+
+  @@index([regional])
+  @@index([name])
+  @@index([createdAt])
 }
 
 model TiendaLabel {

@@ -30,8 +30,8 @@ let QuotesController = class QuotesController {
     create(dto, req) {
         return this.service.create(dto, req.user ?? null);
     }
-    findAll(page, limit, q, format, req) {
-        return this.service.findAll(Number(page) || 1, Number(limit) || 20, q, format, req?.user ?? null);
+    findAll(page, limit, q, format, regional, req) {
+        return this.service.findAll(Number(page) || 1, Number(limit) || 20, q, format, regional, req?.user ?? null);
     }
     findOne(id, req) {
         return this.service.findOne(id, req.user ?? null);
@@ -58,6 +58,7 @@ __decorate([
     (0, swagger_1.ApiQuery)({ name: 'page', required: false }),
     (0, swagger_1.ApiQuery)({ name: 'limit', required: false }),
     (0, swagger_1.ApiQuery)({ name: 'q', required: false }),
+    (0, swagger_1.ApiQuery)({ name: 'regional', required: false }),
     (0, swagger_1.ApiQuery)({
         name: 'format',
         required: false,
@@ -67,9 +68,10 @@ __decorate([
     __param(1, (0, common_1.Query)('limit')),
     __param(2, (0, common_1.Query)('q')),
     __param(3, (0, common_1.Query)('format')),
-    __param(4, (0, common_1.Request)()),
+    __param(4, (0, common_1.Query)('regional')),
+    __param(5, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String, Object]),
+    __metadata("design:paramtypes", [String, String, String, String, String, Object]),
     __metadata("design:returntype", void 0)
 ], QuotesController.prototype, "findAll", null);
 __decorate([

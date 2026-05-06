@@ -1,0 +1,86 @@
+import { PrismaService } from '../prisma/prisma.service';
+import { type AccessActor } from '../auth/access-scope.util';
+import { CreateInventoryItemDto } from './dto/create-inventory-item.dto';
+import { UpdateInventoryItemDto } from './dto/update-inventory-item.dto';
+import { ListInventoryItemsQueryDto } from './dto/list-inventory-items.query.dto';
+export declare class InventoryService {
+    private readonly prisma;
+    constructor(prisma: PrismaService);
+    private assertAdmin;
+    private assertRegionalAllowed;
+    create(dto: CreateInventoryItemDto, actor?: AccessActor | null): Promise<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>;
+    findAll(q: ListInventoryItemsQueryDto, actor?: AccessActor | null): Promise<import("../utils/pagination.util").PaginatedResponse<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>>;
+    findOne(id: string, actor?: AccessActor | null): Promise<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>;
+    update(id: string, dto: UpdateInventoryItemDto, actor?: AccessActor | null): Promise<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>;
+    remove(id: string, actor?: AccessActor | null): Promise<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>;
+}

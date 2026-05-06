@@ -40,6 +40,7 @@ let StoresService = class StoresService {
                 phone: dto.phone,
                 regional: dto.regional,
                 typology: dto.typology,
+                googleMapsUrl: dto.googleMapsUrl,
                 responsibleName: dto.responsibleName,
                 responsiblePhone: dto.responsiblePhone,
                 responsibleEmail: dto.responsibleEmail,
@@ -161,6 +162,9 @@ let StoresService = class StoresService {
                     ...(dto.phone !== undefined && { phone: dto.phone }),
                     ...(dto.regional !== undefined && { regional: dto.regional }),
                     ...(dto.typology !== undefined && { typology: dto.typology }),
+                    ...(dto.googleMapsUrl !== undefined && {
+                        googleMapsUrl: dto.googleMapsUrl,
+                    }),
                     ...(dto.responsibleName !== undefined && {
                         responsibleName: dto.responsibleName,
                     }),

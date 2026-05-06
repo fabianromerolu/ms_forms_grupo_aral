@@ -80,6 +80,10 @@ export class ListReportsQueryDto {
 
   @IsOptional()
   @IsString()
+  regional?: string;
+
+  @IsOptional()
+  @IsString()
   extraPath?: string;
 
   @IsOptional()

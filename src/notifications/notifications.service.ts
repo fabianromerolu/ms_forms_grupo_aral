@@ -11,6 +11,7 @@ import {
 } from '../utils/notifications.utils';
 import { safeText } from '../utils/reports.utils';
 import type { Incidencia } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 
 type SendEmailPayload = Parameters<Resend['emails']['send']>[0];
 
@@ -66,6 +67,50 @@ export class ReportNotificationsService {
   private readonly logger = new Logger(ReportNotificationsService.name);
   private readonly resend = new Resend(process.env.RESEND_API_KEY ?? '');
 
+  constructor(private readonly prisma: PrismaService) {}
+
+  private async getStoreResponsibleEmails(report: AnyObj): Promise<string[]> {
+    const incidencias = normalizeIncidencias(report);
+    const data = getNestedObject(report, 'data');
+    const tiendaText = safeText(report['tienda'] || data['tienda']).trim();
+    const orFilters = [
+      ...(incidencias.length
+        ? [
+            {
+              incidencias: {
+                some: { incidentNumber: { in: incidencias } },
+              },
+            },
+          ]
+        : []),
+      ...(tiendaText
+        ? [
+            { storeCode: { equals: tiendaText } },
+            {
+              storeName: {
+                contains: tiendaText,
+                mode: 'insensitive' as const,
+              },
+            },
+          ]
+        : []),
+    ];
+
+    if (!orFilters.length) return [];
+
+    const stores = await this.prisma.tienda.findMany({
+      where: {
+        isActive: true,
+        OR: orFilters,
+      },
+      select: { responsibleEmail: true },
+    });
+
+    return stores.flatMap((store) =>
+      splitEmails(store.responsibleEmail ?? undefined),
+    );
+  }
+
   async notifyReportCreated(report: AnyObj): Promise<void> {
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
@@ -75,7 +120,13 @@ export class ReportNotificationsService {
       return;
     }
 
-    const to = splitEmails(process.env.REPORT_NOTIFY_TO);
+    const storeResponsibleEmails = await this.getStoreResponsibleEmails(report);
+    const to = Array.from(
+      new Set([
+        ...splitEmails(process.env.REPORT_NOTIFY_TO),
+        ...storeResponsibleEmails,
+      ]),
+    );
     if (to.length === 0) {
       this.logger.warn(
         'REPORT_NOTIFY_TO no está definido, no se enviará correo.',
@@ -155,7 +206,7 @@ export class ReportNotificationsService {
 
     const from = process.env.MAIL_FROM || 'Grupo Aral <onboarding@resend.dev>';
     const roleLabel = user.role === 'COORDINADOR' ? 'Coordinador' : 'Supervisor';
-    const platformUrl = process.env.PLATFORM_URL || 'https://plataforma.grupoaral.com';
+    const platformUrl = 'https://front-grupo-aral.vercel.app';
 
     const html = `
 <!DOCTYPE html>

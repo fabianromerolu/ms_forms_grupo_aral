@@ -43,6 +43,7 @@ export class QuotesController {
   @ApiQuery({ name: 'page', required: false })
   @ApiQuery({ name: 'limit', required: false })
   @ApiQuery({ name: 'q', required: false })
+  @ApiQuery({ name: 'regional', required: false })
   @ApiQuery({
     name: 'format',
     required: false,
@@ -53,6 +54,7 @@ export class QuotesController {
     @Query('limit') limit?: string,
     @Query('q') q?: string,
     @Query('format') format?: string,
+    @Query('regional') regional?: string,
     @Request() req?: AuthRequest,
   ) {
     return this.service.findAll(
@@ -60,6 +62,7 @@ export class QuotesController {
       Number(limit) || 20,
       q,
       format,
+      regional,
       req?.user ?? null,
     );
   }

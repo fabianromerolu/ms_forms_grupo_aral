@@ -97,7 +97,7 @@ export declare class QuotesService {
         documentNumber: string;
         quoteNumber: string;
     }>;
-    findAll(page?: number, limit_?: number, q?: string, format?: string, actor?: AccessActor | null): Promise<import("../utils/pagination.util").PaginatedResponse<{
+    findAll(page?: number, limit_?: number, q?: string, format?: string, regional?: string, actor?: AccessActor | null): Promise<import("../utils/pagination.util").PaginatedResponse<{
         incidencias: ({
             incidencia: {
                 id: string;

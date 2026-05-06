@@ -22,6 +22,7 @@ let QuotesService = class QuotesService {
     }
     documentDataFields = [
         'format',
+        'createdAt',
         'specialty',
         'storeCode',
         'storeName',
@@ -113,6 +114,7 @@ let QuotesService = class QuotesService {
             data: {
                 number,
                 sequentialId,
+                ...(dto.createdAt && { createdAt: new Date(dto.createdAt) }),
                 format: dto.format ?? 'COTIZACION',
                 specialty: dto.specialty,
                 storeCode: dto.storeCode,
@@ -161,10 +163,11 @@ let QuotesService = class QuotesService {
         });
         return this.withDocumentNumber(quote);
     }
-    async findAll(page = 1, limit_ = 20, q, format, actor) {
+    async findAll(page = 1, limit_ = 20, q, format, regional, actor) {
         const limit = Math.min(limit_, 100);
         const skip = (page - 1) * limit;
         const where = { isActive: true };
+        const and = [];
         if (format)
             where.format = format;
         if (q) {
@@ -174,9 +177,29 @@ let QuotesService = class QuotesService {
                 { specialty: { contains: q, mode: client_1.Prisma.QueryMode.insensitive } },
             ];
         }
+        if (regional?.trim()) {
+            const stores = await this.prisma.tienda.findMany({
+                where: {
+                    isActive: true,
+                    regional: {
+                        contains: regional.trim(),
+                        mode: client_1.Prisma.QueryMode.insensitive,
+                    },
+                },
+                select: { storeCode: true },
+            });
+            const storeCodes = stores
+                .map((store) => store.storeCode)
+                .filter(Boolean);
+            and.push(storeCodes.length
+                ? { storeCode: { in: storeCodes } }
+                : { id: '00000000-0000-0000-0000-000000000000' });
+        }
         const scope = await (0, access_scope_util_1.scopedQuoteWhere)(this.prisma, actor);
         if (scope)
-            where.AND = [scope];
+            and.push(scope);
+        if (and.length)
+            where.AND = and;
         const [total, items] = await Promise.all([
             this.prisma.cotizacion.count({ where }),
             this.prisma.cotizacion.findMany({
@@ -265,6 +288,7 @@ let QuotesService = class QuotesService {
                 where: { id },
                 data: {
                     ...(dto.format !== undefined && { format: dto.format }),
+                    ...(dto.createdAt !== undefined && { createdAt: new Date(dto.createdAt) }),
                     ...(dto.specialty !== undefined && { specialty: dto.specialty }),
                     ...(dto.storeCode !== undefined && { storeCode: dto.storeCode }),
                     ...(dto.storeName !== undefined && { storeName: dto.storeName }),

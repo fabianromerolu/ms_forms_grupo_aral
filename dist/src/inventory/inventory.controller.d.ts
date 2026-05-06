@@ -1,0 +1,84 @@
+import type { AuthRequest } from '../types/auth-request.type';
+import { InventoryService } from './inventory.service';
+import { CreateInventoryItemDto } from './dto/create-inventory-item.dto';
+import { UpdateInventoryItemDto } from './dto/update-inventory-item.dto';
+import { ListInventoryItemsQueryDto } from './dto/list-inventory-items.query.dto';
+export declare class InventoryController {
+    private readonly service;
+    constructor(service: InventoryService);
+    create(dto: CreateInventoryItemDto, req: AuthRequest): Promise<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>;
+    findAll(q: ListInventoryItemsQueryDto, req: AuthRequest): Promise<import("../utils/pagination.util").PaginatedResponse<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>>;
+    findOne(id: string, req: AuthRequest): Promise<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>;
+    update(id: string, dto: UpdateInventoryItemDto, req: AuthRequest): Promise<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>;
+    remove(id: string, req: AuthRequest): Promise<{
+        id: string;
+        regional: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        name: string;
+        isActive: boolean;
+        value: number | null;
+        createdById: string | null;
+        description: string | null;
+        updatedById: string | null;
+        brand: string | null;
+        purchaseDate: Date | null;
+        photoUrl: string | null;
+    }>;
+}

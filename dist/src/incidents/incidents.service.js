@@ -27,6 +27,20 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
         this.prisma = prisma;
         this.notifier = notifier;
     }
+    resolveSchedule(input) {
+        if (input.maintenanceType === 'OBRA') {
+            return { expirationAt: null, priority: 'BAJA' };
+        }
+        if (input.maintenanceType === 'PREVENTIVO') {
+            const expirationAt = new Date();
+            expirationAt.setDate(expirationAt.getDate() + 30);
+            return { expirationAt, priority: 'BAJA' };
+        }
+        return {
+            expirationAt: input.expirationAt ? new Date(input.expirationAt) : undefined,
+            priority: input.priority ?? 'MEDIA',
+        };
+    }
     async create(dto, actor) {
         const userId = actor?.id;
         const incidentNumber = dto.incidentNumber.trim();
@@ -53,6 +67,11 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
             dto.specialty,
             dto.storeCode,
         ]);
+        const schedule = this.resolveSchedule({
+            maintenanceType: dto.maintenanceType,
+            expirationAt: dto.expirationAt,
+            priority: dto.priority,
+        });
         const incidencia = await this.prisma.incidencia.create({
             data: {
                 incidentNumber,
@@ -65,8 +84,8 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
                 customMaintenanceType: dto.customMaintenanceType,
                 specialty: dto.specialty,
                 description: dto.description,
-                expirationAt: dto.expirationAt ? new Date(dto.expirationAt) : undefined,
-                priority: dto.priority ?? 'MEDIA',
+                expirationAt: schedule.expirationAt,
+                priority: schedule.priority,
                 quotedAmount: dto.quotedAmount,
                 saleCost: dto.saleCost,
                 purchaseOrderNumber: dto.purchaseOrderNumber,
@@ -215,6 +234,14 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
             dto.storeCode ?? current.storeCode,
         ]);
         const statusChanged = dto.status !== undefined && dto.status !== current.status;
+        const nextMaintenanceType = dto.maintenanceType ?? current.maintenanceType;
+        const schedule = dto.maintenanceType !== undefined || dto.expirationAt !== undefined || dto.priority !== undefined
+            ? this.resolveSchedule({
+                maintenanceType: nextMaintenanceType,
+                expirationAt: dto.expirationAt ?? current.expirationAt?.toISOString(),
+                priority: dto.priority,
+            })
+            : null;
         const updateData = {
             ...(dto.tiendaId !== undefined && {
                 tienda: { connect: { id: dto.tiendaId } },
@@ -234,10 +261,8 @@ let IncidentsService = IncidentsService_1 = class IncidentsService {
             }),
             ...(dto.specialty !== undefined && { specialty: dto.specialty }),
             ...(dto.description !== undefined && { description: dto.description }),
-            ...(dto.expirationAt !== undefined && {
-                expirationAt: new Date(dto.expirationAt),
-            }),
-            ...(dto.priority !== undefined && { priority: dto.priority }),
+            ...(schedule && { expirationAt: schedule.expirationAt }),
+            ...(schedule && { priority: schedule.priority }),
             ...(dto.status !== undefined && { status: dto.status }),
             ...(dto.quotedAmount !== undefined && { quotedAmount: dto.quotedAmount }),
             ...(dto.saleCost !== undefined && { saleCost: dto.saleCost }),

@@ -2,6 +2,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsArray,
   IsBoolean,
+  IsDateString,
   IsEnum,
   IsNumber,
   IsOptional,
@@ -68,6 +69,11 @@ export class UpdateQuoteItemDto {
 }
 
 export class UpdateQuoteDto {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsDateString()
+  createdAt?: string;
+
   @ApiPropertyOptional({ enum: QuoteFormat })
   @IsOptional()
   @IsEnum(QuoteFormat)
